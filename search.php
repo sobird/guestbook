@@ -10,14 +10,14 @@ include_once 'main.php';
 $str=$_GET['keyword'];
 
 if(empty($str)){
-	$message="<span class=\"tip_box\">请输入关键字搜索!</span>";
+    $message="<span class=\"tip_box\">请输入关键字搜索!</span>";
 }else{
 
-$_CYGLOBAL['bk']->bkRead();
-$mybook=$_CYGLOBAL['bk']->bkSearch($str);
-$cost_time=$_CYGLOBAL['bk']->cost_time;
-$bknum=count($mybook);
-$userid=empty($mybook[$bknum-1]['userid'])?0:$mybook[$bknum-1]['userid'];
+    $_CYGLOBAL['bk']->bkRead();
+    $mybook=$_CYGLOBAL['bk']->bkSearch($str);
+    $cost_time=$_CYGLOBAL['bk']->cost_time;
+    $bknum=count($mybook);
+    $userid=empty($mybook[$bknum-1]['userid'])?0:$mybook[$bknum-1]['userid'];
 }
 
 $member=!empty($_SESSION['username'])?"<span class=\"red\">".$_SESSION['username']."</span> 你好!":"你还没有登陆,";
@@ -73,8 +73,8 @@ $cost_time=!empty($cost_time )?"查询花费".$cost_time."秒":"内容为空没�
 
 <div id="book" class="book_list">
 <div class="round">
-<div  class="round1"></div><div  class="round2"></div>
-<div  class="round3"></div><div  class="round4"></div>
+<div class="round1"></div><div  class="round2"></div>
+<div class="round3"></div><div  class="round4"></div>
 <h3 class="list_header"> 
 
 <?php 
@@ -82,28 +82,27 @@ $cost_time=!empty($cost_time )?"查询花费".$cost_time."秒":"内容为空没�
 $sumnum=$bknum;
 $pagesize=$_GET['page']=='all'?$sumnum:10;
 $sumpage=ceil($sumnum/$pagesize);
-	
-    if($_GET['page']=='all'){
-	        echo "<a href=\"?page=0&keyword=".$str."\" class=\"all\">取消全部</a>"; 
-    }else {
-    		echo "<a href=\"?page=all&keyword=".$str."\" class=\"all\">全部</a>"; 
+    
+if($_GET['page']=='all'){
+    echo "<a href=\"?page=0&keyword=".$str."\" class=\"all\">取消全部</a>"; 
+}else {
+    echo "<a href=\"?page=all&keyword=".$str."\" class=\"all\">全部</a>"; 
+}
+
+$page=$_GET['page']<=$sumpage&&$_GET['page']>=1&&!empty($_GET['page'])?$_GET['page']:1;
+
+$mod=$sumnum%$pagesize;
+
+if($sumpage>1){
+    echo "<a href=\"?page=$sumpage&keyword=$str\" class=\"all\">尾页</a>";
+    for($i=$sumpage;$i>=1;$i--){
+        echo "<a href=\"?page=$i&keyword=$str\" class=\"all\">$i</a>";  
     }
-	$page=$_GET['page']<=$sumpage&&$_GET['page']>=1&&!empty($_GET['page'])?$_GET['page']:1;
-
-
-    $mod=$sumnum%$pagesize;
-
-    if($sumpage>1){
-	      echo "<a href=\"?page=$sumpage&keyword=$str\" class=\"all\">尾页</a>";
-	      for($i=$sumpage;$i>=1;$i--){
-
-	           echo "<a href=\"?page=$i&keyword=$str\" class=\"all\">$i</a>";	
-           }
-               echo "<a href=\"?&keyword=$str\" class=\"all\">首页</a>";
-	       }else{
-		echo "";
-	}
-	
+    echo "<a href=\"?&keyword=$str\" class=\"all\">首页</a>";
+}else{
+    echo "";
+}
+    
 echo $page."/".$sumnum;
 ?>
  
@@ -114,15 +113,15 @@ echo $page."/".$sumnum;
 <?php
 if(!$sumnum==0){
 $startnum=($sumnum-1)-($page-1)*$pagesize;
-for($i=$startnum;$i>=$startnum-(($sumpage==$page&&!$mod==0)?$mod-1:$pagesize-1);$i--){			
-?>		
+for($i=$startnum;$i>=$startnum-(($sumpage==$page&&!$mod==0)?$mod-1:$pagesize-1);$i--){            
+?>
 <li id="list_<?=$mybook[$i]["bkid"] ?>">
 <span class="time"><?=formatTime("Y-m-d",$mybook[$i]["dateline"],1)?></span> <h4><?=$mybook[$i]["subject"] ?></h4>
 <div class="message"><?=$mybook[$i]["message"] ?>
 </div>
 </li>
 <?php }}else{
-$nowdate=date("Y-m-d");	
+$nowdate=date("Y-m-d");    
 echo "<li> <span class=\"time\">$nowdate</span> <h4> 没有搜索到相关信息！</h4></li>";
 }?>
 

@@ -6,7 +6,7 @@
 */
 //获取UNIX时间戳��ȡUNIXʱ���
 $timearr = explode(' ',microtime());
-$start_time	 = $timearr[0] + $timearr[1];
+$start_time     = $timearr[0] + $timearr[1];
 $time_stamp = $timearr[1];
 
 //定义全局数组变量����ȫ�������
@@ -43,13 +43,13 @@ $INITER->bkconnect();
 session_start();
 
 if($_GET['theme']=='red'){
-	$_SESSION["theme"]="red";
+    $_SESSION["theme"]="red";
 }
 if($_GET['theme']=='purple'){
-	$_SESSION["theme"]="purple";
+    $_SESSION["theme"]="purple";
 }
 if($_GET['theme']=='default'){
-	$_SESSION["theme"]="default";
+    $_SESSION["theme"]="default";
 }
 
 $theme=!empty($_SESSION['theme'])?$_SESSION['theme']:'default';

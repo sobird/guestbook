@@ -10,53 +10,53 @@ include_once 'main.php';
 $ac=!empty($_GET["ac"])?$_GET["ac"]:"?";
 
 if($ac=='logout'&&!empty($_SESSION['username'])){
-	unset($_SESSION['username']);
-	$message="<span class=\"correct_box\">注销成功。</span>";
+    unset($_SESSION['username']);
+    $message="<span class=\"correct_box\">注销成功。</span>";
 }
 
 if(checksubmit("login_btn")){
-	$username=trim($_POST['username']);
-	$password=$_POST['password'];
-	$infoarr['username']=$username;
-	$infoarr['password']=$password;
-	$infoarr['dateline']=$time_stamp;
-	
-	if(empty($username)){
-		$message="<span class=\"error_box\">请输入用户名。</span>";
-	}elseif(empty($password)){
-		$message="<span class=\"error_box\">请输入用户密码。</span>";
-	}else{
-	$_CYGLOBAL['bk']->bkRead('BookUser');
+    $username=trim($_POST['username']);
+    $password=$_POST['password'];
+    $infoarr['username']=$username;
+    $infoarr['password']=$password;
+    $infoarr['dateline']=$time_stamp;
+    
+    if(empty($username)){
+        $message="<span class=\"error_box\">请输入用户名。</span>";
+    }elseif(empty($password)){
+        $message="<span class=\"error_box\">请输入用户密码。</span>";
+    }else{
+    $_CYGLOBAL['bk']->bkRead('BookUser');
     $userinfo=$_CYGLOBAL['bk']->bk_fetch_array();
     if(!empty($userinfo)){
-	foreach ($userinfo as $key=>$val){
-		if($userinfo[$key]['username']==$username){
-			$userpwd=$userinfo[$key]['password'];
-			$userpwd=trim($userpwd);
-		}
-	}
-
-	if(!isset($userpwd)){
-		
-		$_CYGLOBAL['bk']->bkWrite("BookUser",$infoarr);
-		$message="<span class=\"tip_box\">不存在此用户，插入此用户数据。</span>";
-		$_SESSION['username']=$username;
-	}else{
-	if($userpwd==$password){
-		$message="<span class=\"correct_box\">登陆成功，数据文件中存在此用户。</span>";
-		
-		$_SESSION['username']=$username;
-	}else{		
-    	$message="<span class=\"error_box\">登陆失败，密码不正确。</span>";
-	}
-	}
-    }else{
-    	$_CYGLOBAL['bk']->bkWrite("BookUser",$infoarr);
-    	$message="<span class=\"tip_box\">数据文件中无数据，第一次插入数据。</span>";
-    	$_SESSION['username']=$username;
+    foreach ($userinfo as $key=>$val){
+        if($userinfo[$key]['username']==$username){
+            $userpwd=$userinfo[$key]['password'];
+            $userpwd=trim($userpwd);
+        }
     }
-	}
-	
+
+    if(!isset($userpwd)){
+        
+        $_CYGLOBAL['bk']->bkWrite("BookUser",$infoarr);
+        $message="<span class=\"tip_box\">不存在此用户，插入此用户数据。</span>";
+        $_SESSION['username']=$username;
+    }else{
+    if($userpwd==$password){
+        $message="<span class=\"correct_box\">登陆成功，数据文件中存在此用户。</span>";
+        
+        $_SESSION['username']=$username;
+    }else{        
+        $message="<span class=\"error_box\">登陆失败，密码不正确。</span>";
+    }
+    }
+    }else{
+        $_CYGLOBAL['bk']->bkWrite("BookUser",$infoarr);
+        $message="<span class=\"tip_box\">数据文件中无数据，第一次插入数据。</span>";
+        $_SESSION['username']=$username;
+    }
+    }
+    
 }
 $members=!empty($_SESSION['username'])?"<span class=\"red\">".$_SESSION['username']."</span> 你好!":"你还没有登陆,";
 $member=$_SESSION['username'];

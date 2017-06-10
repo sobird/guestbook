@@ -5,7 +5,7 @@
    |
 */
 if(!defined('GuestBook')) {
-	exit('Access Denied');
+    exit('Access Denied');
 }
 
 /**
@@ -44,18 +44,18 @@ function getDomain($url){
  * @return unknown
  */
 function getSiteUrl(){
-	
-	$uri = $_SERVER['REQUEST_URI']?$_SERVER['REQUEST_URI']:($_SERVER['PHP_SELF']?$_SERVER['PHP_SELF']:$_SERVER['SCRIPT_NAME']);
+    
+    $uri = $_SERVER['REQUEST_URI']?$_SERVER['REQUEST_URI']:($_SERVER['PHP_SELF']?$_SERVER['PHP_SELF']:$_SERVER['SCRIPT_NAME']);
     $url = 'http://'.$_SERVER['HTTP_HOST'].substr($uri, 0, strrpos($uri, '/')+1);
-	return $url;
+    return $url;
 }
 
 /**
  * 获取客户端的IP地址
  */
 function getClientIpAddr(){
-	$client_ip=$_SERVER['REMOTE_ADDR'];
-	return $client_ip;
+    $client_ip=$_SERVER['REMOTE_ADDR'];
+    return $client_ip;
 }
 
 /**
@@ -65,11 +65,11 @@ function getClientIpAddr(){
  * @param int    $format
  */
 function phpRunTime($start_time,$format=8){
-	$finish_time=explode(" ",microtime());
-	$finish_time=$finish_time['0']+$finish_time[1];
-	$execute_time=$finish_time-$start_time;
-	$execute_time=number_format($execute_time,"$format",".","");
-	return $execute_time;
+    $finish_time=explode(" ",microtime());
+    $finish_time=$finish_time['0']+$finish_time[1];
+    $execute_time=$finish_time-$start_time;
+    $execute_time=number_format($execute_time,"$format",".","");
+    return $execute_time;
 }
 
 /**
@@ -77,28 +77,28 @@ function phpRunTime($start_time,$format=8){
  * 
  */
 function getMemoryUsed(){
-	$memoryused=memory_get_usage();
-	if (empty($memoryused)||$memoryused==0){
-		return false;
-	}
-	
-	$msize = array(
-	"GB"=>1073741824,
-	"MB"=>1048576,
-	"KB"=>1024,
-	"B"=>1,
-	);
-	
-	if($memoryused>$msize['GB']){
-		$memorysize=number_format($memoryused/$msize['GB'],2,".","")."GB";
-	}elseif ($memoryused>$msize['MB']){
-		$memorysize=number_format($memoryused/$msize['MB'],2,".","")."MB";
-	}elseif($memoryused>$msize['KB']){
-		$memorysize=number_format($memoryused/$msize['KB'],2,".","")."KB";
-	}else{
-	    $memorysize=number_format($memoryused,2,".","")."GB";
-	}
-	return $memorysize;
+    $memoryused=memory_get_usage();
+    if (empty($memoryused)||$memoryused==0){
+        return false;
+    }
+    
+    $msize = array(
+    "GB"=>1073741824,
+    "MB"=>1048576,
+    "KB"=>1024,
+    "B"=>1,
+    );
+    
+    if($memoryused>$msize['GB']){
+        $memorysize=number_format($memoryused/$msize['GB'],2,".","")."GB";
+    }elseif ($memoryused>$msize['MB']){
+        $memorysize=number_format($memoryused/$msize['MB'],2,".","")."MB";
+    }elseif($memoryused>$msize['KB']){
+        $memorysize=number_format($memoryused/$msize['KB'],2,".","")."KB";
+    }else{
+        $memorysize=number_format($memoryused,2,".","")."GB";
+    }
+    return $memorysize;
 }
 
 
