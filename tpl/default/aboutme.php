@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 $member=!empty($_SESSION['username'])?"<span class=\"red\">".$_SESSION['username']."</span> 你好!":"你还没有登陆,";
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
