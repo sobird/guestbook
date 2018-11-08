@@ -237,7 +237,7 @@ echo "将在".$remain_cook_time."秒后失去操作";
 <div class="message"><?=$mybook[$i]["message"] ?>
 </div>
 </li>
-<?php }}}else{
+<?php }}else{
 $nowdate=date("Y-m-d");	
 echo "<li> <span class=\"time\">$nowdate</span> <h4>暂时还没有留言！</h4></li>";
 }?>
