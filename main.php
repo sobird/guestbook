@@ -23,7 +23,7 @@ define('BK_INC','CrossYou.CN');
 define('BK_ROOT', dirname(__FILE__).DIRECTORY_SEPARATOR);
 
 // 是否进行调试
-D_BUG ? error_reporting(7) : error_reporting(0);
+error_reporting(7);
 
 // 初始化数据
 $_CYGLOBAL['timestamp'] = $time_stamp;

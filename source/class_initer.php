@@ -37,8 +37,8 @@ class Initer{
         $_CONFIG['char_set'] = !empty($_site['charset'])?$_site['charset']:"UTF-8";
         $_CONFIG['site_title'] = !empty($_site['title'])?$_site['title']:"PHP+TEXT留言本";
         $_CONFIG['site_title_size'] = !empty($_site['title_font_size'])?$_site['title_font_size']:14;
-        $_CONFIG['author_name'] = !empty($_site['author_name'])?$_site['author_name']:"CrossYou";
-        $_CONFIG['author_url'] = !empty($_site['author_url'])?$_site['author_url']:"http://www.crossyou.cn";
+        $_CONFIG['author_name'] = !empty($_site['author_name'])?$_site['author_name']:"sobird";
+        $_CONFIG['author_url'] = !empty($_site['author_url'])?$_site['author_url']:"http://sobird.me";
                 
      }
      

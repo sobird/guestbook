@@ -96,7 +96,7 @@ $member=!empty($_SESSION['username'])?"<span class=\"red\">".$_SESSION['username
 
 <?php if(empty($_SESSION['username'])) { ?>
 <li><a href="login.php">登陆</a></li>
-<?php }else{ ?>
+<?php } else { ?>
 <li><a href="login.php?ac=logout">注销</a></li>
 <?php } ?>
 
@@ -182,63 +182,61 @@ echo $page."/".$sumnum;
 </div>
 <ul class="line_list">
 <?php
-if(!$sumnum==0){
-$startnum=($sumnum-1)-($page-1)*$pagesize;
-for($i=$startnum;$i>=$startnum-(($sumpage==$page&&!$mod==0)?$mod-1:$pagesize-1);$i--){
-	
-	
+if(!$sumnum == 0){
+  $startnum=($sumnum-1)-($page-1)*$pagesize;
+  for($i=$startnum; $i >= $startnum-(($sumpage==$page&&!$mod==0) ? $mod-1 : $pagesize-1); $i--){
 	$cookname=($mybook[$i]['bkid'])."||".$_CONFIG["bk_name"]; 	
 	$uncook=bkCode($_CYCOOKIE[$cookname],'DECODE');
 	$validate=explode('||',$uncook,2);
     $bkid=$mybook[$i]['bkid'];
 	$edit=!empty($_GET['edit'])?$_GET['edit']:'edit';
 
-	if($ac=="edit"&&$bkid==$_GET['bkid']){
-		if(!empty($_CYCOOKIE[$cookname])&&$validate[0]==$bkid){
+	if($ac == "edit" && $bkid == $_GET['bkid']){
+      if(!empty($_CYCOOKIE[$cookname])&&$validate[0]==$bkid){
 ?>		
-<li><div id="edit_<?=$bkid; ?>">
-<span class="tip_box">请输入要修改的内容</span>
-<form action="index.php?editid=<?=$bkid.'#list_'.$bkid?>" method="post" style="padding:5px 15px 10px 15px;">
-<input type="hidden" name="_ED[bkid]" value=<?=$bkid; ?> />
-题目:<input type="text" name="_ED[subject]" value="<?=$mybook[$i]["subject"] ?>" style="margin:5px;"/><span style="color:#ccc">(请不要为空!)</span>
-<textarea id="edit_message" name="_ED[message]" rows="4" cols="60" style="width:98%; font-size:12px" ><?=$mybook[$i]["message"] ?></textarea>
-<input type="hidden" name="formcode" value="<?=formcode($_CONFIG['form_time']);?>" />
-<input type="submit" id="edit_btn" name="edit_btn" class="submit" value="修改" />
-</form>
-</div>
-</li>	
+        <li>
+        <div id="edit_<?=$bkid; ?>">
+          <span class="tip_box">请输入要修改的内容</span>
+          <form action="index.php?editid=<?=$bkid.'#list_'.$bkid?>" method="post" style="padding:5px 15px 10px 15px;">
+          	<input type="hidden" name="_ED[bkid]" value=<?=$bkid; ?> />
+          	题目:<input type="text" name="_ED[subject]" value="<?=$mybook[$i]["subject"] ?>" style="margin:5px;"/><span style="color:#ccc">(请不要为空!)</span>
+          	<textarea id="edit_message" name="_ED[message]" rows="4" cols="60" style="width:98%; font-size:12px" ><?=$mybook[$i]["message"] ?></textarea>
+          	<input type="hidden" name="formcode" value="<?=formcode($_CONFIG['form_time']);?>" />
+          	<input type="submit" id="edit_btn" name="edit_btn" class="submit" value="修改" />
+          </form>
+        </div>
+        </li>	
 <?php } else{ ?>
-
-<li>
-<span class="error_box">您不能编辑别人的留言，或者您留言操作已经超时！</span>
-<span class="time"><?=formatTime("Y-m-d",$mybook[$i]["dateline"],1) ?></span> <h4><?=$mybook[$i]["subject"] ?></h4>
-<div class="message"><?=$mybook[$i]["message"] ?>
-</div>
-</li>
-<?php }}else{?>
-
-
-<li id="list_<?=$mybook[$i]["bkid"] ?>">
-<?php
-if($succeedid==$bkid){
-	echo $editmsg;
-}
- ?>
+		<li>
+		<span class="error_box">您不能编辑别人的留言，或者您留言操作已经超时！</span>
+		<span class="time"><?=formatTime("Y-m-d",$mybook[$i]["dateline"],1) ?></span> <h4><?=$mybook[$i]["subject"] ?></h4>
+		<div class="message"><?=$mybook[$i]["message"] ?>
+		</div>
+		</li>
+<?php }
+}else{?>
+  <li id="list_<?=$mybook[$i]["bkid"] ?>">
+	<?php
+	if($succeedid==$bkid){
+		echo $editmsg;
+	}
+	?>
  
 <span class="time"><?=formatTime("Y-m-d",$mybook[$i]["dateline"],1) ?></span> <h4><?=$mybook[$i]["subject"] ?></h4>
-<? if(!empty($_CYCOOKIE[$cookname])&&$validate[0]==$mybook[$i]['bkid']){?>
+<?php $remain_cook_time = $mybook[$i]["dateline"] + 300 - $time_stamp; $hasEdit = $remain_cook_time > 0; ?>
+<?php if($hasEdit){?>
 <span class="edit"><a href="?ac=edit&bkid=<?=$bkid.'#edit_'.$bkid; ?>">编辑</a></span> 
 <span class="edit"><a href="?ac=delete&bkid=<?=$bkid.'#edit_'.($bkid-1); ?>">删除</a></span> 
-<?php
-$start_cook_time=$_CYCOOKIE["cook_time_".$bkid];
-$remain_cook_time=$start_cook_time-$time_stamp;
-echo "将在".$remain_cook_time."秒后失去操作";
-?>
+<?php echo "将在".$remain_cook_time."秒后失去操作"; ?>
 <?php }?>
 <div class="message"><?=$mybook[$i]["message"] ?>
 </div>
 </li>
-<?php }}else{
+<?php }
+
+}
+}
+else{
 $nowdate=date("Y-m-d");	
 echo "<li> <span class=\"time\">$nowdate</span> <h4>暂时还没有留言！</h4></li>";
 }?>
