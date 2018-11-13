@@ -1,9 +1,11 @@
 <?php
-/* +----------------------------------------------------------+
-   | CrossYou.CN
-   | $@file  V 1.0.1 UTF-8 2009-8-16 ����04:05:06 : $crossyou$
-   |
-*/
+/**
+ * function_main.php
+ * 
+ * @author  Yang,junlong at 2009-8-16 04:05:06 build.
+ * @version $Id$
+ */
+
 if(!defined('GuestBook')) {
     exit('Access Denied');
 }
@@ -214,4 +216,3 @@ function formatTime($format, $timestamp='', $isformat=0) {
     }
     return $result;
 }
-?>

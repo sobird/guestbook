@@ -1,15 +1,17 @@
 <?php
-/* +----------------------------------------------------------+
-   | CrossYou.CN
-   | $@file  V 1.0.1 UTF-8 2009-8-18 ����02:47:57 : $crossyou$
-   |
-*/
+/**
+ * login.php
+ * 
+ * @author  Yang,junlong at 2009-8-18 02:47:57 build.
+ * @version $Id$
+ */
+
 include_once 'main.php';
 
-//获取方法
-$ac=!empty($_GET["ac"])?$_GET["ac"]:"?";
+// 获取方法
+$ac = !empty($_GET["ac"]) ? $_GET["ac"] : "?";
 
-if($ac=='logout'&&!empty($_SESSION['username'])){
+if($ac == 'logout' && !empty($_SESSION['username'])){
     unset($_SESSION['username']);
     $message="<span class=\"correct_box\">注销成功。</span>";
 }

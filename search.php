@@ -1,13 +1,15 @@
 <?php
-/* +----------------------------------------------------------+
-   | CrossYou.CN
-   | $@file  V 1.0.1 UTF-8 2009-8-18 ����02:50:47 : $crossyou$
-   |
-*/
+/**
+ * search.php
+ * 
+ * @author  Yang,junlong at 2009-8-18 02:50:47 build.
+ * @version $Id$
+ */
+
 include_once 'main.php';
 
-//获取方法
-$str=$_GET['keyword'];
+// 获取方法
+$str = $_GET['keyword'];
 
 if(empty($str)){
     $message="<span class=\"tip_box\">请输入关键字搜索!</span>";

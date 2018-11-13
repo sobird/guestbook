@@ -1,9 +1,11 @@
 <?php
-/* +----------------------------------------------------------+
-   | CrossYou.CN
-   | $@file  V 1.0.1 UTF-8 2009-8-16 ����04:54:21 : $crossyou$
-   |
-*/
+/**
+ * class_initer.php
+ * 
+ * @author  Yang,junlong at 2009-8-16 04:54:21 build.
+ * @version $Id$
+ */
+
 if(!defined('GuestBook')) {
     exit('Access Denied');
 }
@@ -91,5 +93,3 @@ class Initer{
     }
 
 }
-
-?>

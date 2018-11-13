@@ -1,11 +1,12 @@
 <?php
-/* +----------------------------------------------------------+
-   | CrossYou.CN
-   | $@file  V 1.0.1 UTF-8 2009-8-18 ����09:23:15 : $crossyou$
-   |
-*/
-$ac=!empty($_GET["ac"])?$_GET["ac"]:"?";
+/**
+ * tpl/default/index.php
+ * 
+ * @author  Yang,junlong at 2009-8-18 09:23:15 build.
+ * @version $Id$
+ */
 
+$ac = !empty($_GET["ac"]) ? $_GET["ac"] : "?";
 
 if(checksubmit("bk_btn")){
 	

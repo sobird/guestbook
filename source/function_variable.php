@@ -1,9 +1,11 @@
 <?php
-/* +----------------------------------------------------------+
-   | CrossYou.CN
-   | $@file  V 1.0.1 UTF-8 2009-8-16 ����04:35:53 : $crossyou$
-   |
-*/
+/**
+ * function_variable.php
+ * 
+ * @author  Yang,junlong at 2009-8-16 04:35:53 build.
+ * @version $Id$
+ */
+
 if(!defined('GuestBook')) {
     exit('Access Denied');
 }
@@ -100,6 +102,3 @@ function getMemoryUsed(){
     }
     return $memorysize;
 }
-
-
-?>

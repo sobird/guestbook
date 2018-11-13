@@ -1,9 +1,11 @@
 <?php
-/* +----------------------------------------------------------+
-   | CrossYou.CN
-   | $@file  V 1.0.1 UTF-8 2009-8-16 ����07:55:00 : $crossyou$
-   |
-*/
+/**
+ * class_op_txt.php
+ * 
+ * @author  Yang,junlong at 2009-8-16 07:55:00 build.
+ * @version $Id$
+ */
+
 if(!defined('GuestBook')) {
     exit('Access Denied');
 }
@@ -146,4 +148,3 @@ class bkstuff{
         exit();
     }
 }
-?>
