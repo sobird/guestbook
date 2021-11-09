@@ -6,7 +6,6 @@ import utilStyles from '../styles/utils.module.css'
 import { getSortedPostsData } from '../lib/posts'
 
 export default function Home({ allPostsData }) {
-  console.log(`allPostsData`, allPostsData)
   return (
     <Layout home>
       <Head>
@@ -44,7 +43,23 @@ export default function Home({ allPostsData }) {
  * 
  * @returns 
  */
-export async function getStaticProps() {
+// export async function getStaticProps(context) {
+//   const allPostsData = getSortedPostsData()
+//   return {
+//     props: {
+//       allPostsData
+//     }
+//   }
+// }
+
+/**
+ * You should use getServerSideProps only if you need to pre-render a page whose data must be fetched at request time. 
+ * Time to first byte (TTFB) will be slower than getStaticProps because the server must compute the result on every request, 
+ * and the result cannot be cached by a CDN without extra configuration.
+ * 
+ * @returns 
+ */
+ export async function getServerSideProps(context) {
   const allPostsData = getSortedPostsData()
   return {
     props: {
@@ -52,3 +67,4 @@ export async function getStaticProps() {
     }
   }
 }
+
