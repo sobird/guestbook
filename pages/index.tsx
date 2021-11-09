@@ -2,6 +2,9 @@ import { GetServerSideProps } from 'next'
 import Head from 'next/head'
 import Link from 'next/link'
 import useSWR from 'swr'
+
+import Button from '@mui/material/Button';
+
 import Layout, { siteTitle } from '../components/layout'
 import utilStyles from '../styles/utils.module.css'
 
@@ -24,6 +27,9 @@ export default function Home({ allPostsData }) {
           (This is a sample website - you’ll be building a site like this on{' '}
           <a href="https://www.nextjs.cn/learn">our Next.js tutorial</a>.)
         </p>
+      </section>
+      <section>
+      <Button variant="contained">你好，世界</Button>
       </section>
       <section className={`${utilStyles.headingMd} ${utilStyles.padding1px}`}>
         <h2 className={utilStyles.headingLg}>Blog</h2>
