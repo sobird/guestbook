@@ -1,11 +1,17 @@
 import Head from 'next/head'
 import Link from 'next/link'
+import useSWR from 'swr'
 import Layout, { siteTitle } from '../components/layout'
 import utilStyles from '../styles/utils.module.css'
 
 import { getSortedPostsData } from '../lib/posts'
 
+const fetcher = (url) => fetch(url).then((res) => res.json());
+
 export default function Home({ allPostsData }) {
+  const { data = [], error } = useSWR('/api/posts', fetcher)
+
+  const posts = data;
   return (
     <Layout home>
       <Head>
@@ -21,7 +27,7 @@ export default function Home({ allPostsData }) {
       <section className={`${utilStyles.headingMd} ${utilStyles.padding1px}`}>
         <h2 className={utilStyles.headingLg}>Blog</h2>
         <ul className={utilStyles.list}>
-          {allPostsData.map(({ id, date, title }) => (
+          {posts.map(({ id, date, title }) => (
             <li className={utilStyles.listItem} key={id}>
               <Link href={`/posts/${id}`}>{title}</Link>
               <br />
@@ -59,7 +65,7 @@ export default function Home({ allPostsData }) {
  * 
  * @returns 
  */
- export async function getServerSideProps(context) {
+export async function getServerSideProps(context) {
   const allPostsData = getSortedPostsData()
   return {
     props: {
