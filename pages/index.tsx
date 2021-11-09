@@ -1,3 +1,4 @@
+import { GetServerSideProps } from 'next'
 import Head from 'next/head'
 import Link from 'next/link'
 import useSWR from 'swr'
@@ -6,7 +7,7 @@ import utilStyles from '../styles/utils.module.css'
 
 import { getSortedPostsData } from '../lib/posts'
 
-const fetcher = (url) => fetch(url).then((res) => res.json());
+const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
 export default function Home({ allPostsData }) {
   const { data = [], error } = useSWR('/api/posts', fetcher)

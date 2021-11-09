@@ -1,6 +1,7 @@
+import { NextApiRequest, NextApiResponse } from 'next'
 import { getSortedPostsData } from '../../lib/posts'
 
-export default (req, res) => {
+export default (req: NextApiRequest, res: NextApiResponse) => {
   const allPostsData = getSortedPostsData()
 
   // mock request

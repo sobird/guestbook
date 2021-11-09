@@ -1,3 +1,4 @@
+import React from 'react'
 import Head from 'next/head'
 import styles from './layout.module.css'
 import utilStyles from '../styles/utils.module.css'
@@ -6,7 +7,12 @@ import Link from 'next/link'
 const name = 'Sobird'
 export const siteTitle = 'Next.js Sample Website'
 
-export default function Layout({ children, home }) {
+export interface LayoutProps {
+  home?: boolean;
+  children?: any
+}
+
+export default function Layout({ children, home }: LayoutProps) {
   return <div className={styles.container}>
     <Head>
       <link rel="icon" href="/favicon.ico" />
