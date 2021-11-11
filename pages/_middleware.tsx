@@ -11,10 +11,11 @@
  * sobird<i@sobird.me> at 2021/11/10 11:43:57 created.
  */
 
-import type { NextFetchEvent, NextRequest } from "next/server";
+import { NextFetchEvent, NextRequest, NextResponse } from "next/server";
+import { setUserCookie } from '../lib/jwt/auth'
 
-export function middleware(req: NextRequest, ev: NextFetchEvent) {
-  //return new Response("Hello, world!");
 
-  return null
+export function middleware(req: NextRequest) {
+  // Add the user token to the response
+  return setUserCookie(req, NextResponse.next())
 }

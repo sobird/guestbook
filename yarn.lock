@@ -1646,6 +1646,11 @@ jest-worker@27.0.0-next.5:
     merge-stream "^2.0.0"
     supports-color "^8.0.0"
 
+jose@^4.1.4:
+  version "4.2.1"
+  resolved "http://r.npm.sankuai.com/jose/download/jose-4.2.1.tgz#da1b896e59533e4bd217626553f373d88d92b2f6"
+  integrity sha1-2huJbllTPkvSF2JlU/Nz2I2SsvY=
+
 "js-tokens@^3.0.0 || ^4.0.0", js-tokens@^4.0.0:
   version "4.0.0"
   resolved "http://r.npm.sankuai.com/js-tokens/download/js-tokens-4.0.0.tgz"
@@ -2050,6 +2055,11 @@ multipipe@^1.0.2:
 nanoid@^3.1.23:
   version "3.1.30"
   resolved "http://r.npm.sankuai.com/nanoid/download/nanoid-3.1.30.tgz"
+  integrity sha1-Y/k8xUjSoRPcXfvGO/oJ4rm2Q2I=
+
+nanoid@^3.1.30:
+  version "3.1.30"
+  resolved "http://r.npm.sankuai.com/nanoid/download/nanoid-3.1.30.tgz#63f93cc548d2a113dc5dfbc63bfa09e2b9b64362"
   integrity sha1-Y/k8xUjSoRPcXfvGO/oJ4rm2Q2I=
 
 next@^12.0.3:
