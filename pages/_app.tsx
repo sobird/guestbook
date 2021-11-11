@@ -13,7 +13,7 @@
  * sobird<i@sobird.me> at 2021/11/09 15:18:01 created.
  */
 
-import '../styles/global.css'
+import '../styles/global.scss'
 
 export default function App({ Component, pageProps }) {
   return <Component {...pageProps} />
