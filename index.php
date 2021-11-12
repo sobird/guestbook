@@ -1,4 +1,5 @@
 <?php
+
 /**
  * index.php
  * 
@@ -8,4 +9,4 @@
 
 include_once 'main.php';
 
-include_once (BK_ROOT.'./tpl/default/index.php');
+include_once(BK_ROOT . './tpl/default/index.php');

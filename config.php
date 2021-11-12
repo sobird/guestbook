@@ -1,4 +1,5 @@
 <?php
+
 /**
  * config.php
  * 
@@ -6,7 +7,7 @@
  * @version $Id$
  */
 
-if(!defined('GuestBook')) {
+if (!defined('GuestBook')) {
     exit('Access Denied');
 }
 
@@ -23,7 +24,7 @@ $_CY['cookiepath']           = '/';               // COOKIE作用路径
 //站点参数配
 $_site['charset']            = '';                 // 页面字符集,默认为utf-8，使用其他字符集页面可能会出现乱码
 $_site['title']              = '';
-                                                   // 站点名称，可用逗号分隔,将随机显示
+// 站点名称，可用逗号分隔,将随机显示
 $_site['title_font_size']    = 12;                 // 默认为14px;
 $_site['url']                = '';                 // 站点url,不填自动获取
 $_site['author_url']         = '';                 // 个人网址

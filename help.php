@@ -1,4 +1,5 @@
 <?php
+
 /**
  * help.php
  * 
@@ -9,4 +10,4 @@
 include_once 'main.php';
 $ac = !empty($_GET["ac"]) ? $_GET["ac"] : "helpdoc";
 
-include_once (BK_ROOT.'./tpl/default/'.$ac.'.php');
+include_once(BK_ROOT . './tpl/default/' . $ac . '.php');
