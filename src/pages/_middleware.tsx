@@ -12,7 +12,7 @@
  */
 
 import { NextFetchEvent, NextRequest, NextResponse } from "next/server";
-import { setUserCookie } from '../lib/jwt/auth'
+import { setUserCookie } from '@/lib/jwt/auth'
 
 
 export function middleware(req: NextRequest) {
