@@ -5,5 +5,6 @@
  */
 
 import sequelize, { DataTypes } from "./sequelize";
+import UserModel from './user.model';
 
-export const User = require("./user.model")(sequelize, DataTypes);
+export const User = UserModel(sequelize, DataTypes);

@@ -4,11 +4,30 @@
  * sobird<i@sobird.me> at 2021/11/16 20:30:51 created.
  */
 
-import { Sequelize, DataTypes as DT } from "sequelize";
+import { Sequelize, DataTypes as DT, Model } from "sequelize";
 
-module.exports = function (sequelize: Sequelize, DataTypes: typeof DT) {
-  const UserModel = sequelize.define(
-    "user",
+// These are all the attributes in the User model
+interface UserAttrs {
+  id: number;
+  username: string;
+  nickname: string | null;
+  realname: string | null;
+  email: string;
+  password: string;
+  salt: string;
+  lastLoginDate: Date
+  ip: number
+}
+
+export default function (sequelize: Sequelize, DataTypes: typeof DT) {
+  class User extends Model {
+    username;
+    test() {
+      console.log(`this.username`, this.username)
+    }
+  }
+
+  User.init(
     {
       username: {
         type: DataTypes.STRING(32),
@@ -52,11 +71,10 @@ module.exports = function (sequelize: Sequelize, DataTypes: typeof DT) {
       },
     },
     {
-      // 这是其他模型参数
-      // 直接提供表名
-      // tableName: 'Employees'
+      sequelize,
+      modelName: "user",
     }
   );
 
-  return UserModel;
+  return User;
 }
