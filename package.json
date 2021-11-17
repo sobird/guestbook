@@ -9,11 +9,7 @@
     "export": "next export"
   },
   "dependencies": {
-    "@emotion/cache": "^11.5.0",
-    "@emotion/react": "^11.5.0",
-    "@emotion/server": "^11.4.0",
-    "@emotion/styled": "^11.3.0",
-    "@mui/material": "^5.1.0",
+    "antd": "^4.16.13",
     "gray-matter": "^4.0.3",
     "jose": "^4.1.4",
     "mysql2": "^2.3.3",
