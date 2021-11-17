@@ -8,10 +8,17 @@ import { NextApiRequest, NextApiResponse } from "next";
 import rest from "@/lib/rest";
 import { User } from "@/models";
 
-module.exports.POST = (req: NextApiRequest, res: NextApiResponse) => {
+module.exports.post = async (req: NextApiRequest, res: NextApiResponse) => {
+  const { body } = req;
+
+  const user = await User.create(body).catch(rrr => {
+    console.log(`rrr`, rrr)
+  });
+
   res.json({
     code: 0,
     message: "",
+    data: user,
   });
 };
 

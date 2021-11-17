@@ -1,15 +1,14 @@
 import Head from "next/head";
 import Layout from "@/components/layout";
+import axios from "@/lib/axios";
 import useSWR, { mutate } from "swr";
 import { Form, Input, Button, Checkbox } from "antd";
 
 function register(data: any) {
-  return fetch('/api/user/register', {
-    method: 'POST'
-  }).then(res => res.json());
+  return axios.post('/api/user/register', data);
 }
 
-export default function FirstPost() {
+export default function UserRegister() {
 
   const onFinish = (values: any) => {
     console.log("Success:", values);
