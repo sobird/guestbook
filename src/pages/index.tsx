@@ -34,7 +34,9 @@ export default function Home({ allPostsData }) {
         </p>
       </section>
       <section>
-        <Button type="primary">你好，世界</Button>
+      <Link href="/user/login"><Button type="primary">登陆</Button></Link>
+        
+      <Link href="/user/register"><Button type="ghost">注册</Button></Link>
       </section>
       <section className={`${utilStyles.headingMd} ${utilStyles.padding1px}`}>
         <h2 className={utilStyles.headingLg}>Blog</h2>

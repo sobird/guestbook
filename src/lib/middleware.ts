@@ -3,8 +3,8 @@ import { NextApiRequest, NextApiResponse } from "next";
 export type Next = () => Promise<any>;
 export type Middleware = (req: NextApiRequest, res: NextApiResponse, next: Next) => any;
 
-export function compose(...middleware: Middleware[] | Middleware[][])  {
-  middleware = middleware.flat(Infinity) as Middleware[];
+export function compose(...Middleware: Middleware[] | Middleware[][])  {
+  const middleware = Middleware.flat(Infinity) as Middleware[];
 
   for (const fn of middleware) {
     if (typeof fn !== 'function') {
