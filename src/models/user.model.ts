@@ -21,10 +21,7 @@ interface UserAttrs {
 
 export default function (sequelize: Sequelize, DataTypes: typeof DT) {
   class User extends Model {
-    username;
-    test() {
-      console.log(`this.username`, this.username)
-    }
+    
   }
 
   User.init(

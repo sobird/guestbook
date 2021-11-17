@@ -1,9 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 
 import { compose, Next } from "@/lib/middleware";
-import {doStuffWithUser} from '@/models/example'
-
-doStuffWithUser()
 
 import { User } from "@/models";
 
@@ -12,8 +9,6 @@ import { User } from "@/models";
 
 const user = User.build({ username: 'Jane', nickname: 'Doe' });
 
-
-user.test();
 
 const mid = function (req: NextApiRequest, res: NextApiResponse, next: Next) {
   
