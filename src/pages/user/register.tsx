@@ -1,15 +1,75 @@
-import Head from 'next/head'
-import Link from 'next/link'
-import Layout from '@/components/layout'
+import Head from "next/head";
+import Layout from "@/components/layout";
+import useSWR, { mutate } from "swr";
+import { Form, Input, Button, Checkbox } from "antd";
+
+function register(data: any) {
+  return fetch('/api/user/register', {
+    method: 'POST'
+  }).then(res => res.json());
+}
 
 export default function FirstPost() {
+
+  const onFinish = (values: any) => {
+    console.log("Success:", values);
+    
+    register(values).then(res => {
+      console.log(`res`, res)
+    });
+  };
+
+  const onFinishFailed = (errorInfo: any) => {
+    console.log("Failed:", errorInfo);
+  };
+
   return (
     <Layout>
       <Head>
         <title>Register</title>
       </Head>
-      <h1>First Post</h1>
-      <h2><Link href="/"><a className="back-to-home">Back to home</a></Link></h2>
+
+      <h1>注册</h1>
+
+      <Form
+        name="basic"
+        labelCol={{ span: 8 }}
+        wrapperCol={{ span: 16 }}
+        initialValues={{ remember: true }}
+        onFinish={onFinish}
+        onFinishFailed={onFinishFailed}
+        autoComplete="off"
+      >
+        <Form.Item
+          label="用户名称"
+          name="username"
+          rules={[{ required: true, message: "Please input your username!" }]}
+        >
+          <Input />
+        </Form.Item>
+
+        <Form.Item
+          label="登录密码"
+          name="password"
+          rules={[{ required: true, message: "Please input your password!" }]}
+        >
+          <Input.Password />
+        </Form.Item>
+
+        <Form.Item
+          name="remember"
+          valuePropName="checked"
+          wrapperCol={{ offset: 8, span: 16 }}
+        >
+          <Checkbox>Remember me</Checkbox>
+        </Form.Item>
+
+        <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+          <Button type="primary" htmlType="submit">
+            Submit
+          </Button>
+        </Form.Item>
+      </Form>
     </Layout>
-  )
+  );
 }
