@@ -4,17 +4,11 @@
  * sobird<i@sobird.me> at 2021/11/16 20:30:51 created.
  */
 
-import {
-  Sequelize,
-  DataTypes as DT,
-  Model,
-  Optional,
-} from "sequelize";
-
-import {randomBytes}  from 'crypto';
+import { randomBytes, createHmac } from "crypto";
+import { Sequelize, DataTypes as DT, Model, Optional, fn } from "sequelize";
 
 // These are all the attributes in the User model
-interface UserAttributes {
+export interface UserAttributes {
   id?: number;
   username: string;
   nickname?: string | null;
@@ -22,19 +16,28 @@ interface UserAttributes {
   email: string;
   password: string;
   salt: string;
-  ip: number;
+  ip: string;
 }
 
 // Some attributes are optional in `User.build` and `User.create` calls
-interface UserCreationAttributes
+export interface UserCreationAttributes
   extends Optional<UserAttributes, "id" | "nickname" | "realname" | "salt"> {}
 
 class User extends Model<UserAttributes, UserCreationAttributes> {
   public username!: string;
   public salt!: string;
+  public password!: string;
+  public ip!: any;
 
-  public static test() {
-    console.log(`this`, this.beforeCreate);
+  /**
+   * 通过安全散列算法生成一个64位长度的hash串
+   * 
+   * @param password 
+   * @param salt 
+   * @returns 
+   */
+  public static passwordHash(password: string, salt: string): string {
+    return createHmac('sha256', salt).update(password).digest('hex');
   }
 }
 
@@ -69,13 +72,13 @@ export default function (sequelize: Sequelize, DataTypes: typeof DT) {
       salt: {
         type: DataTypes.STRING(128),
         allowNull: false,
-        defaultValue: randomBytes(16).toString('hex'),
+        defaultValue: randomBytes(16).toString("hex"),
         comment: "user salt",
       },
       ip: {
-        type: DataTypes.TINYINT,
+        type: DataTypes.INTEGER,
         allowNull: false,
-        defaultValue: 0,
+        defaultValue: "0.0.0.0",
         comment: "user last login ip",
       },
     },
@@ -85,8 +88,9 @@ export default function (sequelize: Sequelize, DataTypes: typeof DT) {
     }
   );
 
-  User.beforeCreate( (model, options) => {
-    // console.log(`model`, model)
+  User.beforeCreate((model, options) => {
+    model.password = User.passwordHash(model.password, model.salt);
+    model.ip = fn('INET_ATON', model.ip); // INET_NTOA
   });
 
   return User;

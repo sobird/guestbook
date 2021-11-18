@@ -9,13 +9,13 @@ import rest from "@/lib/rest";
 import { User } from "@/models";
 
 module.exports.post = async (req: NextApiRequest, res: NextApiResponse) => {
-  const { username, password } = req.body;
+  const { username, password, email } = req.body;
 
   const user = await User.create(
     {
       username,
       password,
-      email: "i@sobird.me",
+      email,
       ip: 0,
     },
     {

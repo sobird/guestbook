@@ -48,6 +48,14 @@ export default function UserRegister() {
         </Form.Item>
 
         <Form.Item
+          label="用户邮箱"
+          name="email"
+          rules={[{ required: true, message: "Please input your email!" }]}
+        >
+          <Input type="email" />
+        </Form.Item>
+
+        <Form.Item
           label="登录密码"
           name="password"
           rules={[{ required: true, message: "Please input your password!" }]}
