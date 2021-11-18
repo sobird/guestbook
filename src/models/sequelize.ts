@@ -6,8 +6,6 @@
 
 import { Sequelize } from "sequelize";
 
-export { DataTypes } from "sequelize";
-
 const sequelize = new Sequelize("mix", "root", "12345678", {
   // The name of the database
   // database: 'mix',

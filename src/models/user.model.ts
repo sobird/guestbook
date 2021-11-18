@@ -4,32 +4,47 @@
  * sobird<i@sobird.me> at 2021/11/16 20:30:51 created.
  */
 
-import { Sequelize, DataTypes as DT, Model } from "sequelize";
+import {
+  Sequelize,
+  DataTypes as DT,
+  Model,
+  Optional,
+} from "sequelize";
+
+import {randomBytes}  from 'crypto';
 
 // These are all the attributes in the User model
-interface UserAttrs {
-  id: number;
+interface UserAttributes {
+  id?: number;
   username: string;
-  nickname: string | null;
-  realname: string | null;
+  nickname?: string | null;
+  realname?: string | null;
   email: string;
   password: string;
   salt: string;
-  lastLoginDate: Date
-  ip: number
+  ip: number;
+}
+
+// Some attributes are optional in `User.build` and `User.create` calls
+interface UserCreationAttributes
+  extends Optional<UserAttributes, "id" | "nickname" | "realname" | "salt"> {}
+
+class User extends Model<UserAttributes, UserCreationAttributes> {
+  public username!: string;
+  public salt!: string;
+
+  public static test() {
+    console.log(`this`, this.beforeCreate);
+  }
 }
 
 export default function (sequelize: Sequelize, DataTypes: typeof DT) {
-  class User extends Model {
-    
-  }
-
   User.init(
     {
       username: {
         type: DataTypes.STRING(32),
         allowNull: false,
-        comment: "user name123",
+        comment: "user name",
       },
       nickname: {
         type: DataTypes.STRING(32),
@@ -54,17 +69,14 @@ export default function (sequelize: Sequelize, DataTypes: typeof DT) {
       salt: {
         type: DataTypes.STRING(128),
         allowNull: false,
+        defaultValue: randomBytes(16).toString('hex'),
         comment: "user salt",
       },
-      lastLoginDate: {
-        type: DataTypes.DATE,
-        allowNull: false,
-        comment: "last login date",
-      },
       ip: {
-        type: DataTypes.DECIMAL,
+        type: DataTypes.TINYINT,
         allowNull: false,
-        comment: "user last request ip",
+        defaultValue: 0,
+        comment: "user last login ip",
       },
     },
     {
@@ -72,6 +84,10 @@ export default function (sequelize: Sequelize, DataTypes: typeof DT) {
       modelName: "user",
     }
   );
+
+  User.beforeCreate( (model, options) => {
+    // console.log(`model`, model)
+  });
 
   return User;
 }
