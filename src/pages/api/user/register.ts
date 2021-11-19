@@ -16,7 +16,7 @@ module.exports.post = async (req: NextApiRequest, res: NextApiResponse) => {
       username,
       password,
       email,
-      ip: 0,
+      ip: '0',
     },
     {
       //fields: ['username', 'password', 'email']

@@ -78,7 +78,7 @@ export default function (sequelize: Sequelize, DataTypes: typeof DT) {
       ip: {
         type: DataTypes.INTEGER,
         allowNull: false,
-        defaultValue: "0.0.0.0",
+        defaultValue: 0,
         comment: "user last login ip",
       },
     },
