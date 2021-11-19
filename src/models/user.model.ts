@@ -5,7 +5,14 @@
  */
 
 import { randomBytes, createHmac } from "crypto";
-import { Sequelize, DataTypes as DT, Model, Optional, fn } from "sequelize";
+import {
+  Sequelize,
+  DataTypes as DT,
+  Model,
+  Optional,
+  fn,
+  ValidationError,
+} from "sequelize";
 
 // These are all the attributes in the User model
 export interface UserAttributes {
@@ -31,13 +38,41 @@ class User extends Model<UserAttributes, UserCreationAttributes> {
 
   /**
    * 通过安全散列算法生成一个64位长度的hash串
-   * 
-   * @param password 
-   * @param salt 
-   * @returns 
+   *
+   * @param password 原始密码
+   * @param salt 盐
+   * @return 返回一个64位长度的Hash字符串
    */
   public static passwordHash(password: string, salt: string): string {
-    return createHmac('sha256', salt).update(password).digest('hex');
+    return createHmac("sha256", salt).update(password).digest("hex");
+  }
+
+  /**
+   * 通过用户名和密码进行用户认证
+   *
+   * @param username
+   * @param password
+   */
+  public static async identify(username: string, password: string) {
+    if (!username || !password) {
+      await Promise.reject("username or password cannot be empty!");
+    }
+
+    const user = await this.findOne({
+      where: { username },
+    });
+
+    if (!user) {
+      await Promise.reject("user not found!");
+    }
+
+    const password_hash = this.passwordHash(password, user.salt);
+
+    if (password_hash === user.password) {
+      return user;
+    } else {
+      await Promise.reject("username or password not correct");
+    }
   }
 }
 
@@ -90,7 +125,7 @@ export default function (sequelize: Sequelize, DataTypes: typeof DT) {
 
   User.beforeCreate((model, options) => {
     model.password = User.passwordHash(model.password, model.salt);
-    model.ip = fn('INET_ATON', model.ip); // INET_NTOA
+    model.ip = fn("INET_ATON", model.ip); // INET_NTOA
   });
 
   return User;
