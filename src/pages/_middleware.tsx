@@ -15,7 +15,8 @@ import { NextFetchEvent, NextRequest, NextResponse } from "next/server";
 import { setUserCookie } from '@/lib/jwt/auth'
 
 
-export function middleware(req: NextRequest) {
+export function middleware(req: NextRequest, ev: NextFetchEvent) {
+  console.log(`req`, ev)
   // Add the user token to the response
   return setUserCookie(req, NextResponse.next())
 }
