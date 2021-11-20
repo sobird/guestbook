@@ -1,9 +1,9 @@
-import { GetServerSideProps } from "next";
+import { GetServerSidePropsContext } from "next";
 import Head from "next/head";
 import Link from "next/link";
 import useSWR from "swr";
 
-import {Button} from "antd";
+import { Button } from "antd";
 
 import Layout, { siteTitle } from "../components/layout";
 import utilStyles from "../styles/utils.module.css";
@@ -34,9 +34,13 @@ export default function Home({ allPostsData }) {
         </p>
       </section>
       <section>
-      <Link href="/user/login"><Button type="primary">登陆</Button></Link>
-        
-      <Link href="/user/register"><Button type="ghost">注册</Button></Link>
+        <Link href="/user/login">
+          <Button type="primary">登陆</Button>
+        </Link>
+
+        <Link href="/user/register">
+          <Button type="ghost">注册</Button>
+        </Link>
       </section>
       <section className={`${utilStyles.headingMd} ${utilStyles.padding1px}`}>
         <h2 className={utilStyles.headingLg}>Blog</h2>
@@ -79,12 +83,15 @@ export default function Home({ allPostsData }) {
  *
  * @returns
  */
-export const getServerSideProps: GetServerSideProps =
-  async function getServerSideProps(context) {
-    const allPostsData = getSortedPostsData();
-    return {
-      props: {
-        allPostsData,
-      },
-    };
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+  const { req, res } = context;
+
+  console.log(`req.cookies`, req.cookies)
+  
+  const allPostsData = getSortedPostsData();
+  return {
+    props: {
+      allPostsData,
+    },
   };
+}
