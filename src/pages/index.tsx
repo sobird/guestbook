@@ -85,8 +85,6 @@ export default function Home({ allPostsData }) {
  */
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const { req, res } = context;
-
-  console.log(`req.cookies`, req.cookies)
   
   const allPostsData = getSortedPostsData();
   return {

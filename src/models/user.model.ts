@@ -43,8 +43,17 @@ class User extends Model<UserAttributes, UserCreationAttributes> {
    * @param salt 盐
    * @return 返回一个64位长度的Hash字符串
    */
-  public static hashPassword(password: string, salt: string): string {
+  public hashPassword(password: string, salt: string): string {
     return createHmac("sha256", salt).update(password).digest("hex");
+  }
+
+  /**
+   * 校验用名&密码
+   *
+   * @param password
+   */
+  public verifyPassword(password: string) {
+    return this.hashPassword(password, this.salt) === this.password;
   }
 
   /**
@@ -66,7 +75,7 @@ class User extends Model<UserAttributes, UserCreationAttributes> {
       await Promise.reject("user not found!");
     }
 
-    if (this.hashPassword(password, user.salt) === user.password) {
+    if (user.verifyPassword(password)) {
       return user;
     } else {
       await Promise.reject("username or password not correct");
@@ -122,7 +131,7 @@ export default function (sequelize: Sequelize, DataTypes: typeof DT) {
   );
 
   User.beforeCreate((model, options) => {
-    model.password = User.hashPassword(model.password, model.salt);
+    model.password = model.hashPassword(model.password, model.salt);
     model.ip = fn("INET_ATON", model.ip); // INET_NTOA
   });
 

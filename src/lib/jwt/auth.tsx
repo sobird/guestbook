@@ -53,8 +53,6 @@ export async function setUserCookie(
 ) {
   const cookie = request.cookies[USER_TOKEN]
 
-  console.log(`request`, request.cookies)
-
   if (!cookie) {
     const token = await new SignJWT({})
       .setProtectedHeader({ alg: 'HS256' })
