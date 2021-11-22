@@ -4,6 +4,7 @@
  * sobird<i@sobird.me> at 2021/11/19 13:10:38 created.
  */
 import Head from "next/head";
+import { signIn } from "next-auth/client";
 import { Form, Input, Button, Checkbox } from "antd";
 
 import Layout from "@/components/layout";
@@ -15,8 +16,14 @@ function login(data: any) {
 }
 
 export default function UserLogin() {
-  const onFinish = (values: any) => {
-    console.log("Success:", values);
+  const onFinish = async (values: any) => {
+    const result = await signIn('credentials', {
+      redirect: false,
+      callbackUrl: 'https://sobird.me',
+      ...values
+    })
+
+    console.log(`result`, result)
 
     login(values).then((res) => {
       console.log(`res`, res);
@@ -81,8 +88,8 @@ export default function UserLogin() {
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const { req, res } = context;
 
-  console.log(`req.NextURL`, req.url)
-  console.log(`req.headers`, req.headers)
+  console.log(`req.NextURL`, req.url);
+  console.log(`req.headers`, req.headers);
 
   return {
     props: {},
