@@ -7,11 +7,10 @@
 import { randomBytes, createHmac } from "crypto";
 import {
   Sequelize,
-  DataTypes as DT,
+  DataTypes,
   Model,
   Optional,
   fn,
-  ValidationError,
 } from "sequelize";
 
 // These are all the attributes in the User model
@@ -83,7 +82,7 @@ class User extends Model<UserAttributes, UserCreationAttributes> {
   }
 }
 
-export default function (sequelize: Sequelize, DataTypes: typeof DT) {
+export default function (sequelize: Sequelize) {
   User.init(
     {
       username: {
