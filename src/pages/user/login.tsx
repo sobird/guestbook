@@ -1,6 +1,6 @@
 /*
  * 用户登录
- * 
+ *
  * sobird<i@sobird.me> at 2021/11/19 13:10:38 created.
  */
 import Head from "next/head";
@@ -8,19 +8,19 @@ import { Form, Input, Button, Checkbox } from "antd";
 
 import Layout from "@/components/layout";
 import axios from "@/lib/axios";
+import { GetServerSidePropsContext } from "next";
 
 function login(data: any) {
-  return axios.post('/api/user/login', data);
+  return axios.post("/api/user/login", data);
 }
 
-export default function UserLogin () {
-
+export default function UserLogin() {
   const onFinish = (values: any) => {
     console.log("Success:", values);
 
-    login(values).then(res => {
-      console.log(`res`, res)
-    })
+    login(values).then((res) => {
+      console.log(`res`, res);
+    });
   };
 
   const onFinishFailed = (errorInfo: any) => {
@@ -76,4 +76,15 @@ export default function UserLogin () {
       </Form>
     </Layout>
   );
+}
+
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+  const { req, res } = context;
+
+  console.log(`req.NextURL`, req.url)
+  console.log(`req.headers`, req.headers)
+
+  return {
+    props: {},
+  };
 }

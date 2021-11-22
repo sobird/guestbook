@@ -9,8 +9,4 @@ import { NextFetchEvent, NextRequest, NextResponse } from "next/server";
 
 export function middleware(req: NextRequest) {
   
-  // Add the user token to the response
-  console.log("122", req.ua);
-
-  //return new Response(JSON.stringify(req.cookies))
 }
