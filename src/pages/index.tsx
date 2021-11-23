@@ -12,10 +12,9 @@ import { getSortedPostsData } from "../lib/posts";
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
-export default function Home({ allPostsData }) {
+export default function Home({ }) {
   //const { data = [], error } = useSWR('/api/posts', fetcher)
 
-  const posts = allPostsData;
   return (
     <Layout>
       <section className={utilStyles.headingMd}>
@@ -45,17 +44,7 @@ export default function Home({ allPostsData }) {
       </section>
       <section className={`${utilStyles.headingMd} ${utilStyles.padding1px}`}>
         <h2 className={utilStyles.headingLg}>Blog</h2>
-        <ul className={utilStyles.list}>
-          {posts.map(({ id, date, title }) => (
-            <li className={utilStyles.listItem} key={id}>
-              <Link href={`/posts/${id}`}>{title}</Link>
-              <br />
-              {id}
-              <br />
-              {date}
-            </li>
-          ))}
-        </ul>
+        
       </section>
     </Layout>
   );
@@ -86,11 +75,8 @@ export default function Home({ allPostsData }) {
  */
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const { req, res } = context;
-  
-  const allPostsData = getSortedPostsData();
   return {
     props: {
-      allPostsData,
     },
   };
 }
