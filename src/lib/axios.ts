@@ -76,13 +76,13 @@ axios.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";
 // 请求拦截器
 axios.interceptors.request.use(
   (config: AxiosRequestConfig) => {
-    config._startTime = new Date().getTime();
+    // config._startTime = new Date().getTime();
     return config;
   },
   (error: AxiosError) => {
     const { config } = error;
     // 请求报错
-    !config.silent && message.error(error.message);
+    // !config.silent && message.error(error.message);
     return Promise.reject(error);
   }
 );
@@ -91,7 +91,7 @@ axios.interceptors.request.use(
 axios.interceptors.response.use(
   (response: AxiosResponse) => {
     const { config, data } = response;
-    response.timing = new Date().getTime() - config._startTime;
+    // response.timing = new Date().getTime() - config._startTime;
 
     if (!data) {
       return data;
@@ -127,7 +127,7 @@ axios.interceptors.response.use(
     }
 
     // 业务级错误提示
-    !config.silent && message.error(data.message);
+    // !config.silent && message.error(data.message);
 
     // 业务级错误信息
     throw {
@@ -156,7 +156,7 @@ axios.interceptors.response.use(
 
     // 业务级错误提示
     console.log("config", config);
-    !config.silent && message.error(error.message);
+    // !config.silent && message.error(error.message);
 
     return Promise.reject(error);
   }

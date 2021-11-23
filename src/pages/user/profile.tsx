@@ -1,6 +1,8 @@
 import { GetServerSidePropsContext } from "next";
 import { SignJWT, jwtVerify } from "jose";
 import { useSession, signIn, signOut } from "next-auth/client";
+import Head from "next/head";
+import Layout from "@/components/layout";
 
 export const TOKEN_COOKIE_NAME = "token";
 export const JWT_SECRET_KEY = "jwt_secret_key";
@@ -9,10 +11,13 @@ export default function UserProfilePage({ user }) {
   const [session] = useSession();
   console.log(`session`, session);
   return (
-    <div>
+    <Layout>
+      <Head>
+        <title>Profile</title>
+      </Head>
       <h1>User Profile</h1>
       <p>hello, {user.name}</p>
-    </div>
+    </Layout>
   );
 }
 

@@ -1,6 +1,4 @@
 import { User } from "@/models";
-import UserCreationAttributes from "@/models/user.model"
+import { UserCreationAttributes } from "@/models/user.model";
 
-export function create(values: UserCreationAttributes) {
-
-}
+export function create(values: UserCreationAttributes) {}

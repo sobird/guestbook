@@ -8,4 +8,4 @@ import { DataTypes } from "sequelize";
 import sequelize from "./sequelize";
 import UserModel from './user.model';
 
-export const User = UserModel(sequelize, DataTypes);
+export const User = UserModel(sequelize);
