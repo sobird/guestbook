@@ -6,7 +6,7 @@
 
 import { Sequelize } from "sequelize";
 
-const sequelize = new Sequelize("mix", "root", "12345678", {
+const sequelize = new Sequelize({
   // The name of the database
   // database: 'mix',
 
@@ -18,7 +18,7 @@ const sequelize = new Sequelize("mix", "root", "12345678", {
 
   // the sql dialect of the database
   // currently supported: 'mysql', 'sqlite', 'postgres', 'mssql'
-  dialect: "mysql",
+  dialect: "sqlite",
 
   // custom host; default: localhost
   host: "127.0.0.1",
@@ -27,11 +27,11 @@ const sequelize = new Sequelize("mix", "root", "12345678", {
   // host: '/sockets/psql_sockets'.
 
   // custom port; default: dialect default
-  port: 3306,
+  // port: 3306,
 
   // custom protocol; default: 'tcp'
   // postgres only, useful for Heroku
-  protocol: null,
+  // protocol: null,
 
   // disable logging or provide a custom logging function; default: console.log
   logging: false,
@@ -50,7 +50,7 @@ const sequelize = new Sequelize("mix", "root", "12345678", {
 
   // the storage engine for sqlite
   // - default ':memory:'
-  // storage: 'path/to/database.sqlite',
+  storage: './database.sqlite',
 
   // disable inserting undefined values as NULL
   // - default: false

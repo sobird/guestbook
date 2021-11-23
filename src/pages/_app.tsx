@@ -12,7 +12,7 @@
  *
  * sobird<i@sobird.me> at 2021/11/09 15:18:01 created.
  */
-
+import "normalize.css";
 import "@/styles/global.scss";
 import "antd/dist/antd.css";
 
