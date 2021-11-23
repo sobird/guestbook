@@ -17,7 +17,7 @@ export default function Home({ allPostsData }) {
 
   const posts = allPostsData;
   return (
-    <Layout home>
+    <Layout>
       <section className={utilStyles.headingMd}>
         <p>
           Hello,I'm Sobird. I'm a software enginer. Yan can contact me on my{" "}
