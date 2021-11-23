@@ -1,51 +1,78 @@
 import { GetServerSidePropsContext } from "next";
-import Head from "next/head";
 import Link from "next/link";
 import useSWR from "swr";
 
-import { Button } from "antd";
+import { Form, Input, Button, Checkbox } from "antd";
+import { Button as MButton, TextField } from "@mui/material";
 
-import Layout, { siteTitle } from "../components/layout";
+import Layout from "../components/layout";
 import utilStyles from "../styles/utils.module.css";
 
-import { getSortedPostsData } from "../lib/posts";
-
-const fetcher = (url: string) => fetch(url).then((res) => res.json());
-
-export default function Home({ }) {
+export default function Home({}) {
   //const { data = [], error } = useSWR('/api/posts', fetcher)
+
+  const onFinish = (values: any) => {
+    console.log("Success:", values);
+  };
+
+  const onFinishFailed = (errorInfo: any) => {
+    console.log("Failed:", errorInfo);
+  };
 
   return (
     <Layout>
+      <MButton>按钮</MButton>
+      <TextField variant="outlined" label="用户" size="small" />
       <section className={utilStyles.headingMd}>
-        <p>
-          Hello,I'm Sobird. I'm a software enginer. Yan can contact me on my{" "}
-          <a href="https://sobird.me" target="_blank">
-            blog
-          </a>
-        </p>
-        <p>
-          (This is a sample website - you’ll be building a site like this on{" "}
-          <a href="https://www.nextjs.cn/learn">our Next.js tutorial</a>.)
-        </p>
-      </section>
-      <section>
-        <Link href="/user/login">
-          <Button type="primary">登陆</Button>
-        </Link>
+        <Form
+          name="basic"
+          labelCol={{ span: 8 }}
+          wrapperCol={{ span: 16 }}
+          initialValues={{ remember: true }}
+          onFinish={onFinish}
+          onFinishFailed={onFinishFailed}
+          autoComplete="off"
+        >
+          <Form.Item
+            label="用户名称"
+            name="username"
+            rules={[{ required: true, message: "Please input your username!" }]}
+          >
+            <Input />
+          </Form.Item>
 
-        <Link href="/user/register">
-          <Button type="ghost">注册</Button>
-        </Link>
+          <Form.Item
+            label="用户邮箱"
+            name="email"
+            rules={[{ required: true, message: "Please input your email!" }]}
+          >
+            <Input type="email" />
+          </Form.Item>
 
-        <Link href="/user/profile">
-          <Button type="default">个人中心</Button>
-        </Link>
+          <Form.Item
+            label="登录密码"
+            name="password"
+            rules={[{ required: true, message: "Please input your password!" }]}
+          >
+            <Input.TextArea />
+          </Form.Item>
+
+          <Form.Item
+            name="remember"
+            valuePropName="checked"
+            wrapperCol={{ offset: 8, span: 16 }}
+          >
+            <Checkbox>Remember me</Checkbox>
+          </Form.Item>
+
+          <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+            <Button type="primary" htmlType="submit">
+              Submit
+            </Button>
+          </Form.Item>
+        </Form>
       </section>
-      <section className={`${utilStyles.headingMd} ${utilStyles.padding1px}`}>
-        <h2 className={utilStyles.headingLg}>Blog</h2>
-        
-      </section>
+      <section></section>
     </Layout>
   );
 }
@@ -76,7 +103,6 @@ export default function Home({ }) {
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const { req, res } = context;
   return {
-    props: {
-    },
+    props: {},
   };
 }
