@@ -41,6 +41,10 @@ export default function Home({ allPostsData }) {
         <Link href="/user/register">
           <Button type="ghost">注册</Button>
         </Link>
+
+        <Link href="/user/profile">
+          <Button type="default">个人中心</Button>
+        </Link>
       </section>
       <section className={`${utilStyles.headingMd} ${utilStyles.padding1px}`}>
         <h2 className={utilStyles.headingLg}>Blog</h2>
