@@ -2,40 +2,6 @@
 # yarn lockfile v1
 
 
-"@ant-design/colors@^6.0.0":
-  version "6.0.0"
-  resolved "https://registry.npmmirror.com/@ant-design/colors/download/@ant-design/colors-6.0.0.tgz"
-  integrity sha1-m5NmJXz/zEfbQrnQIDu1ksE8Apg=
-  dependencies:
-    "@ctrl/tinycolor" "^3.4.0"
-
-"@ant-design/icons-svg@^4.2.1":
-  version "4.2.1"
-  resolved "https://registry.npmmirror.com/@ant-design/icons-svg/download/@ant-design/icons-svg-4.2.1.tgz"
-  integrity sha1-hjDajrRHGkqr2u19H/apfcss8Fo=
-
-"@ant-design/icons@^4.7.0":
-  version "4.7.0"
-  resolved "https://registry.npmmirror.com/@ant-design/icons/download/@ant-design/icons-4.7.0.tgz"
-  integrity sha1-jDy+ClVrqSr13H0ecMCyW1F5rw8=
-  dependencies:
-    "@ant-design/colors" "^6.0.0"
-    "@ant-design/icons-svg" "^4.2.1"
-    "@babel/runtime" "^7.11.2"
-    classnames "^2.2.6"
-    rc-util "^5.9.4"
-
-"@ant-design/react-slick@~0.28.1":
-  version "0.28.4"
-  resolved "https://registry.npmmirror.com/@ant-design/react-slick/download/@ant-design/react-slick-0.28.4.tgz"
-  integrity sha1-iylrh618euh38qUnuBt+69ndKak=
-  dependencies:
-    "@babel/runtime" "^7.10.4"
-    classnames "^2.2.5"
-    json2mq "^0.2.0"
-    lodash "^4.17.21"
-    resize-observer-polyfill "^1.5.0"
-
 "@babel/code-frame@7.12.11":
   version "7.12.11"
   resolved "https://registry.npmmirror.com/@babel/code-frame/download/@babel/code-frame-7.12.11.tgz?cache=0&sync_timestamp=1635560727372&other_urls=https%3A%2F%2Fregistry.npmmirror.com%2F%40babel%2Fcode-frame%2Fdownload%2F%40babel%2Fcode-frame-7.12.11.tgz"
@@ -97,7 +63,7 @@
   dependencies:
     regenerator-runtime "^0.13.4"
 
-"@babel/runtime@^7.10.1", "@babel/runtime@^7.10.2", "@babel/runtime@^7.10.4", "@babel/runtime@^7.11.1", "@babel/runtime@^7.11.2", "@babel/runtime@^7.12.5", "@babel/runtime@^7.13.10", "@babel/runtime@^7.14.0", "@babel/runtime@^7.16.3", "@babel/runtime@^7.5.5", "@babel/runtime@^7.7.2", "@babel/runtime@^7.8.4", "@babel/runtime@^7.8.7":
+"@babel/runtime@^7.13.10", "@babel/runtime@^7.14.0", "@babel/runtime@^7.16.3", "@babel/runtime@^7.5.5", "@babel/runtime@^7.7.2", "@babel/runtime@^7.8.7":
   version "7.16.3"
   resolved "https://registry.npmmirror.com/@babel/runtime/download/@babel/runtime-7.16.3.tgz?cache=0&sync_timestamp=1636501531064&other_urls=https%3A%2F%2Fregistry.npmmirror.com%2F%40babel%2Fruntime%2Fdownload%2F%40babel%2Fruntime-7.16.3.tgz"
   integrity sha512-WBwekcqacdY2e9AF/Q7WLFUWmdJGJTkbjqTjoMDgXkVZ3ZRUvOPsLb5KdwISoQVsbP+DQzVZW4Zhci0DvpbNTQ==
@@ -119,11 +85,6 @@
   dependencies:
     "@babel/helper-validator-identifier" "^7.15.7"
     to-fast-properties "^2.0.0"
-
-"@ctrl/tinycolor@^3.4.0":
-  version "3.4.0"
-  resolved "https://registry.npmmirror.com/@ctrl/tinycolor/download/@ctrl/tinycolor-3.4.0.tgz"
-  integrity sha1-w8WuVDyJfKqcKmhjC+01W+X5mQ8=
 
 "@emotion/babel-plugin@^11.3.0":
   version "11.3.0"
@@ -596,54 +557,6 @@ ansi-styles@^4.0.0, ansi-styles@^4.1.0:
   dependencies:
     color-convert "^2.0.1"
 
-antd@^4.16.13:
-  version "4.17.1"
-  resolved "https://registry.npmmirror.com/antd/download/antd-4.17.1.tgz"
-  integrity sha512-GNVuVnWJjFE1r3AGYc7vhy+gzlDAimAAZMTNCZdAncLBDN7gCTrf8euSb+C0TEqr7UV26yNGBQ9yGoeUcHUdSA==
-  dependencies:
-    "@ant-design/colors" "^6.0.0"
-    "@ant-design/icons" "^4.7.0"
-    "@ant-design/react-slick" "~0.28.1"
-    "@babel/runtime" "^7.12.5"
-    "@ctrl/tinycolor" "^3.4.0"
-    array-tree-filter "^2.1.0"
-    classnames "^2.2.6"
-    copy-to-clipboard "^3.2.0"
-    lodash "^4.17.21"
-    moment "^2.25.3"
-    rc-cascader "~2.1.0"
-    rc-checkbox "~2.3.0"
-    rc-collapse "~3.1.0"
-    rc-dialog "~8.6.0"
-    rc-drawer "~4.4.2"
-    rc-dropdown "~3.2.0"
-    rc-field-form "~1.21.0"
-    rc-image "~5.2.5"
-    rc-input-number "~7.3.0"
-    rc-mentions "~1.6.1"
-    rc-menu "~9.0.12"
-    rc-motion "^2.4.4"
-    rc-notification "~4.5.7"
-    rc-pagination "~3.1.9"
-    rc-picker "~2.5.17"
-    rc-progress "~3.1.0"
-    rc-rate "~2.9.0"
-    rc-resize-observer "^1.0.0"
-    rc-select "~13.1.0-alpha.0"
-    rc-slider "~9.7.4"
-    rc-steps "~4.1.0"
-    rc-switch "~3.2.0"
-    rc-table "~7.19.0"
-    rc-tabs "~11.10.0"
-    rc-textarea "~0.3.0"
-    rc-tooltip "~5.1.1"
-    rc-tree "~5.2.0"
-    rc-tree-select "~4.6.0"
-    rc-trigger "^5.2.10"
-    rc-upload "~4.3.0"
-    rc-util "^5.14.0"
-    scroll-into-view-if-needed "^2.2.25"
-
 any-promise@^1.0.0, any-promise@^1.3.0:
   version "1.3.0"
   resolved "https://registry.npmmirror.com/any-promise/download/any-promise-1.3.0.tgz"
@@ -687,11 +600,6 @@ argparse@^2.0.1:
   resolved "https://registry.npmmirror.com/argparse/download/argparse-2.0.1.tgz"
   integrity sha1-JG9Q88p4oyQPbJl+ipvR6sSeSzg=
 
-array-tree-filter@^2.1.0:
-  version "2.1.0"
-  resolved "https://registry.npmmirror.com/array-tree-filter/download/array-tree-filter-2.1.0.tgz"
-  integrity sha1-hzrAD+yDdJ8lWsjdCDgUtPYykZA=
-
 asn1.js@^5.2.0:
   version "5.4.1"
   resolved "https://registry.npmmirror.com/asn1.js/download/asn1.js-5.4.1.tgz"
@@ -723,11 +631,6 @@ assert@2.0.0:
     is-nan "^1.2.1"
     object-is "^1.0.1"
     util "^0.12.0"
-
-async-validator@^4.0.2:
-  version "4.0.7"
-  resolved "https://registry.npmmirror.com/async-validator/download/async-validator-4.0.7.tgz?cache=0&sync_timestamp=1634530102628&other_urls=https%3A%2F%2Fregistry.npmmirror.com%2Fasync-validator%2Fdownload%2Fasync-validator-4.0.7.tgz"
-  integrity sha1-A0oP0hA6ay6/AQ2nUYO+wpkkev4=
 
 asynckit@^0.4.0:
   version "0.4.0"
@@ -1068,11 +971,6 @@ classnames@2.2.6:
   resolved "https://registry.npmmirror.com/classnames/download/classnames-2.2.6.tgz"
   integrity sha1-Q5Nb/90pHzJtrQogUwmzjQD2UM4=
 
-classnames@2.x, classnames@^2.2.1, classnames@^2.2.3, classnames@^2.2.5, classnames@^2.2.6:
-  version "2.3.1"
-  resolved "https://registry.npmmirror.com/classnames/download/classnames-2.3.1.tgz"
-  integrity sha1-38+jiR4wbsHa0QXQ6I9EF7hTXo4=
-
 cli-highlight@^2.1.11:
   version "2.1.11"
   resolved "https://registry.npmmirror.com/cli-highlight/download/cli-highlight-2.1.11.tgz"
@@ -1150,11 +1048,6 @@ commondir@^1.0.1:
   resolved "https://registry.npmmirror.com/commondir/download/commondir-1.0.1.tgz"
   integrity sha1-3dgA2gxmEnOTzKWVDqloo6rxJTs=
 
-compute-scroll-into-view@^1.0.17:
-  version "1.0.17"
-  resolved "https://registry.npmmirror.com/compute-scroll-into-view/download/compute-scroll-into-view-1.0.17.tgz"
-  integrity sha1-aojxis2dQunPS6pr7H4FImB6t6s=
-
 concat-map@0.0.1:
   version "0.0.1"
   resolved "https://registry.npmmirror.com/concat-map/download/concat-map-0.0.1.tgz"
@@ -1188,13 +1081,6 @@ cookie@^0.4.1:
   version "0.4.1"
   resolved "https://registry.npmmirror.com/cookie/download/cookie-0.4.1.tgz?cache=0&sync_timestamp=1632753741253&other_urls=https%3A%2F%2Fregistry.npmmirror.com%2Fcookie%2Fdownload%2Fcookie-0.4.1.tgz"
   integrity sha1-r9cT/ibr0hupXOth+agRblClN9E=
-
-copy-to-clipboard@^3.2.0:
-  version "3.3.1"
-  resolved "https://registry.npmmirror.com/copy-to-clipboard/download/copy-to-clipboard-3.3.1.tgz"
-  integrity sha1-EVqhqZmP+rYZb5MHatbaO5E2Yq4=
-  dependencies:
-    toggle-selection "^1.0.6"
 
 core-util-is@1.0.2:
   version "1.0.2"
@@ -1301,16 +1187,6 @@ data-uri-to-buffer@3.0.1:
   resolved "https://registry.npmmirror.com/data-uri-to-buffer/download/data-uri-to-buffer-3.0.1.tgz?cache=0&sync_timestamp=1632754807359&other_urls=https%3A%2F%2Fregistry.npmmirror.com%2Fdata-uri-to-buffer%2Fdownload%2Fdata-uri-to-buffer-3.0.1.tgz"
   integrity sha1-WUuJc5OMW8LDMEZTV4U0GrxPNjY=
 
-date-fns@2.x:
-  version "2.26.0"
-  resolved "https://registry.npmmirror.com/date-fns/download/date-fns-2.26.0.tgz?cache=0&sync_timestamp=1637308994584&other_urls=https%3A%2F%2Fregistry.npmmirror.com%2Fdate-fns%2Fdownload%2Fdate-fns-2.26.0.tgz"
-  integrity sha512-VQI812dRi3cusdY/fhoBKvc6l2W8BPWU1FNVnFH9Nttjx4AFBRzfSVb/Eyc7jBT6e9sg1XtAGsYpBQ6c/jygbg==
-
-dayjs@1.x:
-  version "1.10.7"
-  resolved "https://registry.npmmirror.com/dayjs/download/dayjs-1.10.7.tgz?cache=0&sync_timestamp=1632753723926&other_urls=https%3A%2F%2Fregistry.npmmirror.com%2Fdayjs%2Fdownload%2Fdayjs-1.10.7.tgz"
-  integrity sha1-LPX5Gt0oEWdIRAhmoKHSbzps5Gg=
-
 debug@2:
   version "2.6.9"
   resolved "https://registry.npmmirror.com/debug/download/debug-2.6.9.tgz"
@@ -1395,11 +1271,6 @@ diffie-hellman@^5.0.0:
     bn.js "^4.1.0"
     miller-rabin "^4.0.0"
     randombytes "^2.0.0"
-
-dom-align@^1.7.0:
-  version "1.12.2"
-  resolved "https://registry.npmmirror.com/dom-align/download/dom-align-1.12.2.tgz"
-  integrity sha1-D4Fk69DJwhsMeQMQSTzYVYkqzUs=
 
 dom-helpers@^5.0.1:
   version "5.2.1"
@@ -2318,13 +2189,6 @@ json-stringify-safe@~5.0.1:
   resolved "https://registry.nlark.com/json-stringify-safe/download/json-stringify-safe-5.0.1.tgz#1296a2d58fd45f19a0f6ce01d65701e2c735b6eb"
   integrity sha1-Epai1Y/UXxmg9s4B1lcB4sc1tus=
 
-json2mq@^0.2.0:
-  version "0.2.0"
-  resolved "https://registry.npmmirror.com/json2mq/download/json2mq-0.2.0.tgz"
-  integrity sha1-tje9O6nqvhIsg+lyBIOusQ0skEo=
-  dependencies:
-    string-convert "^0.2.0"
-
 json5@^1.0.1:
   version "1.0.1"
   resolved "https://registry.npmmirror.com/json5/download/json5-1.0.1.tgz"
@@ -2446,7 +2310,7 @@ lodash.sortby@^4.7.0:
   resolved "https://registry.npmmirror.com/lodash.sortby/download/lodash.sortby-4.7.0.tgz"
   integrity sha1-7dFMgk4sycHgsKG0K7UhBRakJDg=
 
-lodash@^4.17.20, lodash@^4.17.21:
+lodash@^4.17.20:
   version "4.17.21"
   resolved "https://registry.npmmirror.com/lodash/download/lodash-4.17.21.tgz?cache=0&sync_timestamp=1632742926913&other_urls=https%3A%2F%2Fregistry.npmmirror.com%2Flodash%2Fdownload%2Flodash-4.17.21.tgz"
   integrity sha1-Z5WRxWTDv/quhFTPCz3zcMPWkRw=
@@ -2461,7 +2325,7 @@ longest-streak@^3.0.0:
   resolved "https://registry.npmmirror.com/longest-streak/download/longest-streak-3.0.1.tgz?cache=0&sync_timestamp=1636446768264&other_urls=https%3A%2F%2Fregistry.npmmirror.com%2Flongest-streak%2Fdownload%2Flongest-streak-3.0.1.tgz"
   integrity sha512-cHlYSUpL2s7Fb3394mYxwTYj8niTaNHUCLr0qdiCXQfSjfuA7CKofpX2uSwEfFDQ0EB7JcnMnm+GjbqqoinYYg==
 
-loose-envify@^1.0.0, loose-envify@^1.1.0, loose-envify@^1.4.0:
+loose-envify@^1.1.0, loose-envify@^1.4.0:
   version "1.4.0"
   resolved "https://registry.npmmirror.com/loose-envify/download/loose-envify-1.4.0.tgz?cache=0&sync_timestamp=1632754008399&other_urls=https%3A%2F%2Fregistry.npmmirror.com%2Floose-envify%2Fdownload%2Floose-envify-1.4.0.tgz"
   integrity sha1-ce5R+nvkyuwaY4OffmgtgTLTDK8=
@@ -2841,7 +2705,7 @@ moment-timezone@^0.5.31:
   dependencies:
     moment ">= 2.9.0"
 
-"moment@>= 2.9.0", moment@^2.24.0, moment@^2.25.3, moment@^2.26.0:
+"moment@>= 2.9.0", moment@^2.26.0:
   version "2.29.1"
   resolved "https://registry.npmmirror.com/moment/download/moment-2.29.1.tgz"
   integrity sha1-sr52n6MZQL6e7qZGnAdeNQBvo9M=
@@ -3479,351 +3343,6 @@ raw-body@2.4.1:
     iconv-lite "0.4.24"
     unpipe "1.0.0"
 
-rc-align@^4.0.0:
-  version "4.0.11"
-  resolved "https://registry.npmmirror.com/rc-align/download/rc-align-4.0.11.tgz"
-  integrity sha1-gZjGLbJmvBuO8F5WwTJ1v3Jiil4=
-  dependencies:
-    "@babel/runtime" "^7.10.1"
-    classnames "2.x"
-    dom-align "^1.7.0"
-    lodash "^4.17.21"
-    rc-util "^5.3.0"
-    resize-observer-polyfill "^1.5.1"
-
-rc-cascader@~2.1.0:
-  version "2.1.5"
-  resolved "https://registry.npmmirror.com/rc-cascader/download/rc-cascader-2.1.5.tgz"
-  integrity sha512-FiGPfSxKmSft2CT2XSr6HeKihqcxM+1ozmH6FGXTDthVNNvV0ai82CA6l30iPmMmlflwDfSm/623qkekqNq4BQ==
-  dependencies:
-    "@babel/runtime" "^7.12.5"
-    array-tree-filter "^2.1.0"
-    rc-tree-select "~4.6.0"
-    rc-trigger "^5.0.4"
-    rc-util "^5.0.1"
-    warning "^4.0.1"
-
-rc-checkbox@~2.3.0:
-  version "2.3.2"
-  resolved "https://registry.npmmirror.com/rc-checkbox/download/rc-checkbox-2.3.2.tgz"
-  integrity sha1-+Rs2eMftsrqoEhyUg8Zk+m8K78E=
-  dependencies:
-    "@babel/runtime" "^7.10.1"
-    classnames "^2.2.1"
-
-rc-collapse@~3.1.0:
-  version "3.1.2"
-  resolved "https://registry.npmmirror.com/rc-collapse/download/rc-collapse-3.1.2.tgz"
-  integrity sha1-dgKKgRuEXQPZRgzMQJx+qK0J2xQ=
-  dependencies:
-    "@babel/runtime" "^7.10.1"
-    classnames "2.x"
-    rc-motion "^2.3.4"
-    rc-util "^5.2.1"
-    shallowequal "^1.1.0"
-
-rc-dialog@~8.6.0:
-  version "8.6.0"
-  resolved "https://registry.npmmirror.com/rc-dialog/download/rc-dialog-8.6.0.tgz"
-  integrity sha1-OyKNrAhd5e7YxiN/MRYhBGh0Quc=
-  dependencies:
-    "@babel/runtime" "^7.10.1"
-    classnames "^2.2.6"
-    rc-motion "^2.3.0"
-    rc-util "^5.6.1"
-
-rc-drawer@~4.4.2:
-  version "4.4.3"
-  resolved "https://registry.npmmirror.com/rc-drawer/download/rc-drawer-4.4.3.tgz?cache=0&sync_timestamp=1637134392366&other_urls=https%3A%2F%2Fregistry.npmmirror.com%2Frc-drawer%2Fdownload%2Frc-drawer-4.4.3.tgz"
-  integrity sha512-FYztwRs3uXnFOIf1hLvFxIQP9MiZJA+0w+Os8dfDh/90X7z/HqP/Yg+noLCIeHEbKln1Tqelv8ymCAN24zPcfQ==
-  dependencies:
-    "@babel/runtime" "^7.10.1"
-    classnames "^2.2.6"
-    rc-util "^5.7.0"
-
-rc-dropdown@^3.2.0, rc-dropdown@~3.2.0:
-  version "3.2.0"
-  resolved "https://registry.npmmirror.com/rc-dropdown/download/rc-dropdown-3.2.0.tgz"
-  integrity sha1-2mwq2kA4QrruOp6Qmgsakbo+EJA=
-  dependencies:
-    "@babel/runtime" "^7.10.1"
-    classnames "^2.2.6"
-    rc-trigger "^5.0.4"
-
-rc-field-form@~1.21.0:
-  version "1.21.2"
-  resolved "https://registry.npmmirror.com/rc-field-form/download/rc-field-form-1.21.2.tgz"
-  integrity sha1-hb2h7gBq6fHRRuEAAzfGm0u20QE=
-  dependencies:
-    "@babel/runtime" "^7.8.4"
-    async-validator "^4.0.2"
-    rc-util "^5.8.0"
-
-rc-image@~5.2.5:
-  version "5.2.5"
-  resolved "https://registry.npmmirror.com/rc-image/download/rc-image-5.2.5.tgz"
-  integrity sha1-ROb/yEJiaCeWDnq3LhwNbzqM5EA=
-  dependencies:
-    "@babel/runtime" "^7.11.2"
-    classnames "^2.2.6"
-    rc-dialog "~8.6.0"
-    rc-util "^5.0.6"
-
-rc-input-number@~7.3.0:
-  version "7.3.3"
-  resolved "https://registry.npmmirror.com/rc-input-number/download/rc-input-number-7.3.3.tgz"
-  integrity sha1-BlwQ+dqb8HezlOdfcLnCpaf0QP0=
-  dependencies:
-    "@babel/runtime" "^7.10.1"
-    classnames "^2.2.5"
-    rc-util "^5.9.8"
-
-rc-mentions@~1.6.1:
-  version "1.6.1"
-  resolved "https://registry.npmmirror.com/rc-mentions/download/rc-mentions-1.6.1.tgz"
-  integrity sha1-RgNQJ9ZKoz74QLoPvUEYceNGF64=
-  dependencies:
-    "@babel/runtime" "^7.10.1"
-    classnames "^2.2.6"
-    rc-menu "^9.0.0"
-    rc-textarea "^0.3.0"
-    rc-trigger "^5.0.4"
-    rc-util "^5.0.1"
-
-rc-menu@^9.0.0, rc-menu@~9.0.12:
-  version "9.0.14"
-  resolved "https://registry.npmmirror.com/rc-menu/download/rc-menu-9.0.14.tgz"
-  integrity sha1-KJvaSi9sXrsySOLjBdUs8Mc8udU=
-  dependencies:
-    "@babel/runtime" "^7.10.1"
-    classnames "2.x"
-    rc-motion "^2.4.3"
-    rc-overflow "^1.2.0"
-    rc-trigger "^5.1.2"
-    rc-util "^5.12.0"
-    shallowequal "^1.1.0"
-
-rc-motion@^2.0.0, rc-motion@^2.0.1, rc-motion@^2.2.0, rc-motion@^2.3.0, rc-motion@^2.3.4, rc-motion@^2.4.3, rc-motion@^2.4.4:
-  version "2.4.4"
-  resolved "https://registry.npmmirror.com/rc-motion/download/rc-motion-2.4.4.tgz"
-  integrity sha1-6ZXV+iT8kwZcJPcUhXzyZ31lW7A=
-  dependencies:
-    "@babel/runtime" "^7.11.1"
-    classnames "^2.2.1"
-    rc-util "^5.2.1"
-
-rc-notification@~4.5.7:
-  version "4.5.7"
-  resolved "https://registry.npmmirror.com/rc-notification/download/rc-notification-4.5.7.tgz"
-  integrity sha1-Jl5uagwaD6xj1qvU2DLrj/MVIvE=
-  dependencies:
-    "@babel/runtime" "^7.10.1"
-    classnames "2.x"
-    rc-motion "^2.2.0"
-    rc-util "^5.0.1"
-
-rc-overflow@^1.0.0, rc-overflow@^1.2.0:
-  version "1.2.2"
-  resolved "https://registry.npmmirror.com/rc-overflow/download/rc-overflow-1.2.2.tgz"
-  integrity sha1-lbAiIBbAzb3A24X1acJi53BqXyI=
-  dependencies:
-    "@babel/runtime" "^7.11.1"
-    classnames "^2.2.1"
-    rc-resize-observer "^1.0.0"
-    rc-util "^5.5.1"
-
-rc-pagination@~3.1.9:
-  version "3.1.13"
-  resolved "https://registry.npmmirror.com/rc-pagination/download/rc-pagination-3.1.13.tgz"
-  integrity sha512-RGWTEB3uUB5sdW6B6ykNkpoxNauiFqU4qTI3kd8ZxK6YFoiid+ODqhXsUb4iLgq+er5vX2TfdpDOyBVA/rlPNA==
-  dependencies:
-    "@babel/runtime" "^7.10.1"
-    classnames "^2.2.1"
-
-rc-picker@~2.5.17:
-  version "2.5.19"
-  resolved "https://registry.npmmirror.com/rc-picker/download/rc-picker-2.5.19.tgz"
-  integrity sha1-c9B1RvrDmS8L+r8niWVKyto55G8=
-  dependencies:
-    "@babel/runtime" "^7.10.1"
-    classnames "^2.2.1"
-    date-fns "2.x"
-    dayjs "1.x"
-    moment "^2.24.0"
-    rc-trigger "^5.0.4"
-    rc-util "^5.4.0"
-    shallowequal "^1.1.0"
-
-rc-progress@~3.1.0:
-  version "3.1.4"
-  resolved "https://registry.npmmirror.com/rc-progress/download/rc-progress-3.1.4.tgz"
-  integrity sha1-ZgQND659jO0rOFiDeOzLKGS61hU=
-  dependencies:
-    "@babel/runtime" "^7.10.1"
-    classnames "^2.2.6"
-
-rc-rate@~2.9.0:
-  version "2.9.1"
-  resolved "https://registry.npmmirror.com/rc-rate/download/rc-rate-2.9.1.tgz"
-  integrity sha1-5Dy5XE65CiweCxbsZhTYxDUwpzE=
-  dependencies:
-    "@babel/runtime" "^7.10.1"
-    classnames "^2.2.5"
-    rc-util "^5.0.1"
-
-rc-resize-observer@^1.0.0:
-  version "1.0.1"
-  resolved "https://registry.npmmirror.com/rc-resize-observer/download/rc-resize-observer-1.0.1.tgz"
-  integrity sha1-zNCYZUP/G/SfilgeisS7cU7STc0=
-  dependencies:
-    "@babel/runtime" "^7.10.1"
-    classnames "^2.2.1"
-    rc-util "^5.0.0"
-    resize-observer-polyfill "^1.5.1"
-
-rc-select@~13.1.0-alpha.0:
-  version "13.1.1"
-  resolved "https://registry.npmmirror.com/rc-select/download/rc-select-13.1.1.tgz?cache=0&sync_timestamp=1637317317229&other_urls=https%3A%2F%2Fregistry.npmmirror.com%2Frc-select%2Fdownload%2Frc-select-13.1.1.tgz"
-  integrity sha512-Oy4L27x5QgGR8902pw0bJVjrTWFnKPKvdLHzJl5pjiA+jM1hpzDfLGg/bY2ntk5ElxxQKZUwbFKUeqfCQU7SrQ==
-  dependencies:
-    "@babel/runtime" "^7.10.1"
-    classnames "2.x"
-    rc-motion "^2.0.1"
-    rc-overflow "^1.0.0"
-    rc-trigger "^5.0.4"
-    rc-util "^5.9.8"
-    rc-virtual-list "^3.2.0"
-
-rc-slider@~9.7.4:
-  version "9.7.4"
-  resolved "https://registry.npmmirror.com/rc-slider/download/rc-slider-9.7.4.tgz"
-  integrity sha1-QwyGByO/ZEXr9TUXtVBBei8l7tE=
-  dependencies:
-    "@babel/runtime" "^7.10.1"
-    classnames "^2.2.5"
-    rc-tooltip "^5.0.1"
-    rc-util "^5.0.0"
-    shallowequal "^1.1.0"
-
-rc-steps@~4.1.0:
-  version "4.1.4"
-  resolved "https://registry.npmmirror.com/rc-steps/download/rc-steps-4.1.4.tgz"
-  integrity sha1-C6gtsgLVnKUtBpPcmIDdFFsZ3CM=
-  dependencies:
-    "@babel/runtime" "^7.10.2"
-    classnames "^2.2.3"
-    rc-util "^5.0.1"
-
-rc-switch@~3.2.0:
-  version "3.2.2"
-  resolved "https://registry.npmmirror.com/rc-switch/download/rc-switch-3.2.2.tgz"
-  integrity sha1-0AH3fxJmTVJZW09vtCXdnmb7qOg=
-  dependencies:
-    "@babel/runtime" "^7.10.1"
-    classnames "^2.2.1"
-    rc-util "^5.0.1"
-
-rc-table@~7.19.0:
-  version "7.19.2"
-  resolved "https://registry.npmmirror.com/rc-table/download/rc-table-7.19.2.tgz"
-  integrity sha512-NdpnoM50MK02H5/hGOsObfxCvGFUG5cHB9turE5BKJ81T5Ycbq193w5tLhnpILXe//Oanzr47MdMxkUnVGP+qg==
-  dependencies:
-    "@babel/runtime" "^7.10.1"
-    classnames "^2.2.5"
-    rc-resize-observer "^1.0.0"
-    rc-util "^5.14.0"
-    shallowequal "^1.1.0"
-
-rc-tabs@~11.10.0:
-  version "11.10.3"
-  resolved "https://registry.npmmirror.com/rc-tabs/download/rc-tabs-11.10.3.tgz"
-  integrity sha512-rPxsci+76/nnJowNOBO3LTi4eL6trG49cR9yPc4XbuyHXhCHUujN5F4+jFl7trISy+yVN6gCZ/wiTtVnkcR/UA==
-  dependencies:
-    "@babel/runtime" "^7.11.2"
-    classnames "2.x"
-    rc-dropdown "^3.2.0"
-    rc-menu "^9.0.0"
-    rc-resize-observer "^1.0.0"
-    rc-util "^5.5.0"
-
-rc-textarea@^0.3.0, rc-textarea@~0.3.0:
-  version "0.3.5"
-  resolved "https://registry.npmmirror.com/rc-textarea/download/rc-textarea-0.3.5.tgz"
-  integrity sha1-B+1EXd25TlrmdkZ2kjpJvdrZsuw=
-  dependencies:
-    "@babel/runtime" "^7.10.1"
-    classnames "^2.2.1"
-    rc-resize-observer "^1.0.0"
-    rc-util "^5.7.0"
-
-rc-tooltip@^5.0.1, rc-tooltip@~5.1.1:
-  version "5.1.1"
-  resolved "https://registry.npmmirror.com/rc-tooltip/download/rc-tooltip-5.1.1.tgz"
-  integrity sha1-lBeO0WLQJSvEmTtyX13CrA/M8VQ=
-  dependencies:
-    "@babel/runtime" "^7.11.2"
-    rc-trigger "^5.0.0"
-
-rc-tree-select@~4.6.0:
-  version "4.6.3"
-  resolved "https://registry.npmmirror.com/rc-tree-select/download/rc-tree-select-4.6.3.tgz"
-  integrity sha512-VymfystOnW8EfoWaWehgB8zpYKgRZf4ILu9KHf7FJZVZ/1dnBEHDqg1bBi43/1BYLwYFKSKKSjkYyNYntWJM4A==
-  dependencies:
-    "@babel/runtime" "^7.10.1"
-    classnames "2.x"
-    rc-select "~13.1.0-alpha.0"
-    rc-tree "~5.2.0"
-    rc-util "^5.7.0"
-
-rc-tree@~5.2.0:
-  version "5.2.2"
-  resolved "https://registry.npmmirror.com/rc-tree/download/rc-tree-5.2.2.tgz?cache=0&sync_timestamp=1637569513627&other_urls=https%3A%2F%2Fregistry.npmmirror.com%2Frc-tree%2Fdownload%2Frc-tree-5.2.2.tgz"
-  integrity sha1-yd7SF0cGhb4J3a1FqH/rvUBNEUA=
-  dependencies:
-    "@babel/runtime" "^7.10.1"
-    classnames "2.x"
-    rc-motion "^2.0.1"
-    rc-util "^5.0.0"
-    rc-virtual-list "^3.4.1"
-
-rc-trigger@^5.0.0, rc-trigger@^5.0.4, rc-trigger@^5.1.2, rc-trigger@^5.2.10:
-  version "5.2.10"
-  resolved "https://registry.npmmirror.com/rc-trigger/download/rc-trigger-5.2.10.tgz"
-  integrity sha1-igBXqUCxuQJ+qjO+7IpuzYXM4rE=
-  dependencies:
-    "@babel/runtime" "^7.11.2"
-    classnames "^2.2.6"
-    rc-align "^4.0.0"
-    rc-motion "^2.0.0"
-    rc-util "^5.5.0"
-
-rc-upload@~4.3.0:
-  version "4.3.2"
-  resolved "https://registry.npmmirror.com/rc-upload/download/rc-upload-4.3.2.tgz"
-  integrity sha1-O1bIvfeyXqs1fmVFPgMrexDG88w=
-  dependencies:
-    "@babel/runtime" "^7.10.1"
-    classnames "^2.2.5"
-    rc-util "^5.2.0"
-
-rc-util@^5.0.0, rc-util@^5.0.1, rc-util@^5.0.6, rc-util@^5.0.7, rc-util@^5.12.0, rc-util@^5.14.0, rc-util@^5.2.0, rc-util@^5.2.1, rc-util@^5.3.0, rc-util@^5.4.0, rc-util@^5.5.0, rc-util@^5.5.1, rc-util@^5.6.1, rc-util@^5.7.0, rc-util@^5.8.0, rc-util@^5.9.4, rc-util@^5.9.8:
-  version "5.15.0"
-  resolved "https://registry.npmmirror.com/rc-util/download/rc-util-5.15.0.tgz?cache=0&sync_timestamp=1636530864119&other_urls=https%3A%2F%2Fregistry.npmmirror.com%2Frc-util%2Fdownload%2Frc-util-5.15.0.tgz"
-  integrity sha512-8RI8sjOCXD3FhD3dzQNBQetpGol6BBd3sHQ/8jSGk9NPT0CH3JGtBfPODnASyE7AdDpCFQMOmgcp9CBs3S/1hg==
-  dependencies:
-    "@babel/runtime" "^7.12.5"
-    react-is "^16.12.0"
-    shallowequal "^1.1.0"
-
-rc-virtual-list@^3.2.0, rc-virtual-list@^3.4.1:
-  version "3.4.2"
-  resolved "https://registry.npmmirror.com/rc-virtual-list/download/rc-virtual-list-3.4.2.tgz"
-  integrity sha1-EHgyeqcjC15FbWee0s6Z88A269E=
-  dependencies:
-    classnames "^2.2.6"
-    rc-resize-observer "^1.0.0"
-    rc-util "^5.0.7"
-
 rc@^1.2.7:
   version "1.2.8"
   resolved "https://registry.nlark.com/rc/download/rc-1.2.8.tgz#cd924bf5200a075b83c188cd6b9e211b7fc0d3ed"
@@ -3848,7 +3367,7 @@ react-is@17.0.2, react-is@^17.0.2:
   resolved "https://registry.npmmirror.com/react-is/download/react-is-17.0.2.tgz"
   integrity sha1-5pHUqOnHiTZWVVOas3J2Kw77VPA=
 
-react-is@^16.12.0, react-is@^16.7.0, react-is@^16.8.1:
+react-is@^16.7.0, react-is@^16.8.1:
   version "16.13.1"
   resolved "https://registry.npmmirror.com/react-is/download/react-is-16.13.1.tgz"
   integrity sha1-eJcppNw23imZ3BVt1sHZwYzqVqQ=
@@ -4015,11 +3534,6 @@ require_optional@^1.0.1:
     resolve-from "^2.0.0"
     semver "^5.1.0"
 
-resize-observer-polyfill@^1.5.0, resize-observer-polyfill@^1.5.1:
-  version "1.5.1"
-  resolved "https://registry.npmmirror.com/resize-observer-polyfill/download/resize-observer-polyfill-1.5.1.tgz"
-  integrity sha1-DpAg3T0hAkRY1OvSfiPkAmmBBGQ=
-
 resolve-from@^2.0.0:
   version "2.0.0"
   resolved "https://registry.npmmirror.com/resolve-from/download/resolve-from-2.0.0.tgz"
@@ -4101,13 +3615,6 @@ scheduler@^0.20.2:
   dependencies:
     loose-envify "^1.1.0"
     object-assign "^4.1.1"
-
-scroll-into-view-if-needed@^2.2.25:
-  version "2.2.28"
-  resolved "https://registry.npmmirror.com/scroll-into-view-if-needed/download/scroll-into-view-if-needed-2.2.28.tgz"
-  integrity sha1-WhWy9YpSZCyIyOylhGROAXA9ZFo=
-  dependencies:
-    compute-scroll-into-view "^1.0.17"
 
 section-matter@^1.0.0:
   version "1.0.0"
@@ -4191,11 +3698,6 @@ sha.js@^2.4.0, sha.js@^2.4.11, sha.js@^2.4.8:
   dependencies:
     inherits "^2.0.1"
     safe-buffer "^5.0.1"
-
-shallowequal@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.npmmirror.com/shallowequal/download/shallowequal-1.1.0.tgz"
-  integrity sha1-GI1SHelbkIdAT9TctosT3wrk5/g=
 
 shell-quote@1.7.3:
   version "1.7.3"
@@ -4314,11 +3816,6 @@ stream-parser@^0.3.1:
   integrity sha1-FhhUhpRCACGhGC/wrxkRwSl2F3M=
   dependencies:
     debug "2"
-
-string-convert@^0.2.0:
-  version "0.2.1"
-  resolved "https://registry.npmmirror.com/string-convert/download/string-convert-0.2.1.tgz"
-  integrity sha1-aYLMMEn7tM2F+LJFaLnZvznu/5c=
 
 string-hash@1.1.3:
   version "1.1.3"
@@ -4534,11 +4031,6 @@ to-regex-range@^5.0.1:
   integrity sha1-FkjESq58jZiKMmAY7XL1tN0DkuQ=
   dependencies:
     is-number "^7.0.0"
-
-toggle-selection@^1.0.6:
-  version "1.0.6"
-  resolved "https://registry.npmmirror.com/toggle-selection/download/toggle-selection-1.0.6.tgz"
-  integrity sha1-bkWxJj8gF/oKzH2J14sVuL932jI=
 
 toidentifier@1.0.0:
   version "1.0.0"
@@ -4808,13 +4300,6 @@ vm-browserify@1.1.2:
   version "1.1.2"
   resolved "https://registry.npmmirror.com/vm-browserify/download/vm-browserify-1.1.2.tgz"
   integrity sha1-eGQcSIuObKkadfUR56OzKobl3aA=
-
-warning@^4.0.1:
-  version "4.0.3"
-  resolved "https://registry.npmmirror.com/warning/download/warning-4.0.3.tgz"
-  integrity sha1-Fungd+uKhtavfWSqHgX9hbRnjKM=
-  dependencies:
-    loose-envify "^1.0.0"
 
 watchpack@2.1.1:
   version "2.1.1"

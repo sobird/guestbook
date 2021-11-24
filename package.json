@@ -14,7 +14,6 @@
     "@emotion/server": "^11.4.0",
     "@emotion/styled": "^11.6.0",
     "@mui/material": "^5.1.1",
-    "antd": "^4.16.13",
     "axios": "^0.24.0",
     "cookie": "^0.4.1",
     "gray-matter": "^4.0.3",
