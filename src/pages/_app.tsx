@@ -12,10 +12,22 @@
  *
  * sobird<i@sobird.me> at 2021/11/09 15:18:01 created.
  */
-import "normalize.css";
+import Head from "next/head";
+import { AppProps } from "next/app";
 import "@/styles/global.scss";
-import "antd/dist/antd.css";
 
-export default function App({ Component, pageProps }) {
-  return <Component {...pageProps} />;
+import { ThemeProvider } from "@mui/material/styles";
+import { CssBaseline } from "@mui/material";
+
+export default function App({ Component, pageProps }: AppProps) {
+  return (
+    <>
+      <Head>
+        <title>My app</title>
+        <meta name="viewport" content="initial-scale=1, width=device-width" />
+      </Head>
+      <CssBaseline />
+      <Component {...pageProps} />
+    </>
+  );
 }
