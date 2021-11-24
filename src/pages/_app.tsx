@@ -12,10 +12,38 @@
  *
  * sobird<i@sobird.me> at 2021/11/09 15:18:01 created.
  */
-import "normalize.css";
+import Head from "next/head";
+import { AppProps } from "next/app";
 import "@/styles/global.scss";
-import "antd/dist/antd.css";
 
-export default function App({ Component, pageProps }) {
-  return <Component {...pageProps} />;
+import { ThemeProvider } from "@mui/material/styles";
+import { CssBaseline } from "@mui/material";
+import { CacheProvider, EmotionCache } from "@emotion/react";
+import createEmotionCache from "@/lib/emotion";
+import theme from "@/lib/theme";
+
+// Client-side cache, shared for the whole session of the user in the browser.
+const clientSideEmotionCache = createEmotionCache();
+
+interface MyAppProps extends AppProps {
+  emotionCache?: EmotionCache;
+}
+
+export default function App({
+  Component,
+  pageProps,
+  emotionCache = clientSideEmotionCache,
+}: MyAppProps) {
+  return (
+    <CacheProvider value={emotionCache}>
+      <Head>
+        <title>My app</title>
+        <meta name="viewport" content="initial-scale=1, width=device-width" />
+      </Head>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <Component {...pageProps} />
+      </ThemeProvider>
+    </CacheProvider>
+  );
 }

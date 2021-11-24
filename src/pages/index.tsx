@@ -21,7 +21,7 @@ export default function Home({}) {
 
   return (
     <Layout>
-      <MButton>按钮</MButton>
+      <MButton variant="contained" size="small">按钮</MButton>
       <TextField variant="outlined" label="用户" size="small" />
       <section className={utilStyles.headingMd}>
         <Form
