@@ -1,11 +1,9 @@
 import React from "react";
 import Head from "next/head";
-import styles from "./layout.module.css";
-import utilStyles from "../styles/utils.module.css";
 import Link from "next/link";
-
-const name = "Sobird";
-export const siteTitle = "Next.js Sample Website";
+import Container from "@mui/material/Container";
+import styles from "./layout.module.css";
+import Header from "../Header";
 
 export interface LayoutProps {
   children?: any;
@@ -13,7 +11,7 @@ export interface LayoutProps {
 
 export default function Layout({ children }: LayoutProps) {
   return (
-    <div className={styles.container}>
+    <Container maxWidth="md">
       <Head>
         <link rel="icon" href="/favicon.ico" />
         <title>Next.js + SQLite 留言系统</title>
@@ -22,13 +20,14 @@ export default function Layout({ children }: LayoutProps) {
           content="Learn how to build a personal website using Next.js"
         />
       </Head>
+      <Header/>
       <header className={styles.header}>header</header>
-      
+
       <main>{children}</main>
 
       <footer className={styles.footer}>
         <p>Copyright&nbsp;©&nbsp;{new Date().getFullYear()}&nbsp; </p>
       </footer>
-    </div>
+    </Container>
   );
 }

@@ -1,7 +1,8 @@
-.container {
-  max-width: 760px;
-  margin: 0 auto 0;
-}
+/*
+ * layout.module.css
+ * 
+ * sobird<i@sobird.me> at 2021/11/23 16:18:56 created.
+ */
 
 .header {
   display: flex;

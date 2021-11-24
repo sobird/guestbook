@@ -2,7 +2,7 @@ import { GetServerSidePropsContext } from "next";
 import { SignJWT, jwtVerify } from "jose";
 import { useSession, signIn, signOut } from "next-auth/client";
 import Head from "next/head";
-import Layout from "@/components/layout";
+import Layout from "@/components/Layout";
 
 export const TOKEN_COOKIE_NAME = "token";
 export const JWT_SECRET_KEY = "jwt_secret_key";

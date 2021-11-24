@@ -5,8 +5,9 @@ import { Button, TextField } from "@mui/material";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 
-import Layout from "../components/layout";
-import utilStyles from "../styles/utils.module.css";
+import Layout from "@/components/Layout";
+import utilStyles from "@/styles/utils.module.css";
+
 
 export default function Home({}) {
   //const { data = [], error } = useSWR('/api/posts', fetcher)
@@ -21,6 +22,8 @@ export default function Home({}) {
 
   return (
     <Layout>
+      
+
       <Button variant="contained" size="small">
         按钮
       </Button>

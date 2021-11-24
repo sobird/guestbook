@@ -7,7 +7,7 @@ import Head from "next/head";
 import { signIn } from "next-auth/client";
 import { Form, Input, Button, Checkbox } from "antd";
 
-import Layout from "@/components/layout";
+import Layout from "@/components/Layout";
 import axios from "@/lib/axios";
 import { GetServerSidePropsContext } from "next";
 
