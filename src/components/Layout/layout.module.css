@@ -4,18 +4,6 @@
  * sobird<i@sobird.me> at 2021/11/23 16:18:56 created.
  */
 
-.header {
-  display: flex;
-  flex-direction: column;
-  height: 75px;
-  background-color: #f6f8fa;
-  border: 1px solid #d8dee4;
-  border-top: none;
-
-  border-bottom-left-radius: 6px;
-  border-bottom-right-radius: 6px;
-}
-
 .footer {
   text-align: center;
   padding: 20px;

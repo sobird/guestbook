@@ -8,7 +8,7 @@ import Search from "../Search";
 
 export default function Header() {
   return (
-    <Box sx={{ flexGrow: 1, marginBottom: "20px" }}>
+    <Box mb={3}>
       <AppBar
         sx={{ borderBottomLeftRadius: "6px", borderBottomRightRadius: "6px" }}
         position="static"

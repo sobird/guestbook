@@ -4,110 +4,64 @@ import useSWR from "swr";
 import { Button, TextField } from "@mui/material";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
+import { styled } from "@mui/material/styles";
+import Paper from "@mui/material/Paper";
 
 import Layout from "@/components/Layout";
-import utilStyles from "@/styles/utils.module.css";
 
+const Item = styled(Paper)(({ theme }) => ({
+  ...theme.typography.body2,
+  padding: theme.spacing(1),
+  textAlign: "center",
+  color: theme.palette.text.secondary,
+}));
 
 export default function Home({}) {
   //const { data = [], error } = useSWR('/api/posts', fetcher)
 
-  const onFinish = (values: any) => {
-    console.log("Success:", values);
-  };
-
-  const onFinishFailed = (errorInfo: any) => {
-    console.log("Failed:", errorInfo);
-  };
-
   return (
     <Layout>
-      
-
-      <Button variant="contained" size="small">
-        按钮
-      </Button>
-      <TextField variant="outlined" label="用户" size="small" />
-      <section className={utilStyles.headingMd}></section>
-      <Grid container spacing={1}>
-        <Grid item xs={12} sm={4}>
-          <Box
-            sx={{
-              bgcolor: "primary.main",
-              color: "primary.contrastText",
-              p: 2,
-            }}
-          >
-            primary.main
-          </Box>
+      <Box component="form" mb={3}>
+        <Grid container spacing={2}>
+          <Grid item xs={12}>
+            <TextField
+              sx={{ width: "300px" }}
+              variant="outlined"
+              label="姓名"
+              size="small"
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              sx={{ width: "300px" }}
+              variant="outlined"
+              label="邮箱"
+              size="small"
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              sx={{ width: "300px" }}
+              variant="outlined"
+              label="博客"
+              size="small"
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              fullWidth
+              multiline
+              rows={5}
+              variant="outlined"
+              label="内容"
+              size="small"
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <Button variant="contained" disableElevation size="small">提交</Button>
+          </Grid>
         </Grid>
-        <Grid item xs={12} sm={4}>
-          <Box
-            sx={{
-              bgcolor: "secondary.main",
-              color: "secondary.contrastText",
-              p: 2,
-            }}
-          >
-            secondary.main
-          </Box>
-        </Grid>
-        <Grid item xs={12} sm={4}>
-          <Box
-            sx={{ bgcolor: "error.main", color: "error.contrastText", p: 2 }}
-          >
-            error.main
-          </Box>
-        </Grid>
-        <Grid item xs={12} sm={4}>
-          <Box
-            sx={{
-              bgcolor: "warning.main",
-              color: "warning.contrastText",
-              p: 2,
-            }}
-          >
-            warning.main
-          </Box>
-        </Grid>
-        <Grid item xs={12} sm={4}>
-          <Box sx={{ bgcolor: "info.main", color: "info.contrastText", p: 2 }}>
-            info.main
-          </Box>
-        </Grid>
-        <Grid item xs={12} sm={4}>
-          <Box
-            sx={{
-              bgcolor: "success.main",
-              color: "success.contrastText",
-              p: 2,
-            }}
-          >
-            success.main
-          </Box>
-        </Grid>
-        <Grid item xs={12} sm={4}>
-          <Box
-            sx={{ bgcolor: "text.primary", color: "background.paper", p: 2 }}
-          >
-            text.primary
-          </Box>
-        </Grid>
-        <Grid item xs={12} sm={4}>
-          <Box
-            sx={{ bgcolor: "text.secondary", color: "background.paper", p: 2 }}
-          >
-            text.secondary
-          </Box>
-        </Grid>
-        <Grid item xs={12} sm={4}>
-          <Box
-            sx={{ bgcolor: "text.disabled", color: "background.paper", p: 2 }}
-          >
-            text.disabled
-          </Box>
-        </Grid>
-      </Grid>
+      </Box>
     </Layout>
   );
 }

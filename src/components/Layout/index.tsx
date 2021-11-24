@@ -21,7 +21,6 @@ export default function Layout({ children }: LayoutProps) {
         />
       </Head>
       <Header/>
-      <header className={styles.header}>header</header>
 
       <main>{children}</main>
 
