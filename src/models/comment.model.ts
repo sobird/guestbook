@@ -62,9 +62,8 @@ export default function (sequelize: Sequelize) {
         comment: "comment agent",
       },
       ip: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING(100),
         allowNull: false,
-        defaultValue: 0,
         comment: "comment ip",
       },
     },
@@ -75,7 +74,7 @@ export default function (sequelize: Sequelize) {
   );
 
   Comment.beforeCreate((model, options) => {
-    model.ip = fn("INET_ATON", model.ip); // INET_NTOA
+    // todo
   });
 
   return Comment;
