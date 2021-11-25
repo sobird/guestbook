@@ -29,8 +29,6 @@
 
 import axios, { AxiosRequestConfig, AxiosResponse, AxiosError } from "axios";
 
-import { message } from "antd";
-
 // import queryString from 'query-string';
 
 // declare module "axios" {

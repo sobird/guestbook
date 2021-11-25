@@ -4,7 +4,7 @@ import Link from "next/link";
 import Container from "@mui/material/Container";
 import styles from "./layout.module.css";
 import Header from "../Header";
-
+import Message from '@/components/Message'
 export interface LayoutProps {
   children?: any;
 }
@@ -27,6 +27,7 @@ export default function Layout({ children }: LayoutProps) {
       <footer className={styles.footer}>
         <p>Copyright&nbsp;©&nbsp;{new Date().getFullYear()}&nbsp; </p>
       </footer>
+      <Message />
     </Container>
   );
 }

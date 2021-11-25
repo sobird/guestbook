@@ -9,35 +9,77 @@ import Paper from "@mui/material/Paper";
 
 import Layout from "@/components/Layout";
 
-const Item = styled(Paper)(({ theme }) => ({
+import CommentList from "@/components/CommentList";
+
+import { useForm } from "react-hook-form";
+
+import { message } from "@/components/Message";
+
+import * as Comment from "@/models/client/comment";
+
+const TextError = styled("div")(({ theme }) => ({
   ...theme.typography.body2,
   padding: theme.spacing(1),
-  textAlign: "center",
-  color: theme.palette.text.secondary,
+  color: theme.palette.error.light,
 }));
 
+export interface FormDataProps {
+  author?: string;
+  email: string;
+  url?: string;
+  content: string;
+}
+
 export default function Home({}) {
-  //const { data = [], error } = useSWR('/api/posts', fetcher)
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+  const onSubmit = (data: FormDataProps) => {
+    console.log(`data`, data);
+
+    Comment.create(data);
+  };
+
+  message.error("1212");
 
   return (
     <Layout>
-      <Box component="form" mb={3}>
+      <Box
+        component="form"
+        mb={3}
+        onSubmit={handleSubmit<FormDataProps>(onSubmit)}
+      >
         <Grid container spacing={2}>
           <Grid item xs={12}>
             <TextField
+              autoFocus
               sx={{ width: "300px" }}
               variant="outlined"
               label="姓名"
               size="small"
+              {...register("author", {
+                maxLength: { value: 32, message: "too long" },
+              })}
             />
           </Grid>
-          <Grid item xs={12}>
+          <Grid item xs={12} display="flex" alignItems="center">
             <TextField
+              type="email"
               sx={{ width: "300px" }}
               variant="outlined"
               label="邮箱"
               size="small"
+              {...register("email", {
+                required: "请输入邮箱",
+                maxLength: { value: 64, message: "您输入的邮箱过长" },
+              })}
+              error={Boolean(errors.email)}
             />
+
+            <TextError>{errors.email ? errors.email.message : "*"}</TextError>
           </Grid>
           <Grid item xs={12}>
             <TextField
@@ -45,6 +87,7 @@ export default function Home({}) {
               variant="outlined"
               label="博客"
               size="small"
+              {...register("url")}
             />
           </Grid>
           <Grid item xs={12}>
@@ -55,12 +98,32 @@ export default function Home({}) {
               variant="outlined"
               label="内容"
               size="small"
+              {...register("content", {
+                required: "请填写留言内容",
+                maxLength: { value: 3200, message: "您输入的留言内容过长" },
+              })}
+              error={Boolean(errors.content)}
             />
           </Grid>
           <Grid item xs={12}>
-            <Button variant="contained" disableElevation size="small">提交</Button>
+            <Button
+              type="submit"
+              variant="contained"
+              disableElevation
+              size="small"
+            >
+              提交
+            </Button>
           </Grid>
         </Grid>
+      </Box>
+
+      <Box mb={3}>
+        <Paper variant="outlined" sx={{ padding: "10px" }}>
+          目前有334条留言
+        </Paper>
+
+        <CommentList />
       </Box>
     </Layout>
   );

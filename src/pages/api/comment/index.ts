@@ -21,6 +21,12 @@ module.exports.get = async (req: NextApiRequest, res: NextApiResponse) => {
 module.exports.post = async (req: NextApiRequest, res: NextApiResponse) => {
   const { body } = req;
 
+  const comment = await Comment.create(body).catch(error => {
+    res.json({
+      message: error.message
+    });
+  })
+
   res.json({
     code: 0,
     message: "ok",
