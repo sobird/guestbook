@@ -1,78 +1,130 @@
 import { GetServerSidePropsContext } from "next";
 import Link from "next/link";
 import useSWR from "swr";
+import { Button, TextField } from "@mui/material";
+import Box from "@mui/material/Box";
+import Grid from "@mui/material/Grid";
+import { styled } from "@mui/material/styles";
+import Paper from "@mui/material/Paper";
 
-import { Form, Input, Button, Checkbox } from "antd";
-import { Button as MButton, TextField } from "@mui/material";
+import Layout from "@/components/Layout";
 
-import Layout from "../components/layout";
-import utilStyles from "../styles/utils.module.css";
+import CommentList from "@/components/CommentList";
+
+import { useForm } from "react-hook-form";
+
+import { message } from "@/components/Message";
+
+import * as Comment from "@/models/client/comment";
+
+const TextError = styled("div")(({ theme }) => ({
+  ...theme.typography.body2,
+  padding: theme.spacing(1),
+  color: theme.palette.error.light,
+}));
+
+export interface FormDataProps {
+  author?: string;
+  email: string;
+  url?: string;
+  content: string;
+}
 
 export default function Home({}) {
-  //const { data = [], error } = useSWR('/api/posts', fetcher)
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
-  const onFinish = (values: any) => {
-    console.log("Success:", values);
+  const onSubmit = (data: FormDataProps) => {
+    console.log(`data`, data);
+
+    Comment.create(data);
   };
 
-  const onFinishFailed = (errorInfo: any) => {
-    console.log("Failed:", errorInfo);
-  };
+  message.error("1212");
 
   return (
     <Layout>
-      <MButton variant="contained" size="small">按钮</MButton>
-      <TextField variant="outlined" label="用户" size="small" />
-      <section className={utilStyles.headingMd}>
-        <Form
-          name="basic"
-          labelCol={{ span: 8 }}
-          wrapperCol={{ span: 16 }}
-          initialValues={{ remember: true }}
-          onFinish={onFinish}
-          onFinishFailed={onFinishFailed}
-          autoComplete="off"
-        >
-          <Form.Item
-            label="用户名称"
-            name="username"
-            rules={[{ required: true, message: "Please input your username!" }]}
-          >
-            <Input />
-          </Form.Item>
+      <Box
+        component="form"
+        mb={3}
+        onSubmit={handleSubmit<FormDataProps>(onSubmit)}
+      >
+        <Grid container spacing={2}>
+          <Grid item xs={12}>
+            <TextField
+              autoFocus
+              sx={{ width: "300px" }}
+              variant="outlined"
+              label="姓名"
+              size="small"
+              {...register("author", {
+                maxLength: { value: 32, message: "too long" },
+              })}
+            />
+          </Grid>
+          <Grid item xs={12} display="flex" alignItems="center">
+            <TextField
+              type="email"
+              sx={{ width: "300px" }}
+              variant="outlined"
+              label="邮箱"
+              size="small"
+              {...register("email", {
+                required: "请输入邮箱",
+                maxLength: { value: 64, message: "您输入的邮箱过长" },
+              })}
+              error={Boolean(errors.email)}
+            />
 
-          <Form.Item
-            label="用户邮箱"
-            name="email"
-            rules={[{ required: true, message: "Please input your email!" }]}
-          >
-            <Input type="email" />
-          </Form.Item>
-
-          <Form.Item
-            label="登录密码"
-            name="password"
-            rules={[{ required: true, message: "Please input your password!" }]}
-          >
-            <Input.TextArea />
-          </Form.Item>
-
-          <Form.Item
-            name="remember"
-            valuePropName="checked"
-            wrapperCol={{ offset: 8, span: 16 }}
-          >
-            <Checkbox>Remember me</Checkbox>
-          </Form.Item>
-
-          <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-            <Button type="primary" htmlType="submit">
-              Submit
+            <TextError>{errors.email ? errors.email.message : "*"}</TextError>
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              sx={{ width: "300px" }}
+              variant="outlined"
+              label="博客"
+              size="small"
+              {...register("url")}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              fullWidth
+              multiline
+              rows={5}
+              variant="outlined"
+              label="内容"
+              size="small"
+              {...register("content", {
+                required: "请填写留言内容",
+                maxLength: { value: 3200, message: "您输入的留言内容过长" },
+              })}
+              error={Boolean(errors.content)}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <Button
+              type="submit"
+              variant="contained"
+              disableElevation
+              size="small"
+            >
+              提交
             </Button>
-          </Form.Item>
-        </Form>
-      </section>
-      <section></section>
+          </Grid>
+        </Grid>
+      </Box>
+
+      <Box mb={3}>
+        <Paper variant="outlined" sx={{ padding: "10px" }}>
+          目前有334条留言
+        </Paper>
+
+        <CommentList />
+      </Box>
     </Layout>
   );
 }

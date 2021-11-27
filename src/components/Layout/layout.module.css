@@ -1,0 +1,25 @@
+/*
+ * layout.module.css
+ * 
+ * sobird<i@sobird.me> at 2021/11/23 16:18:56 created.
+ */
+
+.footer {
+  text-align: center;
+  padding: 20px;
+  color: #777;
+}
+
+.headerImage {
+  width: 6rem;
+  height: 6rem;
+}
+
+.headerHomeImage {
+  width: 8rem;
+  height: 8rem;
+}
+
+.backToHome {
+  margin: 3rem 0 0;
+}

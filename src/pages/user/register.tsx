@@ -1,5 +1,5 @@
 import Head from "next/head";
-import Layout from "@/components/layout";
+import Layout from "@/components/Layout";
 import axios from "@/lib/axios";
 import useSWR, { mutate } from "swr";
 import { Form, Input, Button, Checkbox } from "antd";

@@ -1,5 +1,5 @@
 import Head from 'next/dist/shared/lib/head'
-import Layout from '../../components/layout'
+import Layout from '@/components/Layout'
 import { getAllPostIds, getPostData } from '../../lib/posts'
 
 export default function Post({ postData }) {

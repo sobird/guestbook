@@ -18,16 +18,32 @@ import "@/styles/global.scss";
 
 import { ThemeProvider } from "@mui/material/styles";
 import { CssBaseline } from "@mui/material";
+import { CacheProvider, EmotionCache } from "@emotion/react";
+import createEmotionCache from "@/lib/emotion";
+import theme from "@/lib/theme";
 
-export default function App({ Component, pageProps }: AppProps) {
+// Client-side cache, shared for the whole session of the user in the browser.
+const clientSideEmotionCache = createEmotionCache();
+
+interface MyAppProps extends AppProps {
+  emotionCache?: EmotionCache;
+}
+
+export default function App({
+  Component,
+  pageProps,
+  emotionCache = clientSideEmotionCache,
+}: MyAppProps) {
   return (
-    <>
+    <CacheProvider value={emotionCache}>
       <Head>
         <title>My app</title>
         <meta name="viewport" content="initial-scale=1, width=device-width" />
       </Head>
-      <CssBaseline />
-      <Component {...pageProps} />
-    </>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <Component {...pageProps} />
+      </ThemeProvider>
+    </CacheProvider>
   );
 }
