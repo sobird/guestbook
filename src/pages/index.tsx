@@ -17,11 +17,17 @@ import { message } from "@/components/Message";
 
 import * as Comment from "@/models/client/comment";
 
+import { Comment as Comment2} from '@/models'
+
 const TextError = styled("div")(({ theme }) => ({
   ...theme.typography.body2,
   padding: theme.spacing(1),
   color: theme.palette.error.light,
 }));
+
+export interface HomeProps {
+  comment: {};
+}
 
 export interface FormDataProps {
   author?: string;
@@ -30,7 +36,7 @@ export interface FormDataProps {
   content: string;
 }
 
-export default function Home({}) {
+export default function Home({ comment }: HomeProps) {
   const {
     register,
     handleSubmit,
@@ -44,6 +50,8 @@ export default function Home({}) {
   };
 
   message.error("1212");
+
+  console.log(`comment`, comment)
 
   return (
     <Layout>
@@ -153,8 +161,16 @@ export default function Home({}) {
  * @returns
  */
 export async function getServerSideProps(context: GetServerSidePropsContext) {
-  const { req, res } = context;
+  const { req, res, query } = context;
+
+  const {count, rows} = await Comment2.find();
+
   return {
-    props: {},
+    props: {
+      comment: {
+        count,
+        rows: rows.map(item => JSON.stringify(item))
+      },
+    },
   };
 }

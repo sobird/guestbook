@@ -11,10 +11,12 @@ module.exports.get = async (req: NextApiRequest, res: NextApiResponse) => {
     });
   });
 
+  console.log(`comment`, comments[0].toJSON())
+
   res.json({
     code: 0,
     message: "ok",
-    data: comments,
+    data: comments[0].toJSON(),
   });
 };
 

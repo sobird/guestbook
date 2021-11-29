@@ -20,6 +20,20 @@ export interface CommentCreationAttributes
 class Comment extends Model<CommentAttributes, CommentCreationAttributes> {
   public title!: string;
   public ip!: unknown;
+
+  /**
+   * 分页查找评论数据
+   */
+  public static async find(pn: number = 1, limit: number = 20) {
+    const offset = (pn - 1) * limit;
+    return await this.findAndCountAll({
+      offset,
+      limit,
+      order: [
+        ['createdAt', 'DESC']
+      ]
+    })
+  }
 }
 
 export default function (sequelize: Sequelize) {
