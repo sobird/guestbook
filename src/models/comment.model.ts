@@ -24,12 +24,16 @@ class Comment extends Model<CommentAttributes, CommentCreationAttributes> {
   /**
    * 分页查找评论数据
    */
-  public static async find(pn: number = 1, limit: number = 20) {
+  public static async findAndPagination(pn: number = 1, ps: number = 20) {
+    const limit = Number(ps) || 20;
+    pn = Number(pn) || 0;
+    
     const offset = (pn - 1) * limit;
     return await this.findAndCountAll({
       offset,
       limit,
       order: [
+        // 创建时间倒序
         ['createdAt', 'DESC']
       ]
     })

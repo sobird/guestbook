@@ -9,7 +9,5 @@ export interface CommentProps {
   [key: string]: unknown
 }
 export async function create(data: CommentProps) {
-  return axios.post<CommentProps>('/api/comment', data).then(res => {
-
-  });
+  return axios.post<CommentProps>('/api/comments', data);
 }

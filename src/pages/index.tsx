@@ -46,12 +46,12 @@ export default function Home({ comment }: HomeProps) {
   const onSubmit = (data: FormDataProps) => {
     console.log(`data`, data);
 
-    Comment.create(data);
+    Comment.create(data).then(res => {
+      message.success("提交留言成功！");
+    });
   };
 
-  message.error("1212");
 
-  console.log(`comment`, comment)
 
   return (
     <Layout>

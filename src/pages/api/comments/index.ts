@@ -5,18 +5,21 @@ import rest from "@/lib/rest";
 import { Comment } from "@/models";
 
 module.exports.get = async (req: NextApiRequest, res: NextApiResponse) => {
-  const comments = await Comment.findAll().catch((error) => {
+  const { query } = req;
+
+  const pn: number = Number(query.pn) || 0;
+  const ps: number = Number(query.ps) || 20;
+
+  const comments = await Comment.findAndPagination(pn, ps).catch((error) => {
     res.json({
       message: error.message,
     });
   });
 
-  console.log(`comment`, comments[0].toJSON())
-
   res.json({
     code: 0,
     message: "ok",
-    data: comments[0].toJSON(),
+    data: comments,
   });
 };
 
