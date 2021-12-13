@@ -9,7 +9,7 @@ import Paper from "@mui/material/Paper";
 
 import Layout from "@/components/Layout";
 
-import CommentList from "@/components/CommentList";
+import CommentList from "@/components/Comment/List";
 
 import { useForm } from "react-hook-form";
 
@@ -26,7 +26,17 @@ const TextError = styled("div")(({ theme }) => ({
 }));
 
 export interface HomeProps {
-  comment: {};
+  /**
+   * 评论列表
+   */
+  comment: {
+    /**
+     * 总评论数
+     */
+    count: number;
+    
+    rows: any[];
+  };
 }
 
 export interface FormDataProps {
@@ -43,14 +53,16 @@ export default function Home({ comment }: HomeProps) {
     formState: { errors },
   } = useForm();
 
+  // 提交留言
   const onSubmit = (data: FormDataProps) => {
     console.log(`data`, data);
 
-    Comment.create(data).then(res => {
+    Comment.create(data as any).then(res => {
       message.success("提交留言成功！");
     });
   };
 
+  console.log(`comment`, comment)
 
 
   return (
@@ -128,10 +140,10 @@ export default function Home({ comment }: HomeProps) {
 
       <Box mb={3}>
         <Paper variant="outlined" sx={{ padding: "10px" }}>
-          目前有334条留言
+          目前有{comment.count}条留言
         </Paper>
 
-        <CommentList />
+        <CommentList data={comment.rows}/>
       </Box>
     </Layout>
   );
@@ -163,13 +175,17 @@ export default function Home({ comment }: HomeProps) {
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const { req, res, query } = context;
 
-  const {count, rows} = await Comment2.find();
+  const {count, rows} = await Comment2.findAndPagination();
+
+  rows.map(item => {
+    console.log(`item123`, item)
+  })
 
   return {
     props: {
       comment: {
         count,
-        rows: rows.map(item => JSON.stringify(item))
+        rows: rows.map(item => JSON.parse(JSON.stringify(item)))
       },
     },
   };
