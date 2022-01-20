@@ -15,9 +15,8 @@ import { useForm } from "react-hook-form";
 
 import { message } from "@/components/Message";
 
-import * as Comment from "@/models/client/comment";
-
 import { Comment as Comment2} from '@/models'
+import { useEffect } from "react";
 
 const TextError = styled("div")(({ theme }) => ({
   ...theme.typography.body2,
@@ -57,12 +56,14 @@ export default function Home({ comment }: HomeProps) {
   const onSubmit = (data: FormDataProps) => {
     console.log(`data`, data);
 
-    Comment.create(data as any).then(res => {
-      message.success("提交留言成功！");
-    });
+    // Comment.create(data as any).then(res => {
+    //   message.success("提交留言成功！");
+    // });
   };
 
-  console.log(`comment`, comment)
+  useEffect(() => {
+
+  }, []);
 
 
   return (
@@ -174,12 +175,11 @@ export default function Home({ comment }: HomeProps) {
  */
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const { req, res, query } = context;
-
   const {count, rows} = await Comment2.findAndPagination();
 
-  rows.map(item => {
-    console.log(`item123`, item)
-  })
+  // rows.map(item => {
+  //   console.log(`item123`, item)
+  // })
 
   return {
     props: {

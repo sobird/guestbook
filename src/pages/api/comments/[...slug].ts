@@ -11,7 +11,5 @@ export default (req: NextApiRequest, res: NextApiResponse) => {
     query: { slug },
   } = req;
 
-  console.log(`slug`, slug)
-
   res.status(200).json({ slug });
 };
