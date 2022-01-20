@@ -53,6 +53,7 @@ export default function Home({ comment }: HomeProps) {
     register,
     handleSubmit,
     formState: { errors },
+    resetField,
   } = useForm();
 
   // 提交留言
@@ -61,6 +62,7 @@ export default function Home({ comment }: HomeProps) {
 
     CommentAPI.create(data as any).then(res => {
       message.success("提交留言成功！");
+      resetField('content');
     });
   };
 
