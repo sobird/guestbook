@@ -18,6 +18,9 @@ import { message } from "@/components/Message";
 import { Comment as Comment2} from '@/models'
 import { useEffect } from "react";
 
+import {query as clist} from '@/api/comment';
+
+
 const TextError = styled("div")(({ theme }) => ({
   ...theme.typography.body2,
   padding: theme.spacing(1),
@@ -62,7 +65,10 @@ export default function Home({ comment }: HomeProps) {
   };
 
   useEffect(() => {
-
+    clist().then(res => {
+      console.log('res', res);
+      
+    })
   }, []);
 
 
