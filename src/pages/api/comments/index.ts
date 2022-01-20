@@ -1,15 +1,17 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { getClientIp } from "request-ip";
 import rest from "@/lib/rest";
-
 import { Comment } from "@/models";
 
+// 获取评论
 module.exports.get = async (req: NextApiRequest, res: NextApiResponse) => {
-  const { query } = req;
+  const {
+    query,
+  } = req;
 
-  const pn: number = Number(query.pn) || 0;
-  const ps: number = Number(query.ps) || 20;
-
+  const pn = Number(query.pn) | 1;
+  const ps = Number(query.ps) | 1;
+  
   const comments = await Comment.findAndPagination(pn, ps).catch((error) => {
     res.json({
       message: error.message,

@@ -18,7 +18,7 @@ import { message } from "@/components/Message";
 import { Comment as Comment2} from '@/models'
 import { useEffect } from "react";
 
-import {query as clist} from '@/api/comment';
+import * as CommentAPI from '@/api/comment';
 
 
 const TextError = styled("div")(({ theme }) => ({
@@ -59,13 +59,13 @@ export default function Home({ comment }: HomeProps) {
   const onSubmit = (data: FormDataProps) => {
     console.log(`data`, data);
 
-    // Comment.create(data as any).then(res => {
-    //   message.success("提交留言成功！");
-    // });
+    CommentAPI.create(data as any).then(res => {
+      message.success("提交留言成功！");
+    });
   };
 
   useEffect(() => {
-    clist().then(res => {
+    CommentAPI.query().then(res => {
       console.log('res', res);
       
     })
