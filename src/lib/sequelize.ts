@@ -1,5 +1,9 @@
 /**
  * sequelize.ts
+ * 
+ * Sequelize is an easy-to-use and promise-based Node.js ORM tool for 
+ * Postgres, MySQL, MariaDB, SQLite, DB2 and Microsoft SQL Server. 
+ * It features solid transaction support, relations, eager and lazy loading, read replication and more.
  *
  * sobird<i@sobird.me> at 2021/11/16 20:33:20 created.
  */
