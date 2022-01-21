@@ -20,6 +20,8 @@ import { useEffect } from "react";
 
 import * as CommentAPI from '@/api/comment';
 
+import useCookie from "@/hooks/useCookie";
+
 
 const TextError = styled("div")(({ theme }) => ({
   ...theme.typography.body2,
@@ -56,10 +58,13 @@ export default function Home({ comment }: HomeProps) {
     resetField,
   } = useForm();
 
+  const [username, setUserName] = useCookie('username', 'sobird');
+
+  console.log('username', username);
+  
+
   // 提交留言
   const onSubmit = (data: FormDataProps) => {
-    console.log(`data`, data);
-
     CommentAPI.create(data as any).then(res => {
       message.success("提交留言成功！");
       resetField('content');
@@ -71,6 +76,8 @@ export default function Home({ comment }: HomeProps) {
       console.log('res', res);
       
     })
+
+    setUserName('hello');
   }, []);
 
 
