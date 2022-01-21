@@ -15,13 +15,12 @@ import { useForm } from "react-hook-form";
 
 import { message } from "@/components/Message";
 
-import { Comment as Comment2} from '@/models'
+import { Comment as Comment2 } from "@/models";
 import { useEffect } from "react";
 
-import * as CommentAPI from '@/api/comment';
+import * as CommentAPI from "@/api/comment";
 
 import useCookie from "@/hooks/useCookie";
-
 
 const TextError = styled("div")(({ theme }) => ({
   ...theme.typography.body2,
@@ -38,7 +37,7 @@ export interface HomeProps {
      * 总评论数
      */
     count: number;
-    
+
     rows: any[];
   };
 }
@@ -58,28 +57,27 @@ export default function Home({ comment }: HomeProps) {
     resetField,
   } = useForm();
 
-  const [username, setUserName] = useCookie('username', 'sobird');
+  const [username, setUserName] = useCookie("username", 123, {
+    expires: 7
+  });
 
-  console.log('username', username);
-  
+  console.log("username", username);
 
   // 提交留言
   const onSubmit = (data: FormDataProps) => {
-    CommentAPI.create(data as any).then(res => {
+    CommentAPI.create(data as any).then((res) => {
       message.success("提交留言成功！");
-      resetField('content');
+      resetField("content");
     });
   };
 
   useEffect(() => {
-    CommentAPI.query().then(res => {
-      console.log('res', res);
-      
-    })
+    CommentAPI.query().then((res) => {
+      console.log("res", res);
+    });
 
-    setUserName('hello');
+    setUserName(123);
   }, []);
-
 
   return (
     <Layout>
@@ -159,7 +157,7 @@ export default function Home({ comment }: HomeProps) {
           目前有{comment.count}条留言
         </Paper>
 
-        <CommentList data={comment.rows}/>
+        <CommentList data={comment.rows} />
       </Box>
     </Layout>
   );
@@ -190,7 +188,7 @@ export default function Home({ comment }: HomeProps) {
  */
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const { req, res, query } = context;
-  const {count, rows} = await Comment2.findAndPagination();
+  const { count, rows } = await Comment2.findAndPagination();
 
   // rows.map(item => {
   //   console.log(`item123`, item)
@@ -200,7 +198,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     props: {
       comment: {
         count,
-        rows: rows.map(item => JSON.parse(JSON.stringify(item)))
+        rows: rows.map((item) => JSON.parse(JSON.stringify(item))),
       },
     },
   };

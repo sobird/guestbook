@@ -1,7 +1,16 @@
-import { useEffect, useState } from "react";
-import Cookies from "js-cookie";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import Cookies, {CookieAttributes} from "js-cookie";
 
-export default function useCookie<T>(key: string, initialValue: T, options?) {
+type SetValue<T> = Dispatch<SetStateAction<T>>;
+interface Options {
+
+}
+
+export default function useCookie<T>(
+  key: string,
+  initialValue: T,
+  options?: CookieAttributes,
+): [T, SetValue<T>] {
   // Get from local cookie
   const readValue = (): T => {
     // Prevent build error "window is undefined" but keep keep working
@@ -15,7 +24,7 @@ export default function useCookie<T>(key: string, initialValue: T, options?) {
 
   const [storedValue, setStoredValue] = useState<T>(readValue);
 
-  const setValue = (value) => {
+  const setValue: SetValue<T> = (value: any) => {
     // Prevent build error "window is undefined" but keeps working
     if (typeof window == "undefined") {
       console.warn(
