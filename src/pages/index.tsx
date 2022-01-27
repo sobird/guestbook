@@ -1,4 +1,4 @@
-import { InferGetServerSidePropsType, GetServerSidePropsContext } from "next";
+import { InferGetServerSidePropsType, GetServerSidePropsContext, NextApiRequest } from "next";
 import Link from "next/link";
 import useSWR from "swr";
 import { Button, TextField } from "@mui/material";
@@ -168,7 +168,7 @@ export default function Home(props: InferGetServerSidePropsType<typeof getServer
 //     }
 //   }
 // }
-
+import { parseBody } from 'next/dist/server/api-utils';
 /**
  * You should use getServerSideProps only if you need to pre-render a page whose data must be fetched at request time.
  * Time to first byte (TTFB) will be slower than getStaticProps because the server must compute the result on every request,
@@ -177,10 +177,9 @@ export default function Home(props: InferGetServerSidePropsType<typeof getServer
  * @returns
  */
 export async function getServerSideProps(context: GetServerSidePropsContext) {
-  const { req, res, query, resolvedUrl } = context;
+  const { req, res, query } = context;
 
-  console.log('res', resolvedUrl);
-
+  const body = await parseBody(req as NextApiRequest, '1mb');
 
   const result = Comment.get(req, res);
 
