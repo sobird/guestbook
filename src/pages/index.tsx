@@ -1,4 +1,4 @@
-import { GetServerSidePropsContext } from "next";
+import { InferGetServerSidePropsType, GetServerSidePropsContext } from "next";
 import Link from "next/link";
 import useSWR from "swr";
 import { Button, TextField } from "@mui/material";
@@ -20,6 +20,8 @@ import { useEffect, useState } from "react";
 
 import * as CommentAPI from "@/api/comment";
 
+import * as Comment from '@/pages/api/comments';
+
 import useCookie from "@/hooks/useCookie";
 
 const TextError = styled("div")(({ theme }) => ({
@@ -28,26 +30,6 @@ const TextError = styled("div")(({ theme }) => ({
   color: theme.palette.error.light,
 }));
 
-export interface HomeProps {
-  /**
-   * 评论列表
-   */
-  comment: {
-    /**
-     * 总评论数
-     */
-    count: number;
-
-    /**
-     * 评论列表
-     */
-    rows: any[];
-
-    ps?: number;
-    pn?: number;
-  };
-}
-
 export interface FormDataProps {
   author?: string;
   email: string;
@@ -55,7 +37,7 @@ export interface FormDataProps {
   content: string;
 }
 
-export default function Home(props: HomeProps) {
+export default function Home(props: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const {
     register,
     handleSubmit,
@@ -195,7 +177,14 @@ export default function Home(props: HomeProps) {
  * @returns
  */
 export async function getServerSideProps(context: GetServerSidePropsContext) {
-  const { req, res, query } = context;
+  const { req, res, query, resolvedUrl } = context;
+
+  console.log('res', resolvedUrl);
+
+
+  const result = Comment.get(req, res);
+
+  console.log('result', result);
 
   const pn = Number(query.pn) | 1;
   const ps = Number(query.ps) | 20;

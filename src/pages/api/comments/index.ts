@@ -24,11 +24,7 @@ module.exports.post = async (req: NextApiRequest, res: NextApiResponse) => {
   body.agent = agent;
   body.ip = ip;
 
-  return Comment.create(body).catch((error) => {
-    res.json({
-      message: error.message,
-    });
-  });
+  return Comment.create(body);
 };
 
 export default rest.bind(module.exports);
