@@ -10,7 +10,7 @@ module.exports.get = async (req: NextApiRequest, res: NextApiResponse) => {
   } = req;
 
   const pn = Number(query.pn) | 1;
-  const ps = Number(query.ps) | 1;
+  const ps = Number(query.ps) | 20;
   
   const comments = await Comment.findAndPagination(pn, ps).catch((error) => {
     res.json({

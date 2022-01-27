@@ -43,7 +43,7 @@ class Comment extends Model<CommentAttributes, CommentCreationAttributes> {
       pn,
       ps,
       count,
-      rows,
+      rows: rows.map((item) => JSON.parse(JSON.stringify(item))),
     }
   }
 }

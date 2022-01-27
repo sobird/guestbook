@@ -1,9 +1,8 @@
 import axios from "@/lib/axios";
-
 import { CommentCreationAttributes } from "@/models/comment";
 
 export async function create(data: CommentCreationAttributes) {
-  return axios.post<CommentCreationAttributes>("/api/comments", data);
+  return axios.post<any, CommentCreationAttributes>("/api/comments", data);
 }
 
 export interface CommentQueryParams {

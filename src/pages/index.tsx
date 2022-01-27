@@ -16,7 +16,7 @@ import { useForm } from "react-hook-form";
 import { message } from "@/components/Message";
 
 import { Comment as Comment2 } from "@/models";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 import * as CommentAPI from "@/api/comment";
 
@@ -38,7 +38,13 @@ export interface HomeProps {
      */
     count: number;
 
+    /**
+     * 评论列表
+     */
     rows: any[];
+
+    ps?: number;
+    pn?: number;
   };
 }
 
@@ -49,7 +55,7 @@ export interface FormDataProps {
   content: string;
 }
 
-export default function Home({ comment }: HomeProps) {
+export default function Home(props: HomeProps) {
   const {
     register,
     handleSubmit,
@@ -57,23 +63,25 @@ export default function Home({ comment }: HomeProps) {
     resetField,
   } = useForm();
 
+  const [comment, setComment] = useState(props.comment);
+
   const [username, setUserName] = useCookie("username", 123, {
     expires: 7
   });
-
-  console.log("username", username);
 
   // 提交留言
   const onSubmit = (data: FormDataProps) => {
     CommentAPI.create(data as any).then((res) => {
       message.success("提交留言成功！");
+
+      // 清空留言内容
       resetField("content");
     });
   };
 
   useEffect(() => {
     CommentAPI.query().then((res) => {
-      console.log("res", res);
+      setComment(res);
     });
 
     setUserName(123);
@@ -188,18 +196,14 @@ export default function Home({ comment }: HomeProps) {
  */
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const { req, res, query } = context;
-  const { count, rows } = await Comment2.findAndPagination();
 
-  // rows.map(item => {
-  //   console.log(`item123`, item)
-  // })
+  const pn = Number(query.pn) | 1;
+  const ps = Number(query.ps) | 20;
+  const comment = await Comment2.findAndPagination(pn, ps);
 
   return {
     props: {
-      comment: {
-        count,
-        rows: rows.map((item) => JSON.parse(JSON.stringify(item))),
-      },
+      comment,
     },
   };
 }
