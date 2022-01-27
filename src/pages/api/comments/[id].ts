@@ -14,9 +14,7 @@ module.exports.get = async (req: NextApiRequest, res: NextApiResponse) => {
     query: { id },
   } = req;
 
-  const comment = await Comment.findByPk(id as unknown as number);
-
-  res.json({ comment });
+  return Comment.findByPk(id as unknown as number);
 };
 
 // 删除评论
@@ -25,13 +23,11 @@ module.exports.delete = async (req: NextApiRequest, res: NextApiResponse) => {
     query: { id },
   } = req;
 
-  const comment = await Comment.destroy({
+  return Comment.destroy({
     where: {
       id,
     }
   });
-
-  res.json({ comment });
 }
 
 // 更新评论
@@ -42,13 +38,11 @@ module.exports.patch = async (req: NextApiRequest, res: NextApiResponse) => {
     query: { id },
   } = req;
 
-  const comment = await Comment.update(body, {
+  return Comment.update(body, {
     where: {
       id,
     }
   });
-
-  res.json({ comment });
 } 
 
 
