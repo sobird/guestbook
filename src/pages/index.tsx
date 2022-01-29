@@ -1,4 +1,4 @@
-import { InferGetServerSidePropsType, GetServerSidePropsContext, NextApiRequest } from "next";
+import { InferGetServerSidePropsType, GetServerSidePropsContext, NextApiRequest, NextApiResponse } from "next";
 import Link from "next/link";
 import useSWR from "swr";
 import { Button, TextField } from "@mui/material";
@@ -179,9 +179,13 @@ import { parseBody } from 'next/dist/server/api-utils';
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const { req, res, query } = context;
 
-  const body = await parseBody(req as NextApiRequest, '1mb');
+  res.setHeader('SOBIRD', 123)
 
-  const result = Comment.get(req, res);
+  const body = await parseBody(req as NextApiRequest, '1mb');
+  req.body = body;
+  req.query = query;
+
+  const result = await Comment.get(req as NextApiRequest, res as NextApiResponse);
 
   console.log('result', result);
 
