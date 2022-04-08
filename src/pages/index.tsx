@@ -185,7 +185,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   req.body = body;
   req.query = query;
 
-  const result = await Comment.get(req as NextApiRequest, res as NextApiResponse);
+  const result = await Comment.get(req as NextApiRequest, res);
 
   console.log('result', result);
 

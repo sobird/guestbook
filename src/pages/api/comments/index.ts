@@ -10,7 +10,7 @@ import { Comment } from "@/models";
  * @param req 
  * @param res 
  */
-export const get = async (req: NextApiRequest, res: NextApiResponse) => {
+export const get = async (req: NextApiRequest, res: ServerResponse) => {
   const {
     query,
   } = req;
