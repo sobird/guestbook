@@ -18,6 +18,7 @@ export interface CommentCreationAttributes
   extends Optional<CommentAttributes, "id" | "title" | "author" | "email"> {}
 
 class Comment extends Model<CommentAttributes, CommentCreationAttributes> {
+  declare id: number;
   public title!: string;
   public ip!: unknown;
 
@@ -27,7 +28,7 @@ class Comment extends Model<CommentAttributes, CommentCreationAttributes> {
   public static async findAndPagination(pn: number = 1, ps: number = 20) {
     ps = Number(ps) || 20;
     pn = Number(pn) || 0;
-
+    
     const offset = (pn - 1) * ps;
     const { count, rows } = await this.findAndCountAll({
       offset,
@@ -39,10 +40,10 @@ class Comment extends Model<CommentAttributes, CommentCreationAttributes> {
     });
 
     return {
-      count,
       pn,
       ps,
-      rows,
+      count,
+      rows: rows.map((item) => JSON.parse(JSON.stringify(item))),
     }
   }
 }
@@ -94,7 +95,6 @@ export default function (sequelize: Sequelize) {
     },
     {
       sequelize,
-      modelName: "comment",
     }
   );
 

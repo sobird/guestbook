@@ -1,4 +1,4 @@
-import { GetServerSidePropsContext } from "next";
+import { InferGetServerSidePropsType, GetServerSidePropsContext, NextApiRequest, NextApiResponse } from "next";
 import Link from "next/link";
 import useSWR from "swr";
 import { Button, TextField } from "@mui/material";
@@ -15,29 +15,20 @@ import { useForm } from "react-hook-form";
 
 import { message } from "@/components/Message";
 
-import * as Comment from "@/models/client/comment";
+import { Comment as Comment2 } from "@/models";
+import { useEffect, useState } from "react";
 
-import { Comment as Comment2} from '@/models'
+import * as CommentAPI from "@/api/comment";
+
+import * as Comment from '@/pages/api/comments';
+
+import useCookie from "@/hooks/useCookie";
 
 const TextError = styled("div")(({ theme }) => ({
   ...theme.typography.body2,
   padding: theme.spacing(1),
   color: theme.palette.error.light,
 }));
-
-export interface HomeProps {
-  /**
-   * 评论列表
-   */
-  comment: {
-    /**
-     * 总评论数
-     */
-    count: number;
-    
-    rows: any[];
-  };
-}
 
 export interface FormDataProps {
   author?: string;
@@ -46,24 +37,37 @@ export interface FormDataProps {
   content: string;
 }
 
-export default function Home({ comment }: HomeProps) {
+export default function Home(props: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const {
     register,
     handleSubmit,
     formState: { errors },
+    resetField,
   } = useForm();
+
+  const [comment, setComment] = useState(props.comment);
+
+  const [username, setUserName] = useCookie("username", 123, {
+    expires: 7
+  });
 
   // 提交留言
   const onSubmit = (data: FormDataProps) => {
-    console.log(`data`, data);
-
-    Comment.create(data).then(res => {
+    CommentAPI.create(data as any).then((res) => {
       message.success("提交留言成功！");
+
+      // 清空留言内容
+      resetField("content");
     });
   };
 
-  console.log(`comment`, comment)
+  useEffect(() => {
+    CommentAPI.query().then((res) => {
+      setComment(res);
+    });
 
+    setUserName(123);
+  }, []);
 
   return (
     <Layout>
@@ -143,7 +147,7 @@ export default function Home({ comment }: HomeProps) {
           目前有{comment.count}条留言
         </Paper>
 
-        <CommentList data={comment.rows}/>
+        <CommentList data={comment.rows} />
       </Box>
     </Layout>
   );
@@ -164,7 +168,7 @@ export default function Home({ comment }: HomeProps) {
 //     }
 //   }
 // }
-
+import { parseBody } from 'next/dist/server/api-utils';
 /**
  * You should use getServerSideProps only if you need to pre-render a page whose data must be fetched at request time.
  * Time to first byte (TTFB) will be slower than getStaticProps because the server must compute the result on every request,
@@ -175,18 +179,23 @@ export default function Home({ comment }: HomeProps) {
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const { req, res, query } = context;
 
-  const {count, rows} = await Comment2.findAndPagination();
+  res.setHeader('SOBIRD', 123)
 
-  rows.map(item => {
-    console.log(`item123`, item)
-  })
+  const body = await parseBody(req as NextApiRequest, '1mb');
+  req.body = body;
+  req.query = query;
+
+  const result = await Comment.get(req as NextApiRequest, res);
+
+  console.log('result', result);
+
+  const pn = Number(query.pn) | 1;
+  const ps = Number(query.ps) | 20;
+  const comment = await Comment2.findAndPagination(pn, ps);
 
   return {
     props: {
-      comment: {
-        count,
-        rows: rows.map(item => JSON.parse(JSON.stringify(item)))
-      },
+      comment,
     },
   };
 }

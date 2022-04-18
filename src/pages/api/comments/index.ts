@@ -1,30 +1,35 @@
 import { NextApiRequest, NextApiResponse } from "next";
+import { ServerResponse } from "http";
 import { getClientIp } from "request-ip";
 import rest from "@/lib/rest";
-
 import { Comment } from "@/models";
 
-module.exports.get = async (req: NextApiRequest, res: NextApiResponse) => {
-  const { query } = req;
+/**
+ * 获取评论列表接口
+ * 
+ * @param req 
+ * @param res 
+ */
+export const get = async (req: NextApiRequest, res: ServerResponse) => {
+  const {
+    query,
+  } = req;
 
-  const pn: number = Number(query.pn) || 0;
-  const ps: number = Number(query.ps) || 20;
+  const pn = Number(query.pn) | 1;
+  const ps = Number(query.ps) | 20;
 
-  const comments = await Comment.findAndPagination(pn, ps).catch((error) => {
-    res.json({
-      message: error.message,
-    });
-  });
-
-  res.json({
-    code: 0,
-    message: "ok",
-    data: comments,
-  });
+  console.log('env', req.body);
+  
+  return Comment.findAndPagination(pn, ps);
 };
 
-// 创建评论
-module.exports.post = async (req: NextApiRequest, res: NextApiResponse) => {
+/**
+ * 创建评论
+ * 
+ * @param req 
+ * @param res 
+ */
+export const post = async (req: NextApiRequest, res: NextApiResponse) => {
   const { body, headers } = req;
   const agent = headers["user-agent"];
   const ip = getClientIp(req);
@@ -32,17 +37,7 @@ module.exports.post = async (req: NextApiRequest, res: NextApiResponse) => {
   body.agent = agent;
   body.ip = ip;
 
-  const comment = await Comment.create(body).catch((error) => {
-    res.json({
-      message: error.message,
-    });
-  });
-
-  res.json({
-    code: 0,
-    message: "ok",
-    data: comment,
-  });
+  return Comment.create(body);
 };
 
 export default rest.bind(module.exports);

@@ -31,13 +31,10 @@ const jwt = new SignJWT({
   .sign(new TextEncoder().encode(JWT_SECRET_KEY));
 
 jwt.then(async (token) => {
-  console.log(token);
   const verified = await jwtVerify(token, new TextEncoder().encode(JWT_SECRET_KEY), {
     issuer: 'urn:example:issuer',
     audience: 'urn:example:audience',
   } as JWTVerifyOptions)
-
-  console.log(`verified`, verified)
 });
 
 

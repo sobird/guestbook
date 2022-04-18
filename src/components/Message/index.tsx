@@ -8,7 +8,6 @@ export class message {
   static success = (msg) => {};
   static error = (msg) => {};
 }
-console.log(`1212`, 1212);
 const GlobalSnackbars = () => {
   const [isOpen, setOpen] = useState(false);
   const [severity, setSeverity] = useState("info");
@@ -22,7 +21,6 @@ const GlobalSnackbars = () => {
   };
 
   useEffect(() => {
-    console.log(`11212`, 11212);
     message.info = (msg) => {
       setOpen(true);
       setSeverity("info");
@@ -39,7 +37,6 @@ const GlobalSnackbars = () => {
       setContent(msg);
     };
     message.error = (msg) => {
-      console.log(`msg`, msg);
       setOpen(true);
       setSeverity("error");
       setContent(msg);

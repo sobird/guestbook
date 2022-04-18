@@ -40,13 +40,11 @@ const cookie = (
 };
 
 module.exports.post = async (req: NextApiRequest, res: NextApiResponse) => {
-  const { username, password } = req.body;
+  const {
+    body: { username, password },
+  } = req;
 
-  const user: any = await User.identify(username, password).catch((result) => {
-    res.json({
-      message: result,
-    });
-  });
+  const user: any = await User.identify(username, password);
 
   const token = await createToken({
     username: user.username,
@@ -55,17 +53,13 @@ module.exports.post = async (req: NextApiRequest, res: NextApiResponse) => {
   cookie(res, "token", token, {
     httpOnly: true,
     maxAge: 60 * 60 * 24 * 7 * 1000,
-    path: '/'
+    path: "/",
   });
 
-  res.json({
-    code: 0,
-    message: "success",
-    data: {
-      username: user.username,
-      token,
-    },
-  });
+  return {
+    username: user.username,
+    token,
+  }
 };
 
 export default rest.bind(module.exports);

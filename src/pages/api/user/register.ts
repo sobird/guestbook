@@ -11,7 +11,7 @@ import { User } from "@/models";
 module.exports.post = async (req: NextApiRequest, res: NextApiResponse) => {
   const { username, password, email } = req.body;
 
-  const user = await User.create(
+  return User.create(
     {
       username,
       password,
@@ -22,12 +22,6 @@ module.exports.post = async (req: NextApiRequest, res: NextApiResponse) => {
       //fields: ['username', 'password', 'email']
     }
   );
-
-  res.json({
-    code: 0,
-    message: "",
-    data: user,
-  });
 };
 
 export default rest.bind(module.exports);
