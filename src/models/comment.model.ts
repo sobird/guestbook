@@ -10,7 +10,7 @@ export interface CommentAttributes {
   url?: string;
   agent: string;
   parent: string;
-  ip: number;
+  ip: string;
 }
 
 // Some attributes are optional in `Comment.build` and `Comment.create` calls

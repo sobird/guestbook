@@ -5,7 +5,7 @@ export interface CommentProps {
   author?: string;
   email: string;
   url?: string;
-  comment: string;
+  content: string;
   [key: string]: unknown
 }
 export async function create(data: CommentProps) {

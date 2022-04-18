@@ -57,7 +57,7 @@ export default function Home({ comment }: HomeProps) {
   const onSubmit = (data: FormDataProps) => {
     console.log(`data`, data);
 
-    Comment.create(data as any).then(res => {
+    Comment.create(data).then(res => {
       message.success("提交留言成功！");
     });
   };

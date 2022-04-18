@@ -2,7 +2,6 @@ import Box from "@mui/material/Box";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
-import IconButton from "@mui/material/IconButton";
 import Button from "@mui/material/Button";
 import Search from "../Search";
 
@@ -10,24 +9,15 @@ export default function Header() {
   return (
     <Box mb={3}>
       <AppBar
-        sx={{ borderBottomLeftRadius: "6px", borderBottomRightRadius: "6px" }}
+        sx={{ borderBottomLeftRadius: "4px", borderBottomRightRadius: "4px" }}
         position="static"
       >
         <Toolbar>
-          <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="menu"
-            sx={{ mr: 2 }}
-          >
-            {/* <MenuIcon /> */}
-          </IconButton>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            News
+            Next.js + SQLite 留言系统
           </Typography>
           <Search />
-          <Button color="inherit">Login</Button>
+          <Button color="inherit">登录</Button>
         </Toolbar>
       </AppBar>
     </Box>
