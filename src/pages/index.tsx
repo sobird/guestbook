@@ -185,8 +185,6 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 
   const result = await Comment.get(req as NextApiRequest, res);
 
-  console.log('result', result);
-
   const pn = Number(query.pn) | 1;
   const ps = Number(query.ps) | 20;
   const comment = await Comment2.findAndPagination(pn, ps);

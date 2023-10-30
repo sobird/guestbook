@@ -153,7 +153,6 @@ axios.interceptors.response.use(
     }
 
     // 业务级错误提示
-    console.log("config", config);
     // !config.silent && message.error(error.message);
 
     return Promise.reject(error);

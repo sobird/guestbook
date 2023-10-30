@@ -17,8 +17,6 @@ export const get = async (req: NextApiRequest, res: ServerResponse) => {
 
   const pn = Number(query.pn) | 1;
   const ps = Number(query.ps) | 20;
-
-  console.log('env', req.body);
   
   return Comment.findAndPagination(pn, ps);
 };

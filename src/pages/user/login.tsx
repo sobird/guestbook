@@ -31,15 +31,13 @@ export default function UserLogin() {
       ...values
     })
 
-    console.log(`result`, result)
-
     login(values).then((res) => {
-      console.log(`res`, res);
+      // console.log(`res`, res);
     });
   };
 
   const onFinishFailed = (errorInfo: any) => {
-    console.log("Failed:", errorInfo);
+    // console.log("Failed:", errorInfo);
   };
 
   return (
@@ -95,9 +93,6 @@ export default function UserLogin() {
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const { req, res } = context;
-
-  console.log(`req.NextURL`, req.url);
-  console.log(`req.headers`, req.headers);
 
   return {
     props: {},

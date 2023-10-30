@@ -11,15 +11,12 @@ function register(data: any) {
 export default function UserRegister() {
 
   const onFinish = (values: any) => {
-    console.log("Success:", values);
     
     register(values).then(res => {
-      console.log(`res`, res)
     });
   };
 
   const onFinishFailed = (errorInfo: any) => {
-    console.log("Failed:", errorInfo);
   };
 
   return (

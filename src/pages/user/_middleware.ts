@@ -10,8 +10,6 @@ export function middleware(req: NextRequest, ev: NextFetchEvent) {
   // });
 
   req.headers.set('user-agent', 'test')
-  console.log(`req.path`, req.nextUrl)
-  console.log(`next.cookies`, req.headers)
 
 
   return next;

@@ -1,7 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import mod, {Comment } from '@/models'
-
-console.log('Comment', Comment.findAndPagination)
  
 type ResponseData = {
   message: string

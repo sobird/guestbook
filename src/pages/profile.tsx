@@ -13,8 +13,6 @@ import Image from "next/image";
 export default function Profile() {
   const [count, setCount] = useState(0);
 
-  console.log('count', count);
-
   return (
     <>
       <Image
