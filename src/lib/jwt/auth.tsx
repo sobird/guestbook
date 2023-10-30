@@ -60,7 +60,7 @@ export async function setUserCookie(
       .setIssuedAt()
       .setExpirationTime('2h')
       .sign(new TextEncoder().encode(JWT_SECRET_KEY))
-    response.cookie(USER_TOKEN, token, { httpOnly: true })
+    // response.cookie(USER_TOKEN, token, { httpOnly: true })
   }
 
   return response

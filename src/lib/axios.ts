@@ -73,7 +73,7 @@ axios.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";
 
 // 请求拦截器
 axios.interceptors.request.use(
-  (config: AxiosRequestConfig) => {
+  (config: any) => {
     // config._startTime = new Date().getTime();
     return config;
   },

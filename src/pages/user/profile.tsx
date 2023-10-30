@@ -8,8 +8,8 @@ export const TOKEN_COOKIE_NAME = "token";
 export const JWT_SECRET_KEY = "jwt_secret_key";
 
 export default function UserProfilePage({ user }) {
-  const [session] = useSession();
-  console.log(`session`, session);
+  // const [session] = useSession();
+  // console.log(`session`, session);
   return (
     <Layout>
       <Head>

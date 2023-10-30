@@ -13,7 +13,7 @@ const GlobalSnackbars = () => {
   const [severity, setSeverity] = useState("info");
   const [content, setContent] = useState("");
 
-  const handleClose = (_, reason) => {
+  const handleClose = (reason) => {
     if (reason === "clickaway") {
       return;
     }
@@ -55,7 +55,7 @@ const GlobalSnackbars = () => {
           elevation={6}
           variant="standard"
           onClose={handleClose}
-          severity={severity}
+          // severity={severity}
         >
           {content}
         </Alert>

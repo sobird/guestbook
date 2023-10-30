@@ -10,7 +10,7 @@ import Providers from "next-auth/providers"
 
 export default NextAuth({
   session: {
-    jwt: true,
+    // jwt: true,
   },
   // Configure one or more authentication providers
   providers: [
@@ -19,13 +19,13 @@ export default NextAuth({
     //   clientSecret: process.env.GITHUB_SECRET,
     // }),
     // ...add more providers here
-    Providers.Credentials({
-      async authorize(credentials) {
+    // Providers.Credentials({
+    //   async authorize(credentials) {
 
-        return {
-          username: 'sobird'
-        }
-      }
-    })
+    //     return {
+    //       username: 'sobird'
+    //     }
+    //   }
+    // })
   ],
 })

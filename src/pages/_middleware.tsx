@@ -19,3 +19,5 @@ export function middleware(req: NextRequest, ev: NextFetchEvent) {
   // Add the user token to the response
   return setUserCookie(req, NextResponse.next())
 }
+
+export default () => {}

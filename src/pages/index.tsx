@@ -63,7 +63,7 @@ export default function Home(props: InferGetServerSidePropsType<typeof getServer
 
   useEffect(() => {
     CommentAPI.query().then((res) => {
-      setComment(res);
+      setComment(res as any);
     });
 
     setUserName(123);
@@ -74,7 +74,7 @@ export default function Home(props: InferGetServerSidePropsType<typeof getServer
       <Box
         component="form"
         mb={3}
-        onSubmit={handleSubmit<FormDataProps>(onSubmit)}
+        onSubmit={handleSubmit(onSubmit)}
       >
         <Grid container spacing={2}>
           <Grid item xs={12}>
@@ -103,7 +103,7 @@ export default function Home(props: InferGetServerSidePropsType<typeof getServer
               error={Boolean(errors.email)}
             />
 
-            <TextError>{errors.email ? errors.email.message : "*"}</TextError>
+            <TextError>{errors.email ? errors.email.message as any : "*"}</TextError>
           </Grid>
           <Grid item xs={12}>
             <TextField
@@ -168,7 +168,7 @@ export default function Home(props: InferGetServerSidePropsType<typeof getServer
 //     }
 //   }
 // }
-import { parseBody } from 'next/dist/server/api-utils';
+// import { parseBody } from 'next/dist/server/api-utils';
 /**
  * You should use getServerSideProps only if you need to pre-render a page whose data must be fetched at request time.
  * Time to first byte (TTFB) will be slower than getStaticProps because the server must compute the result on every request,
@@ -177,11 +177,11 @@ import { parseBody } from 'next/dist/server/api-utils';
  * @returns
  */
 export async function getServerSideProps(context: GetServerSidePropsContext) {
-  const { req, res, query } = context;
+  const { req, res, query } = context as any;
 
   res.setHeader('SOBIRD', 123)
 
-  req.query = query;
+  req.query = query as any;
 
   const result = await Comment.get(req as NextApiRequest, res);
 
