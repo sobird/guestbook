@@ -181,8 +181,6 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 
   res.setHeader('SOBIRD', 123)
 
-  const body = await parseBody(req as NextApiRequest, '1mb');
-  req.body = body;
   req.query = query;
 
   const result = await Comment.get(req as NextApiRequest, res);

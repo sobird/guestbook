@@ -40,4 +40,7 @@ export const post = async (req: NextApiRequest, res: NextApiResponse) => {
   return Comment.create(body);
 };
 
-export default rest.bind(module.exports);
+export default rest.bind({
+  get,
+  post
+});

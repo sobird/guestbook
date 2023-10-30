@@ -8,7 +8,7 @@ const mid =  (req: NextApiRequest, res: NextApiResponse, next: Next) => {
 };
 
 sequelize.sync({ force: true }).then(res => {
-  // console.log(`res`, res)
+  console.log(`res`, res)
 });
 
 export default compose(mid, rest.bind(module.exports));

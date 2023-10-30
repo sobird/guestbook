@@ -3,19 +3,27 @@
  *
  * sobird<i@sobird.me> at 2021/11/19 13:10:38 created.
  */
-import Head from "next/head";
-import { signIn } from "next-auth/client";
-import { Form, Input, Button, Checkbox } from "antd";
 
+import { GetServerSidePropsContext } from "next";
+import Head from "next/head";
+import { signIn } from "next-auth/react";
 import Layout from "@/components/Layout";
 import axios from "@/lib/axios";
-import { GetServerSidePropsContext } from "next";
+
+import { useForm } from "react-hook-form";
 
 function login(data: any) {
   return axios.post("/api/user/login", data);
 }
 
 export default function UserLogin() {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    resetField,
+  } = useForm();
+
   const onFinish = async (values: any) => {
     const result = await signIn('credentials', {
       redirect: false,
@@ -42,7 +50,7 @@ export default function UserLogin() {
 
       <h1>登录</h1>
 
-      <Form
+      {/* <Form
         name="basic"
         labelCol={{ span: 8 }}
         wrapperCol={{ span: 16 }}
@@ -80,7 +88,7 @@ export default function UserLogin() {
             登录
           </Button>
         </Form.Item>
-      </Form>
+      </Form> */}
     </Layout>
   );
 }

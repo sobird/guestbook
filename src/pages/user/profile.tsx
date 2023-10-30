@@ -1,6 +1,6 @@
 import { GetServerSidePropsContext } from "next";
 import { SignJWT, jwtVerify } from "jose";
-import { useSession, signIn, signOut } from "next-auth/client";
+import { useSession, signIn, signOut } from "next-auth/react";
 import Head from "next/head";
 import Layout from "@/components/Layout";
 

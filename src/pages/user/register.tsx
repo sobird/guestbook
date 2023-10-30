@@ -2,7 +2,7 @@ import Head from "next/head";
 import Layout from "@/components/Layout";
 import axios from "@/lib/axios";
 import useSWR, { mutate } from "swr";
-import { Form, Input, Button, Checkbox } from "antd";
+// import { Form, Input, Button, Checkbox } from "antd";
 
 function register(data: any) {
   return axios.post('/api/user/register', data);
@@ -30,7 +30,7 @@ export default function UserRegister() {
 
       <h1>注册</h1>
 
-      <Form
+      {/* <Form
         name="basic"
         labelCol={{ span: 8 }}
         wrapperCol={{ span: 16 }}
@@ -76,7 +76,7 @@ export default function UserRegister() {
             Submit
           </Button>
         </Form.Item>
-      </Form>
+      </Form> */}
     </Layout>
   );
 }
