@@ -1,7 +1,7 @@
 /**
  * 自定义 Document
  *
- * <Html>, <Head />, <Main /> and <NextScript /> are required for the page to be properly rendered.
+ * <Html>, <Head />, <Main /> and <NextScript /> 是正确渲染页面所必需的.
  *
  * 1.Document仅在服务端渲染，像 onClick 这样的事件处理程序将不起作用。
  * 2.<Main />之外的组件不会被浏览器初始化（水合）。

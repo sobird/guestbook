@@ -1,4 +1,6 @@
 /**
+ * 自定义 App
+ * 
  * This App component is the top-level component which will be common across all the different pages.
  * You can use this App component to keep state when navigating between pages, for example.
  *
@@ -13,7 +15,7 @@
  * sobird<i@sobird.me> at 2021/11/09 15:18:01 created.
  */
 import Head from "next/head";
-import { AppProps } from "next/app";
+import App, { AppContext, AppInitialProps, AppProps } from "next/app";
 import "@/styles/global.scss";
 
 import { ThemeProvider } from "@mui/material/styles";
@@ -25,25 +27,43 @@ import theme from "@/lib/theme";
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache();
 
-interface MyAppProps extends AppProps {
+type MyAppProps = {
   emotionCache?: EmotionCache;
+  // example: string
 }
 
-export default function App({
+export default function MyApp({
   Component,
   pageProps,
   emotionCache = clientSideEmotionCache,
-}: MyAppProps) {
+  // example,
+}: AppProps & MyAppProps) {
   return (
     <CacheProvider value={emotionCache}>
       <Head>
-        <title>My app</title>
+        <title>My App</title>
         <meta name="viewport" content="initial-scale=1, width=device-width" />
       </Head>
       <ThemeProvider theme={theme}>
         <CssBaseline />
+        {/* <p>Data: {example}</p> */}
         <Component {...pageProps} />
       </ThemeProvider>
     </CacheProvider>
   );
 }
+
+/**
+ * We do not recommend using this pattern. 
+ * Instead, consider incrementally adopting the App Router, 
+ * which allows you to more easily fetch data for pages and layouts.
+ * @param context 
+ * @returns 
+ */
+// MyApp.getInitialProps = async (
+//   context: AppContext
+// ): Promise<MyAppProps & AppInitialProps> => {
+//   const ctx = await App.getInitialProps(context)
+ 
+//   return { ...ctx, example: 'data' }
+// }
