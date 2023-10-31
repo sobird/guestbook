@@ -10,7 +10,7 @@ module.exports = {
     /** application name (default to script filename without extension) */
     name: 'guestbook',
     /** script path relative to pm2 start */
-    script: "server.js",
+    script: "standalone/server.js",
     // args: '-p 3000',
     /** the directory from which your app will be launched */
     // cwd: "",

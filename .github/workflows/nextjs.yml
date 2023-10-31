@@ -48,16 +48,28 @@ jobs:
         run: yarn
       - name: Build ☕️
         run: yarn build
-      - name: Copy pm2.config.js
-        run: cp pm2.config.js .next/standalone
-      - name: Deploy VPS 🚀
+      - name: Copy Files
+        run: |
+          cp pm2.config.js .next
+      - name: Deploy Deps 🚀
+        if: steps.cache-dependencies.outputs.cache-hit != 'true'
         uses: appleboy/scp-action@v0.1.4
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.KEY }}
           port: ${{ secrets.PORT }}
-          source: ".next/standalone/**,.next/static/**"
+          target: ${{ secrets.TARGET }}
+          source: "node_modules/**"
+          strip_components: 0
+      - name: Deploy SSR 🚀
+        uses: appleboy/scp-action@v0.1.4
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.KEY }}
+          port: ${{ secrets.PORT }}
+          source: ".next/standalone/**,.next/static/**,.next/package.json,.next/pm2.config.js"
           target: ${{ secrets.TARGET }}
           strip_components: 1
       - name: Reload SSR
@@ -68,5 +80,5 @@ jobs:
           key: ${{ secrets.KEY }}
           port: ${{ secrets.PORT }}
           script: |
-            cd ${{ secrets.TARGET }}/standalone
+            cd ${{ secrets.TARGET }}
             PORT=8086 pm2 reload pm2.config.js
