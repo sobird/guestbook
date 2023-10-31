@@ -20,3 +20,10 @@ pm2 show nextjs
 ```bash
 pm2 start pm2.config.js
 ```
+
+## 部署Next.js
+
+有两种方式
+
+* 通过 `yarn build && yarn start` 命令行来启动SSR服务
+* 构建独立的SSR服务，静态资源分开部署
