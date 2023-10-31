@@ -2,7 +2,7 @@
 #
 # To get started with Next.js see: https://nextjs.org/docs/getting-started
 #
-name: Deploy Next.js SSR
+name: Build and Deploy SSR
 
 on:
   # Runs on pushes targeting the default branch
@@ -26,7 +26,7 @@ concurrency:
 
 jobs:
   # Build job
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -46,8 +46,10 @@ jobs:
       - name: Install dependencies
         if: steps.cache-dependencies.outputs.cache-hit != 'true'
         run: yarn
-      - name: Build with Next.js
+      - name: Build ☕️
         run: yarn build
+      - name: Copy pm2.config.js
+        run: cp pm2.config.js .next/standalone
       - name: Deploy VPS 🚀
         uses: appleboy/scp-action@v0.1.4
         with:
@@ -55,7 +57,7 @@ jobs:
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.KEY }}
           port: ${{ secrets.PORT }}
-          source: ".next/standalone/**,.next/static/**,pm2.config.js"
+          source: ".next/standalone/**,.next/static/**"
           target: ${{ secrets.TARGET }}
           strip_components: 1
       - name: Reload SSR
@@ -66,5 +68,5 @@ jobs:
           key: ${{ secrets.KEY }}
           port: ${{ secrets.PORT }}
           script: |
-            cd ${{ secrets.TARGET }}
+            cd ${{ secrets.TARGET }}/standalone
             PORT=8086 pm2 reload pm2.config.js
