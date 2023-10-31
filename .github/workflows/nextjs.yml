@@ -73,7 +73,7 @@ jobs:
           key: ${{ secrets.KEY }}
           port: ${{ secrets.PORT }}
           source: ".next/standalone/**,.next/static/**"
-          target: ${{ secrets.TARGET }}/guestbook.next
+          target: ${{ secrets.TARGET }}
           strip_components: 1
       - name: Reload SSR
         uses: appleboy/ssh-action@v1.0.0
