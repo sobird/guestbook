@@ -6,22 +6,14 @@ import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import { styled } from "@mui/material/styles";
 import Paper from "@mui/material/Paper";
-
 import Layout from "@/components/Layout";
-
 import CommentList from "@/components/Comment/List";
-
 import { useForm } from "react-hook-form";
-
 import { message } from "@/components/Message";
-
 import { Comment as Comment2 } from "@/models";
 import { useEffect, useState } from "react";
-
 import * as CommentAPI from "@/api/comment";
-
 import * as Comment from '@/pages/api/comments';
-
 import useCookie from "@/hooks/useCookie";
 
 const TextError = styled("div")(({ theme }) => ({
