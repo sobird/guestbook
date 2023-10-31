@@ -60,7 +60,7 @@ jobs:
           key: ${{ secrets.KEY }}
           port: ${{ secrets.PORT }}
           target: ${{ secrets.TARGET }}
-          source: "node_modules/**"
+          source: "node_modules/**,public/**"
           strip_components: 0
       - name: Deploy SSR 🚀
         uses: appleboy/scp-action@v0.1.4
