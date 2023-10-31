@@ -14,8 +14,6 @@ module.exports = {
     args: 'start',
     /** the directory from which your app will be launched */
     // cwd: "",
-    /** alias to interpreter_args */
-    node_args: "--harmony",
     /** true by default. if false, PM2 will not restart your app if it crashes or ends peacefully */
     autorestart: true,
     /** enable watch & restart feature, if a file change in the folder or subfolder, your app will get reloaded */
@@ -39,10 +37,12 @@ module.exports = {
       followSymlinks: false
     },
     /** The interpreter used. */
-    exec_interpreter: "node",
+    exec_interpreter: "bash",
+    /** alias to interpreter_args */
+    // node_args: "--harmony",
     /**
      * 启用多少个实例，可用于负载均衡
-     * 如果-i 0或者-i max，则根据当前机器核数确定实例数目。
+     * 如果设为 0或者 max，则根据当前机器核数确定实例数目。
      */
     instances: 0,
     /** mode to start your app, can be “cluster” or “fork”, default fork */

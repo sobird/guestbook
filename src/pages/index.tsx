@@ -69,6 +69,9 @@ export default function Home(props: InferGetServerSidePropsType<typeof getServer
     setUserName(123);
   }, []);
 
+
+  console.log('NEXT_PUBLIC_HOST', process.env.NEXT_PUBLIC_HOST);
+
   return (
     <Layout>
       <Box
