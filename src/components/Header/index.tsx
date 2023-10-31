@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import Box from "@mui/material/Box";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
@@ -14,10 +15,12 @@ export default function Header() {
       >
         <Toolbar>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            Next.js + SQLite 留言系统
+            <Link href="/" style={{color: "#fff", textDecoration: "none"}}>Next.js + SQLite 留言系统</Link>
           </Typography>
           <Search />
-          <Button color="inherit">登录</Button>
+
+          <Link href="/user/login" style={{color: "#fff"}}><Button color="inherit">登录</Button></Link>
+          <Link href="/user/register" style={{color: "#fff"}}><Button color="inherit">注册</Button></Link>
         </Toolbar>
       </AppBar>
     </Box>

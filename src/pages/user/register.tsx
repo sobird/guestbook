@@ -22,7 +22,7 @@ export default function UserRegister() {
   return (
     <Layout>
       <Head>
-        <title>Register</title>
+        <title>用户注册</title>
       </Head>
 
       <h1>注册</h1>

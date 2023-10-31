@@ -51,7 +51,7 @@ export default function () {
         <SearchIcon />
       </SearchIconWrapper>
       <StyledInputBase
-        placeholder="Search…"
+        placeholder="搜索留言"
         inputProps={{ "aria-label": "search" }}
       />
     </Search>
