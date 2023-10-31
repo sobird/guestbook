@@ -1,4 +1,9 @@
-import { InferGetServerSidePropsType, GetServerSidePropsContext, NextApiRequest, NextApiResponse } from "next";
+import {
+  InferGetServerSidePropsType,
+  GetServerSidePropsContext,
+  NextApiRequest,
+  NextApiResponse,
+} from "next";
 import Link from "next/link";
 import useSWR from "swr";
 import { Button, TextField } from "@mui/material";
@@ -13,7 +18,7 @@ import { message } from "@/components/Message";
 import { Comment as Comment2 } from "@/models";
 import { useEffect, useState } from "react";
 import * as CommentAPI from "@/api/comment";
-import * as Comment from '@/pages/api/comments';
+import * as Comment from "@/pages/api/comments";
 import useCookie from "@/hooks/useCookie";
 
 const TextError = styled("div")(({ theme }) => ({
@@ -29,7 +34,9 @@ export interface FormDataProps {
   content: string;
 }
 
-export default function Home(props: InferGetServerSidePropsType<typeof getServerSideProps>) {
+export default function Home(
+  props: InferGetServerSidePropsType<typeof getServerSideProps>
+) {
   const {
     register,
     handleSubmit,
@@ -38,10 +45,7 @@ export default function Home(props: InferGetServerSidePropsType<typeof getServer
   } = useForm();
 
   const [comment, setComment] = useState(props.comment);
-
-  const [username, setUserName] = useCookie("username", 123, {
-    expires: 7
-  });
+  const [runEffect, setRunEffect] = useState(false);
 
   // 提交留言
   const onSubmit = (data: FormDataProps) => {
@@ -50,6 +54,7 @@ export default function Home(props: InferGetServerSidePropsType<typeof getServer
 
       // 清空留言内容
       resetField("content");
+      setRunEffect(state => !state);
     });
   };
 
@@ -57,20 +62,11 @@ export default function Home(props: InferGetServerSidePropsType<typeof getServer
     CommentAPI.query().then((res) => {
       setComment(res as any);
     });
-
-    setUserName(123);
-  }, []);
-
-
-  console.log('NEXT_PUBLIC_HOST', process.env.NEXT_PUBLIC_HOST);
+  }, [runEffect]);
 
   return (
     <Layout>
-      <Box
-        component="form"
-        mb={3}
-        onSubmit={handleSubmit(onSubmit)}
-      >
+      <Box component="form" mb={3} onSubmit={handleSubmit(onSubmit)}>
         <Grid container spacing={2}>
           <Grid item xs={12}>
             <TextField
@@ -98,7 +94,9 @@ export default function Home(props: InferGetServerSidePropsType<typeof getServer
               error={Boolean(errors.email)}
             />
 
-            <TextError>{errors.email ? errors.email.message as any : "*"}</TextError>
+            <TextError>
+              {errors.email ? (errors.email.message as any) : "*"}
+            </TextError>
           </Grid>
           <Grid item xs={12}>
             <TextField
@@ -115,7 +113,7 @@ export default function Home(props: InferGetServerSidePropsType<typeof getServer
               multiline
               rows={5}
               variant="outlined"
-              label="内容"
+              label="留言内容"
               size="small"
               {...register("content", {
                 required: "请填写留言内容",
@@ -139,7 +137,7 @@ export default function Home(props: InferGetServerSidePropsType<typeof getServer
 
       <Box mb={3}>
         <Paper variant="outlined" sx={{ padding: "10px" }}>
-          目前总共有{comment.count}条留言
+          目前共有{comment.count}条留言
         </Paper>
 
         <CommentList data={comment.rows} />
@@ -174,7 +172,7 @@ export default function Home(props: InferGetServerSidePropsType<typeof getServer
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const { req, res, query } = context as any;
 
-  res.setHeader('SOBIRD', 123)
+  res.setHeader("SOBIRD", 123);
 
   req.query = query as any;
 

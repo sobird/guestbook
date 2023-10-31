@@ -19,23 +19,22 @@ export interface CommentListProps {
 export default function CommentList({data}: CommentListProps) {
   const items = data.map(item => {
     return (
-      <ListItem alignItems="flex-start">
+      <ListItem alignItems="flex-start" key={item.id}>
         <ListItemAvatar>
-          <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
+          <Avatar alt={item.author} />
         </ListItemAvatar>
         <ListItemText
-          primary="Brunch this weekend?"
+          primary={`${item.author}: ${item.content}`}
           secondary={
             <>
-              <Typography
+              {/* <Typography
                 sx={{ display: "inline" }}
                 component="span"
                 variant="body2"
-                color="text.primary"
-              >
-                Ali Connors
-              </Typography>
-              {item.content}
+                color="text.primary">
+                  ddd
+              </Typography> */}
+              于 {item.createdAt} 发布
             </>
           }
         />
