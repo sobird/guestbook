@@ -18,7 +18,7 @@ pm2 show nextjs
 通过pm2配置文件启动
 
 ```bash
-pm2 start pm2.config.js
+PORT=4000 pm2 start pm2.config.js
 ```
 
 ## 部署Next.js

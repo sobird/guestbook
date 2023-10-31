@@ -10,8 +10,8 @@ module.exports = {
     /** application name (default to script filename without extension) */
     name: 'guestbook',
     /** script path relative to pm2 start */
-    script: "node_modules/next/dist/bin/next",
-    args: 'start',
+    script: "server.js",
+    // args: '-p 3000',
     /** the directory from which your app will be launched */
     // cwd: "",
     /** true by default. if false, PM2 will not restart your app if it crashes or ends peacefully */
