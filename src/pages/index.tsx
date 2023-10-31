@@ -139,7 +139,7 @@ export default function Home(props: InferGetServerSidePropsType<typeof getServer
 
       <Box mb={3}>
         <Paper variant="outlined" sx={{ padding: "10px" }}>
-          目前有{comment.count}条留言
+          目前总共有{comment.count}条留言
         </Paper>
 
         <CommentList data={comment.rows} />

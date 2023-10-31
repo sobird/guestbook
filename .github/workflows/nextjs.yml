@@ -51,7 +51,7 @@ jobs:
       - name: Copy Files
         run: |
           cp pm2.config.js .next
-      - name: Deploy Deps 🚀
+      - name: Deploy node_modules 🚀
         if: steps.cache-dependencies.outputs.cache-hit != 'true'
         uses: appleboy/scp-action@v0.1.4
         with:
@@ -60,7 +60,17 @@ jobs:
           key: ${{ secrets.KEY }}
           port: ${{ secrets.PORT }}
           target: ${{ secrets.TARGET }}
-          source: "node_modules/**,public/**"
+          source: "node_modules/**"
+          strip_components: 0
+      - name: Deploy public 🚀
+        uses: appleboy/scp-action@v0.1.4
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.KEY }}
+          port: ${{ secrets.PORT }}
+          target: ${{ secrets.TARGET }}
+          source: "public/**"
           strip_components: 0
       - name: Deploy SSR 🚀
         uses: appleboy/scp-action@v0.1.4
