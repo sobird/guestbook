@@ -1,22 +1,33 @@
 import Head from "next/head";
 import Layout from "@/components/Layout";
 import axios from "@/lib/axios";
+import { useForm } from "react-hook-form";
 import useSWR, { mutate } from "swr";
-// import { Form, Input, Button, Checkbox } from "antd";
+import { Button, TextField, Box, Grid, styled } from "@mui/material";
 
 function register(data: any) {
   return axios.post('/api/user/register', data);
 }
 
+const TextError = styled("div")(({ theme }) => ({
+  ...theme.typography.body2,
+  padding: theme.spacing(1),
+  color: theme.palette.error.light,
+}));
+
 export default function UserRegister() {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    resetField,
+  } = useForm();
 
-  const onFinish = (values: any) => {
+
+  const onSubmit = (values: any) => {
     
-    register(values).then(res => {
-    });
-  };
-
-  const onFinishFailed = (errorInfo: any) => {
+    // register(values).then(res => {
+    // });
   };
 
   return (
@@ -25,7 +36,63 @@ export default function UserRegister() {
         <title>用户注册</title>
       </Head>
 
-      <h1>注册</h1>
+      <Box component="form" mb={3} onSubmit={handleSubmit(onSubmit)}>
+        <Grid container spacing={2}>
+          <Grid item xs={12} display="flex" alignItems="center">
+            <TextField
+              autoFocus
+              sx={{ width: "300px" }}
+              variant="outlined"
+              label="姓名"
+              size="small"
+              {...register("author", {
+                maxLength: { value: 32, message: "too long" },
+              })}
+            />
+            <TextError>
+              {errors.email ? (errors.email.message as any) : "*"}
+            </TextError>
+          </Grid>
+          <Grid item xs={12} display="flex" alignItems="center">
+            <TextField
+              type="email"
+              sx={{ width: "300px" }}
+              variant="outlined"
+              label="邮箱"
+              size="small"
+              {...register("email", {
+                required: "请输入邮箱",
+                maxLength: { value: 64, message: "您输入的邮箱过长" },
+              })}
+              error={Boolean(errors.email)}
+            />
+
+            <TextError>
+              {errors.email ? (errors.email.message as any) : "*"}
+            </TextError>
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              sx={{ width: "300px" }}
+              variant="outlined"
+              label="密码"
+              type="password"
+              size="small"
+              {...register("url")}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <Button
+              type="submit"
+              variant="contained"
+              disableElevation
+              size="small"
+            >
+              注册
+            </Button>
+          </Grid>
+        </Grid>
+      </Box>
 
       {/* <Form
         name="basic"
