@@ -19,7 +19,7 @@ import type { NextRequest } from 'next/server'
 // This function can be marked `async` if using `await` inside
 export function middleware(request: NextRequest) {
   const response = NextResponse.next();
-  console.log('response', arguments)
+  // console.log('response', arguments)
   if (request.nextUrl.pathname.startsWith('/api')) {
     //return NextResponse.rewrite(new URL('/about-2', request.url))
 

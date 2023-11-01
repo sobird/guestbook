@@ -5,7 +5,7 @@
  */
 
 import { NextApiRequest, NextApiResponse } from "next";
-import rest from "@/lib/rest";
+import rest from "@/lib/restful";
 import { Comment } from "@/models";
 
 // 查询评论详情

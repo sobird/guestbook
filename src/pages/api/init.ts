@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { compose, Next } from "@/lib/middleware";
-import rest from "@/lib/rest";
+import rest from "@/lib/restful";
 import sequelize from "@/models";
 
 const mid =  (req: NextApiRequest, res: NextApiResponse, next: Next) => {

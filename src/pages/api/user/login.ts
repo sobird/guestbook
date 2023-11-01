@@ -7,7 +7,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { SignJWT, jwtVerify } from "jose";
 import { serialize, CookieSerializeOptions } from "cookie";
-import rest from "@/lib/rest";
+import rest from "@/lib/restful";
 
 import { User } from "@/models";
 

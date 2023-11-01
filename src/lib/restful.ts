@@ -1,4 +1,10 @@
-import { NextApiRequest, NextApiResponse, NextApiHandler } from "next";
+/**
+ * restful handle
+ * 
+ * sobird<i@sobird.me> at 2023/10/31 19:56:22 created.
+ */
+
+import { NextApiHandler } from "next";
 
 type Method = "GET" | "POST" | "PUT" | "DELETE" | "PATCH";
 
@@ -18,10 +24,11 @@ export default (methodMap: Partial<Record<Method, NextApiHandler>>) => (async (r
       data: await handler(req, res),
     });
   } catch (error) {
+    console.log('error', error.stack)
     res.json({
       code: error.code || 500,
       message: error.message,
-      error,
+      data: error.data
     });
   }
 }) as NextApiHandler;

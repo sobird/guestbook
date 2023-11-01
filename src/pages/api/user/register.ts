@@ -5,7 +5,7 @@
  */
 
 import { NextApiRequest, NextApiResponse } from "next";
-import rest from "@/lib/rest";
+import rest from "@/lib/restful";
 import { User } from "@/models";
 
 module.exports.post = async (req: NextApiRequest, res: NextApiResponse) => {

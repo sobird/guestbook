@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { ServerResponse } from "http";
 import { getClientIp } from "request-ip";
-import rest from "@/lib/rest";
+import rest from "@/lib/restful";
 import { Comment } from "@/models";
 
 /**
@@ -17,6 +17,11 @@ export const GET = async (req: NextApiRequest, res: ServerResponse) => {
 
   const pn = Number(query.pn) | 1;
   const ps = Number(query.ps) | 20;
+
+  throw new Error('errorddd', {
+    code: 12212,
+    data: []
+  })
   
   return Comment.findAndPagination(pn, ps);
 };
