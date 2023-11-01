@@ -24,7 +24,6 @@ export default (methodMap: Partial<Record<Method, NextApiHandler>>) => (async (r
       data: await handler(req, res),
     });
   } catch (error) {
-    console.log('error', error.stack)
     res.json({
       code: error.code || 500,
       message: error.message,

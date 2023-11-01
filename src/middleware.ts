@@ -9,6 +9,7 @@
  * ) => Promise<Response | undefined> | Response | undefined
  * 
  * @see https://nextjs.org/docs/app/building-your-application/routing/middleware
+ * @see https://medium.com/sopra-steria-norge/how-to-write-actual-api-middleware-for-next-js-2a38355f6674
  * 
  * sobird<i@sobird.me> at 2021/11/10 11:43:57 created.
  */
