@@ -1,35 +1,27 @@
-import { NextApiRequest, NextApiResponse } from "next";
+import { NextApiRequest, NextApiResponse, NextApiHandler } from "next";
 
-export default async function (req: NextApiRequest, res: NextApiResponse) {
-  let { method } = req;
-  method = method.toUpperCase();
+type Method = "GET" | "POST" | "PUT" | "DELETE" | "PATCH";
 
-  const allow = [];
+export default (methodMap: Partial<Record<Method, NextApiHandler>>) => (async (req, res) => {
+  const handler = methodMap[req.method as Method];
 
-  for (let key in this) {
-    this[key.toUpperCase()] = this[key];
-
-    if (key !== "default") {
-      allow.push(key.toUpperCase());
-    }
+  if(!handler) {
+    res.setHeader("Allow", Object.keys(methodMap));
+    res.status(405).end(`Method ${req.method} Not Allowed`);
+    return
   }
 
-  if (typeof this[method] === "function") {
-    try {
-      res.json({
-        code: 0,
-        message: "success",
-        data: await this[method](req, res),
-      });
-    } catch (error) {
-      res.json({
-        code: error.code || 1,
-        message: error.message,
-        error,
-      });
-    }
-  } else {
-    res.setHeader("Allow", allow);
-    res.status(405).end(`Method ${method} Not Allowed`);
+  try {
+    res.status(200).json({
+      code: 0,
+      message: "ok",
+      data: await handler(req, res),
+    });
+  } catch (error) {
+    res.json({
+      code: error.code || 500,
+      message: error.message,
+      error,
+    });
   }
-}
+}) as NextApiHandler;

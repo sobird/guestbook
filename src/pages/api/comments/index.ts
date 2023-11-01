@@ -10,7 +10,7 @@ import { Comment } from "@/models";
  * @param req 
  * @param res 
  */
-export const get = async (req: NextApiRequest, res: ServerResponse) => {
+export const GET = async (req: NextApiRequest, res: ServerResponse) => {
   const {
     query,
   } = req;
@@ -27,7 +27,7 @@ export const get = async (req: NextApiRequest, res: ServerResponse) => {
  * @param req 
  * @param res 
  */
-export const post = async (req: NextApiRequest, res: NextApiResponse) => {
+export const POST = async (req: NextApiRequest, res: NextApiResponse) => {
   const { body, headers } = req;
   const agent = headers["user-agent"];
   const ip = getClientIp(req);
@@ -38,7 +38,7 @@ export const post = async (req: NextApiRequest, res: NextApiResponse) => {
   return Comment.create(body);
 };
 
-export default rest.bind({
-  get,
-  post
+export default rest({
+  GET,
+  POST
 });
