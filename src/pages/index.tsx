@@ -15,7 +15,7 @@ import Layout from "@/components/Layout";
 import CommentList from "@/components/Comment/List";
 import { useForm } from "react-hook-form";
 import { message } from "@/components/Message";
-import { Comment as Comment2 } from "@/models";
+import { default as Comment2 } from "@/models/comment";
 import { useEffect, useState } from "react";
 import * as CommentAPI from "@/api/comment";
 import * as Comment from "@/pages/api/comments";
@@ -33,6 +33,12 @@ export interface FormDataProps {
   url?: string;
   content: string;
 }
+
+// export async function query(data?) {
+//   return axios.get('/api/comments', {
+//     params: data,
+//   });
+// }
 
 export default function Home(
   props: InferGetServerSidePropsType<typeof getServerSideProps>
@@ -170,13 +176,15 @@ export default function Home(
  * @returns
  */
 export async function getServerSideProps(context: GetServerSidePropsContext) {
-  const { req, res, query } = context as any;
+  const { req, res, query } = context;
 
   res.setHeader("SOBIRD", 123);
 
-  req.query = query as any;
+  // console.log('req.query', req.query)
 
-  const result = await Comment.get(req as NextApiRequest, res);
+  // req.query = query as any;
+
+  // const result = await Comment.GET(req as NextApiRequest, res);
 
   const pn = Number(query.pn) | 1;
   const ps = Number(query.ps) | 20;

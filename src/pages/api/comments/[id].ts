@@ -6,7 +6,7 @@
 
 import { NextApiRequest, NextApiResponse } from "next";
 import rest from "@/lib/restful";
-import { Comment } from "@/models";
+import Comment from "@/models/comment";
 
 // 查询评论详情
 module.exports.get = async (req: NextApiRequest, res: NextApiResponse) => {

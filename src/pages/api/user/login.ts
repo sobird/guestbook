@@ -26,12 +26,14 @@ const cookie = (
   res: NextApiResponse,
   name: string,
   value: string,
-  options: CookieSerializeOptions = {}
+  options: CookieSerializeOptions = {
+    maxAge: 60 * 60 * 24 * 7 * 1000
+  }
 ) => {
   const stringValue =
     typeof value === "object" ? "j:" + JSON.stringify(value) : String(value);
 
-  if ("maxAge" in options) {
+  if ( options.maxAge) {
     options.expires = new Date(Date.now() + options.maxAge);
     options.maxAge /= 1000;
   }

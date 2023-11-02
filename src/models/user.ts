@@ -5,13 +5,8 @@
  */
 
 import { randomBytes, createHmac } from "crypto";
-import {
-  Sequelize,
-  DataTypes,
-  Model,
-  Optional,
-  fn,
-} from "sequelize";
+import { DataTypes, Model, Optional, fn } from "sequelize";
+import sequelize from "@/lib/sequelize";
 
 // These are all the attributes in the User model
 export interface UserAttributes {
@@ -30,6 +25,7 @@ export interface UserCreationAttributes
   extends Optional<UserAttributes, "id" | "nickname" | "realname" | "salt"> {}
 
 class User extends Model<UserAttributes, UserCreationAttributes> {
+  declare id: number;
   public username!: string;
   public salt!: string;
   public password!: string;
@@ -71,7 +67,7 @@ class User extends Model<UserAttributes, UserCreationAttributes> {
     });
 
     if (!user) {
-      await Promise.reject("user not found!");
+      return await Promise.reject("user not found!");
     }
 
     if (user.verifyPassword(password)) {
@@ -82,57 +78,55 @@ class User extends Model<UserAttributes, UserCreationAttributes> {
   }
 }
 
-export default function (sequelize: Sequelize) {
-  User.init(
-    {
-      username: {
-        type: DataTypes.STRING(32),
-        allowNull: false,
-        comment: "user name",
-      },
-      nickname: {
-        type: DataTypes.STRING(32),
-        allowNull: true,
-        comment: "nick name",
-      },
-      realname: {
-        type: DataTypes.STRING(32),
-        allowNull: true,
-        comment: "real name",
-      },
-      email: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        comment: "user email",
-      },
-      password: {
-        type: DataTypes.STRING(128),
-        allowNull: false,
-        comment: "user password hash",
-      },
-      salt: {
-        type: DataTypes.STRING(128),
-        allowNull: false,
-        defaultValue: randomBytes(16).toString("hex"),
-        comment: "user salt",
-      },
-      ip: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        defaultValue: 0,
-        comment: "user last login ip",
-      },
+User.init(
+  {
+    username: {
+      type: DataTypes.STRING(32),
+      allowNull: false,
+      comment: "user name",
     },
-    {
-      sequelize,
-      modelName: "user",
-    }
-  );
+    nickname: {
+      type: DataTypes.STRING(32),
+      allowNull: true,
+      comment: "nick name",
+    },
+    realname: {
+      type: DataTypes.STRING(32),
+      allowNull: true,
+      comment: "real name",
+    },
+    email: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      comment: "user email",
+    },
+    password: {
+      type: DataTypes.STRING(128),
+      allowNull: false,
+      comment: "user password hash",
+    },
+    salt: {
+      type: DataTypes.STRING(128),
+      allowNull: false,
+      defaultValue: randomBytes(16).toString("hex"),
+      comment: "user salt",
+    },
+    ip: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      defaultValue: 0,
+      comment: "user last login ip",
+    },
+  },
+  {
+    sequelize,
+    modelName: "user",
+  }
+);
 
-  User.beforeCreate((model, options) => {
-    model.password = model.hashPassword(model.password, model.salt);
-    model.ip = fn("INET_ATON", model.ip); // INET_NTOA
-  });
+User.beforeCreate((model, options) => {
+  model.password = model.hashPassword(model.password, model.salt);
+  model.ip = fn("INET_ATON", model.ip); // INET_NTOA
+});
 
-  return User;
-}
+export default User;

@@ -1,0 +1,22 @@
+
+@HOST={{$dotenv HOST}}:{{$dotenv PORT}}
+
+### Comment GET
+# @name comments
+GET http://{{HOST}}/api/comments
+?pn=1
+&ps=20
+
+
+### Comment POST
+
+@LastId = {{comments.response.body.$.data.rows[0].id}}
+POST http://{{HOST}}/api/comments
+content-type: application/json
+
+{
+  "id": {{LastId}},
+  "author": "sobird",
+  "content": "评论内容1 {{$guid}}",
+  "email": "sobird@126.com"
+}

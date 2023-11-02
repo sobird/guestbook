@@ -17,7 +17,7 @@ export interface CommentListProps {
 }
 
 export default function CommentList({data}: CommentListProps) {
-  const items = data.map(item => {
+  const items = data?.map(item => {
     return (
       <ListItem alignItems="flex-start" key={item.id}>
         <ListItemAvatar>

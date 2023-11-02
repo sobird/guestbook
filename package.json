@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start -p 8086",
+    "start": "next start",
     "export": "next export",
     "deploy": "yarn build && pm2 start pm2.config.js --env prod"
   },
