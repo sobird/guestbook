@@ -1,7 +1,7 @@
-import { NextApiHandler } from "next";
-import { getClientIp } from "request-ip";
-import restful from "@/lib/restful";
-import { CommentModel, default as comments } from "@/models";
+import { NextApiHandler } from 'next';
+import { getClientIp } from 'request-ip';
+import restful from '@/lib/restful';
+import { CommentModel, default as comments } from '@/models';
 import { compose, use, AppMiddleware } from '@/lib/middleware';
 
 /**
@@ -11,14 +11,8 @@ import { compose, use, AppMiddleware } from '@/lib/middleware';
  * @param res
  */
 export const GET: AppMiddleware = async (req, res) => {
-  const { query } = req;
-
-  console.log(import.meta.url)
-
-  const pn = Number(query.pn) | 1;
-  const ps = Number(query.ps) | 20;
-
-  return CommentModel.findAllWithPagination(pn, ps);
+  const { query: { pn, ps } } = req;
+  return CommentModel.findAllWithPagination({ pn, ps });
 };
 
 /**
@@ -29,7 +23,7 @@ export const GET: AppMiddleware = async (req, res) => {
  */
 export const POST: NextApiHandler = async (req, res) => {
   const { body, headers } = req;
-  const agent = headers["user-agent"];
+  const agent = headers['user-agent'];
   const ip = getClientIp(req);
 
   body.agent = agent;
@@ -39,15 +33,19 @@ export const POST: NextApiHandler = async (req, res) => {
 };
 
 export default restful({
-  GET: use(async (req, res, next) => {
-    console.log('middleware1-before')
-    next();
-    console.log('middleware1-after')
-  }, async (req, res, next) => {
-    console.log('middleware2-before')
-    next();
-    console.log('middleware2-after')
-  }, GET),
-  
+  GET: use(
+    async (req, res, next) => {
+      console.log('middleware1-before');
+      next();
+      console.log('middleware1-after');
+    },
+    async (req, res, next) => {
+      console.log('middleware2-before');
+      next();
+      console.log('middleware2-after');
+    },
+    GET
+  ),
+
   POST,
 });

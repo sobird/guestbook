@@ -1,5 +1,5 @@
-import { DataTypes, Model, Optional, fn } from "sequelize";
-import sequelize from "@/lib/sequelize";
+import { DataTypes, Model, Optional, fn } from 'sequelize';
+import sequelize from '@/lib/sequelize';
 
 // These are all the attributes in the Comment model
 export interface CommentAttributes {
@@ -15,8 +15,7 @@ export interface CommentAttributes {
 }
 
 // Some attributes are optional in `Comment.build` and `Comment.create` calls
-export interface CommentCreationAttributes
-  extends Optional<CommentAttributes, "id" | "title" | "author" | "email"> {}
+export interface CommentCreationAttributes extends Optional<CommentAttributes, 'id' | 'title' | 'author' | 'email'> {}
 
 export interface IPaginationParams {
   /** 当前页数 */
@@ -25,10 +24,7 @@ export interface IPaginationParams {
   ps?: string | string[];
 }
 
-export class Comment extends Model<
-  CommentAttributes,
-  CommentCreationAttributes
-> {
+export class Comment extends Model<CommentAttributes, CommentCreationAttributes> {
   declare id: number;
   public title!: string;
   public ip!: unknown;
@@ -37,24 +33,17 @@ export class Comment extends Model<
   public static async findAllWithPagination(query: IPaginationParams) {
     const ps = Number(query.ps) || 20;
     const pn = Number(query.pn) || 0;
-
     const offset = (pn - 1) * ps;
     const { count, rows } = await this.findAndCountAll({
       offset,
       limit: ps,
       order: [
         // 创建时间倒序
-        ["createdAt", "DESC"],
+        ['createdAt', 'DESC'],
       ],
       raw: true,
     });
-
-    return {
-      pn,
-      ps,
-      count,
-      rows,
-    };
+    return { pn, ps, count, rows };
   }
 }
 
@@ -63,48 +52,48 @@ Comment.init(
     title: {
       type: DataTypes.STRING(32),
       allowNull: true,
-      comment: "comment title",
+      comment: 'comment title',
     },
     content: {
       type: DataTypes.TEXT,
       allowNull: false,
-      comment: "comment conent",
+      comment: 'comment conent',
     },
     author: {
       type: DataTypes.STRING(32),
       allowNull: true,
-      comment: "author name",
+      comment: 'author name',
     },
     email: {
       type: DataTypes.STRING(64),
       allowNull: false,
-      comment: "author email",
+      comment: 'author email',
     },
     url: {
       type: DataTypes.STRING(64),
       allowNull: true,
-      comment: "author email",
+      comment: 'author email',
     },
     parent: {
       type: DataTypes.INTEGER,
       allowNull: true,
       defaultValue: 0,
-      comment: "comment parent id",
+      comment: 'comment parent id',
     },
     agent: {
       type: DataTypes.STRING(255),
       allowNull: false,
-      comment: "comment agent",
+      comment: 'comment agent',
     },
     ip: {
       type: DataTypes.STRING(100),
       allowNull: false,
-      comment: "comment ip",
+      comment: 'comment ip',
     },
   },
   {
     sequelize,
-    modelName: "comment",
+    modelName: 'comment',
   }
 );
 
