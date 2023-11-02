@@ -17,7 +17,7 @@ import { message } from "@/components/Message";
 import CommentList from "@/components/Comment/List";
 import { CommentModel } from "@/models";
 import CommentService from "@/services/comment";
-import ProfileImage from '@/assets/profile.jpg';
+import ProfileImage from "@/assets/profile.jpg";
 
 const TextError = styled("div")(({ theme }) => ({
   ...theme.typography.body2,
@@ -58,7 +58,7 @@ export default function Home(
 
       // 清空留言内容
       resetField("content");
-      setRunEffect(state => !state);
+      setRunEffect((state) => !state);
     });
   };
 
@@ -177,18 +177,10 @@ export default function Home(
  */
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const { req, res, query } = context;
-
   res.setHeader("SOBIRD", 123);
+  const { pn, ps } = query;
 
-  // console.log('req.query', req.query)
-
-  // req.query = query as any;
-
-  // const result = await Comment.GET(req as NextApiRequest, res);
-
-  const pn = Number(query.pn) | 1;
-  const ps = Number(query.ps) | 20;
-  const comment = await CommentModel.findAllWithPagination(pn, ps);
+  const comment = await CommentModel.findAllWithPagination({ pn, ps });
 
   return {
     props: {

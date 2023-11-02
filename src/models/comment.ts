@@ -18,15 +18,25 @@ export interface CommentAttributes {
 export interface CommentCreationAttributes
   extends Optional<CommentAttributes, "id" | "title" | "author" | "email"> {}
 
-export class Comment extends Model<CommentAttributes, CommentCreationAttributes> {
+export interface IPaginationParams {
+  /** 当前页数 */
+  pn?: string | string[];
+  /** 每页条数 */
+  ps?: string | string[];
+}
+
+export class Comment extends Model<
+  CommentAttributes,
+  CommentCreationAttributes
+> {
   declare id: number;
   public title!: string;
   public ip!: unknown;
 
   /** 分页查找评论数据 */
-  public static async findAllWithPagination(pn: number = 1, ps: number = 20) {
-    ps = Number(ps) || 20;
-    pn = Number(pn) || 0;
+  public static async findAllWithPagination(query: IPaginationParams) {
+    const ps = Number(query.ps) || 20;
+    const pn = Number(query.pn) || 0;
 
     const offset = (pn - 1) * ps;
     const { count, rows } = await this.findAndCountAll({
@@ -36,13 +46,14 @@ export class Comment extends Model<CommentAttributes, CommentCreationAttributes>
         // 创建时间倒序
         ["createdAt", "DESC"],
       ],
+      raw: true,
     });
 
     return {
       pn,
       ps,
       count,
-      rows: rows.map((item) => JSON.parse(JSON.stringify(item))),
+      rows,
     };
   }
 }
