@@ -2,7 +2,7 @@ import { NextApiHandler } from 'next';
 import { getClientIp } from 'request-ip';
 import restful from '@/lib/restful';
 import { CommentModel, default as comments } from '@/models';
-import { compose, use, AppMiddleware } from '@/lib/middleware';
+import { use, AppMiddleware } from '@/lib/middleware';
 
 /**
  * 获取评论列表接口

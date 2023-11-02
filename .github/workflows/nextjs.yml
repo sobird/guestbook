@@ -92,4 +92,4 @@ jobs:
           port: ${{ secrets.PORT }}
           script: |
             cd ${{ secrets.TARGET }}
-            PORT=8086 pm2 reload pm2.config.js
+            PORT=8086 AUTHMAIL=${{ secrets.AUTHMAIL }} AUTHCODE=${{ secrets.AUTHCODE }} pm2 reload pm2.config.js

@@ -1,5 +1,5 @@
 import axios from "@/lib/axios";
-import { CommentCreationAttributes, Comment } from "@/models/comment";
+import { Comment } from "@/models/comment";
 
 type findAllWithPaginationType = typeof Comment.findAllWithPagination;
 type createType = typeof Comment.create;

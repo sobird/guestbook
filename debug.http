@@ -1,6 +1,15 @@
 
 @HOST={{$dotenv HOST}}:{{$dotenv PORT}}
 
+### 邮件验证码
+POST http://{{HOST}}/api/common/captcha
+content-type: application/json
+
+{
+  "email": "sobird@126.com"
+}
+
+
 ### Comment GET
 # @name comments
 GET http://{{HOST}}/api/comments
