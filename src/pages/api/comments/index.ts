@@ -18,7 +18,7 @@ export const GET: AppMiddleware = async (req, res) => {
   const pn = Number(query.pn) | 1;
   const ps = Number(query.ps) | 20;
 
-  return CommentModel.findAndPagination(pn, ps);
+  return CommentModel.findAllWithPagination(pn, ps);
 };
 
 /**

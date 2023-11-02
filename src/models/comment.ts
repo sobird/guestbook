@@ -1,4 +1,4 @@
-import { Sequelize, DataTypes, Model, Optional, fn } from "sequelize";
+import { DataTypes, Model, Optional, fn } from "sequelize";
 import sequelize from "@/lib/sequelize";
 
 // These are all the attributes in the Comment model
@@ -18,13 +18,13 @@ export interface CommentAttributes {
 export interface CommentCreationAttributes
   extends Optional<CommentAttributes, "id" | "title" | "author" | "email"> {}
 
-class Comment extends Model<CommentAttributes, CommentCreationAttributes> {
+export class Comment extends Model<CommentAttributes, CommentCreationAttributes> {
   declare id: number;
   public title!: string;
   public ip!: unknown;
 
   /** 分页查找评论数据 */
-  public static async findAndPagination(pn: number = 1, ps: number = 20) {
+  public static async findAllWithPagination(pn: number = 1, ps: number = 20) {
     ps = Number(ps) || 20;
     pn = Number(pn) || 0;
 

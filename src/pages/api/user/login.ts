@@ -9,7 +9,7 @@ import { SignJWT, jwtVerify } from "jose";
 import { serialize, CookieSerializeOptions } from "cookie";
 import rest from "@/lib/restful";
 
-import { User } from "@/models";
+import { UserModel } from "@/models";
 
 export const TOKEN_COOKIE_NAME = "token";
 export const JWT_SECRET_KEY = "jwt_secret_key";
@@ -46,7 +46,7 @@ module.exports.post = async (req: NextApiRequest, res: NextApiResponse) => {
     body: { username, password },
   } = req;
 
-  const user: any = await User.identify(username, password);
+  const user: any = await UserModel.identify(username, password);
 
   const token = await createToken({
     username: user.username,

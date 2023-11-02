@@ -6,12 +6,12 @@
 
 import { NextApiRequest, NextApiResponse } from "next";
 import rest from "@/lib/restful";
-import { User } from "@/models";
+import { UserModel } from "@/models";
 
 module.exports.post = async (req: NextApiRequest, res: NextApiResponse) => {
   const { username, password, email } = req.body;
 
-  return User.create(
+  return UserModel.create(
     {
       username,
       password,

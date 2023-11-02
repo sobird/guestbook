@@ -18,6 +18,8 @@ import { message } from "@/components/Message";
 import { default as Comment2 } from "@/models/comment";
 import { useEffect, useState } from "react";
 import * as CommentAPI from "@/api/comment";
+import CommentService from "@/services/comment";
+
 import * as Comment from "@/pages/api/comments";
 import useCookie from "@/hooks/useCookie";
 import ProfileImage from '@/assets/profile.jpg';
@@ -58,7 +60,7 @@ export default function Home(
 
   // 提交留言
   const onSubmit = (data: FormDataProps) => {
-    CommentAPI.create(data as any).then((res) => {
+    CommentService.create(data as any).then((res) => {
       message.success("提交留言成功！");
 
       // 清空留言内容
@@ -68,7 +70,7 @@ export default function Home(
   };
 
   useUpdateEffect(() => {
-    CommentAPI.query().then((res) => {
+    CommentService.findAllWithPagination().then((res) => {
       setComment(res as any);
     });
   }, [runEffect]);
@@ -193,7 +195,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 
   const pn = Number(query.pn) | 1;
   const ps = Number(query.ps) | 20;
-  const comment = await Comment2.findAndPagination(pn, ps);
+  const comment = await Comment2.findAllWithPagination(pn, ps);
 
   return {
     props: {
