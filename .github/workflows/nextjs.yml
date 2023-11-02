@@ -51,6 +51,7 @@ jobs:
       - name: Copy Files
         run: |
           cp pm2.config.js .next
+          cp -r .next/static .next/standalone/.next 
       - name: Deploy node_modules 🚀
         if: steps.cache-dependencies.outputs.cache-hit != 'true'
         uses: appleboy/scp-action@v0.1.4
@@ -79,7 +80,7 @@ jobs:
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.KEY }}
           port: ${{ secrets.PORT }}
-          source: ".next/standalone/**,.next/static/**,.next/package.json,.next/pm2.config.js"
+          source: ".next/standalone/**,.next/package.json,.next/pm2.config.js"
           target: ${{ secrets.TARGET }}
           strip_components: 1
       - name: Reload SSR

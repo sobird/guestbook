@@ -17,11 +17,14 @@ module.exports = {
   // basePath: '/docs',
   // 默认值 .next
   // distDir: '.next',
-  webpack5: true,
+
   webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
     config.resolve.alias['@'] = resolve(__dirname, 'src');
     // Important: return the modified config
     // config.resolve.fallback = { fs: false };
     return config
   },
+  images: {
+    // loaderFile: './ImageLoader.ts'
+  }
 }
