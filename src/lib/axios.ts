@@ -1,17 +1,16 @@
 /**
- * 全局代理项目所有浏览器接口请求，框架级配置，请谨慎修改。
+ * Axios 默认配置，全局代理项目所有浏览器接口请求
  * Axios 是一个基于 Promise 的 HTTP 库，可以用在浏览器和Node.js中。
  *
  * 默认全局对所请求的(相同URL/参数)接口进行防抖设置
  *
  * 接口规范
- * @example
  * {
  *   code: 0,
  *   message: "ok",
  *   data,
  * }
- * 使用
+ *
  * @example
  * export function submit() {
  *   return axios.post("/submit", {
@@ -27,137 +26,145 @@
  * sobird<i@sobird.me> at 2021/02/20 11:18:13 created.
  */
 
-import axios, { AxiosRequestConfig, AxiosResponse, AxiosError } from "axios";
+import axios, {
+  CreateAxiosDefaults,
+  AxiosInstance,
+  AxiosResponse,
+  AxiosRequestConfig,
+  InternalAxiosRequestConfig,
+  AxiosError,
+} from 'axios';
 
-// import queryString from 'query-string';
+export type ResponseParser<T = unknown> = (response: AxiosResponse) => T;
 
-// declare module "axios" {
-//   interface AxiosResponse {
-//     timing: number | null;
-//   }
+interface InternalHttpRequestConfig<T = unknown> extends InternalAxiosRequestConfig<T> {
+  /**
+   * 接口请求开始时间戳
+   */
+  startTime: number;
+  parser?: ResponseParser;
+}
 
-//   interface AxiosRequestConfig {
-//     /**
-//      * 接口静默，设为 TRUE 该接口在前端不提示任何提示信息
-//      */
-//     silent?: boolean;
+export interface HttpRequestConfig<T = unknown> extends AxiosRequestConfig<T> {
+  parser?: ResponseParser;
+}
 
-//     /**
-//      * 接口请求时间戳
-//      */
-//     _startTime?: number;
-//   }
+export interface ResponseData<T = unknown> {
+  code: number;
+  message: string;
+  data?: T;
+}
 
-//   /**
-//    * numeral helper functions
-//    */
-//   let _: any;
-// }
+interface HttpResponse<T = ResponseData, D = unknown> extends AxiosResponse<T, D> {
+  timing?: number;
+  config: InternalHttpRequestConfig<D>;
+}
 
-/**
- * 全局的 axios 默认值，所有新建的Axios实例将继承此处的设置
- *
- * 配置的优先级 配置将会按优先级进行合并。
- * 它的顺序是：在lib/defaults.js中找到的库默认值，然后是实例的 defaults 属性，最后是请求的 config 参数。
- * 后面的优先级要高于前面的。
- */
-axios.defaults.withCredentials = true;
-axios.defaults.timeout = 10 * 1000;
-// 全局默认的baseURL参数配置
-axios.defaults.baseURL = "";
-// axios request
-axios.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";
+interface HttpError<T = unknown, D = unknown> extends AxiosError<T, D> {
+  config?: InternalHttpRequestConfig<D>;
+}
 
-// ssoid
-// axios.defaults.headers.common['access-token'] = SSO_ACCESS_TOKEN;
+export class Http {
+  service: AxiosInstance;
+  constructor(config?: CreateAxiosDefaults) {
+    this.service = axios.create(config);
+    // 请求拦截器
+    this.service.interceptors.request.use(
+      (config: InternalHttpRequestConfig) => {
+        config.startTime = Date.now();
+        
+        return config;
+      },
+      (error: HttpError) => {
+        // const { config } = error;
 
-// 请求拦截器
-axios.interceptors.request.use(
-  (config: any) => {
-    // config._startTime = new Date().getTime();
-    return config;
-  },
-  (error: AxiosError) => {
-    const { config } = error;
-    // 请求报错
-    // !config.silent && message.error(error.message);
-    return Promise.reject(error);
-  }
-);
-
-// 响应拦截器
-axios.interceptors.response.use(
-  (response: AxiosResponse) => {
-    const { config, data } = response;
-    // response.timing = new Date().getTime() - config._startTime;
-
-    if (!data) {
-      return data;
-    }
-
-    if (config.responseType === "blob") {
-      return data;
-    }
-
-    // 统一后端返回的消息
-    data.message = data.message || data.msg;
-
-    // 项目全局错误码逻辑处理
-    switch (data.status) {
-      case 401:
-        // return;
-        break;
-      default:
-      // todo nothing
-    }
-
-    // 业务请求成功
-    if (data.code === 0 || data.code === "0") {
-      /**
-       * 如果在接口配置中设置了message，则表明该接口需要显示的展示message
-       * 一般仅在表单提交成功场景需要成功提示信息
-       */
-      // if (config.message) {
-      //   // Message.success(config.message);
-      // }
-
-      return data.data || data;
-    }
-
-    // 业务级错误提示
-    // !config.silent && message.error(data.message);
-
-    // 业务级错误信息
-    throw {
-      message: data.message,
-      config: response.config,
-      code: data.code,
-      request: response.request,
-      response,
-    };
-  },
-  (error: AxiosError) => {
-    const { request, response, config } = error;
-
-    if (response) {
-      // 请求成功发出且服务器也响应了状态码，但状态代码超出了 2xx 的范围
-      switch (response.status) {
-        case 401:
-          break;
-        case 404:
-          break;
-        default:
+        return Promise.reject(error);
       }
-    } else if (request) {
-      // 请求已经成功发起，但没有收到响应
-    }
+    );
+    // 响应拦截器
+    this.service.interceptors.response.use(
+      (response: HttpResponse) => {
+        const { config, data, request } = response;
+        response.timing = Date.now() - config.startTime;
+        response.headers['timing'] = response.timing;
 
-    // 业务级错误提示
-    // !config.silent && message.error(error.message);
+        // 为登录
+        if (data.code == 401) {
+          window.location.href = '';
+        }
 
-    return Promise.reject(error);
+        // 业务请求成功
+
+        return (config.parser ? config.parser(response) : data.data) as HttpResponse;
+        // 业务级错误信息
+        // throw new AxiosError(data.message, data.code as unknown as string, config, request, response);
+      },
+      // 超出 2xx 范围的状态码都会触发该函数。
+      (error: HttpError) => {
+        const { request, response, config } = error;
+
+        if (response) {
+          // 请求成功发出且服务器也响应了状态码，但状态代码超出了 2xx 的范围
+          switch (response.status) {
+            case 401:
+              window.location.href = '';
+              break;
+            case 404:
+              break;
+            default:
+          }
+        } else if (request) {
+          // 请求已经成功发起，但没有收到响应
+        }
+        return Promise.reject(error);
+      }
+    );
   }
-);
 
-export default axios;
+  request(config: HttpRequestConfig) {
+    return this.service.request(config);
+  }
+  get<T>(url: string, params?: object | string, config?: Omit<HttpRequestConfig, 'params'>) {
+    return this.service.get(url, { params, ...config }) as Promise<T>;
+  }
+  post<T>(url: string, data?: object, config?: HttpRequestConfig) {
+    return this.service.post(url, data, config) as Promise<T>;
+  }
+  put<T>(url: string, data?: object, config?: HttpRequestConfig) {
+    return this.service.put(url, data, config) as Promise<T>;
+  }
+  patch<T>(url: string, data?: object, config?: HttpRequestConfig) {
+    return this.service.patch(url, data, config) as Promise<T>;
+  }
+  delete<T>(url: string, params?: object, config?: HttpRequestConfig) {
+    return this.service.delete(url, { params, ...config }) as Promise<T>;
+  }
+  upload<T>(url: string, data: object = {}, config: HttpRequestConfig = {}) {
+    const { headers, ...others } = config;
+    const formData = new FormData();
 
+    Object.keys(data).map(key => {
+      formData.append(key, data[key]);
+    });
+
+    return this.service.post(url, formData, {
+      headers: {
+        'content-type': 'multipart/form-data',
+        ...headers
+      },
+      ...others
+    }) as Promise<T>;
+  }
+}
+
+export const defaults: CreateAxiosDefaults = {
+  // withCredentials: true,
+  timeout: 10 * 1000,
+  baseURL: process.env.baseURL,
+  headers: {
+    // 'X-Requested-With': 'XMLHttpRequest',
+    'Content-Type': 'application/json;charset=UTF-8',
+  },
+};
+
+export default new Http(defaults);

@@ -20,6 +20,9 @@ import { useEffect, useState } from "react";
 import * as CommentAPI from "@/api/comment";
 import * as Comment from "@/pages/api/comments";
 import useCookie from "@/hooks/useCookie";
+import ProfileImage from '@/assets/profile.jpg';
+import Image from "next/image";
+import useUpdateEffect from "@/hooks/useUpdateEffect";
 
 const TextError = styled("div")(({ theme }) => ({
   ...theme.typography.body2,
@@ -64,7 +67,7 @@ export default function Home(
     });
   };
 
-  useEffect(() => {
+  useUpdateEffect(() => {
     CommentAPI.query().then((res) => {
       setComment(res as any);
     });
@@ -148,6 +151,8 @@ export default function Home(
 
         <CommentList data={comment.rows} />
       </Box>
+
+      <Image alt="" src={ProfileImage} width="600"></Image>
     </Layout>
   );
 }
