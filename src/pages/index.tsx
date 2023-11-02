@@ -5,26 +5,19 @@ import {
   NextApiResponse,
 } from "next";
 import Link from "next/link";
-import useSWR from "swr";
-import { Button, TextField } from "@mui/material";
-import Box from "@mui/material/Box";
-import Grid from "@mui/material/Grid";
-import { styled } from "@mui/material/styles";
-import Paper from "@mui/material/Paper";
-import Layout from "@/components/Layout";
-import CommentList from "@/components/Comment/List";
-import { useForm } from "react-hook-form";
-import { message } from "@/components/Message";
-import { default as Comment2 } from "@/models/comment";
-import { useEffect, useState } from "react";
-import * as CommentAPI from "@/api/comment";
-import CommentService from "@/services/comment";
-
-import * as Comment from "@/pages/api/comments";
-import useCookie from "@/hooks/useCookie";
-import ProfileImage from '@/assets/profile.jpg';
 import Image from "next/image";
+import { useState } from "react";
+import useSWR from "swr";
+import { useForm } from "react-hook-form";
+import { Button, TextField, Box, Grid, styled, Paper } from "@mui/material";
 import useUpdateEffect from "@/hooks/useUpdateEffect";
+import useCookie from "@/hooks/useCookie";
+import Layout from "@/components/Layout";
+import { message } from "@/components/Message";
+import CommentList from "@/components/Comment/List";
+import { CommentModel } from "@/models";
+import CommentService from "@/services/comment";
+import ProfileImage from '@/assets/profile.jpg';
 
 const TextError = styled("div")(({ theme }) => ({
   ...theme.typography.body2,
@@ -195,7 +188,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 
   const pn = Number(query.pn) | 1;
   const ps = Number(query.ps) | 20;
-  const comment = await Comment2.findAllWithPagination(pn, ps);
+  const comment = await CommentModel.findAllWithPagination(pn, ps);
 
   return {
     props: {
