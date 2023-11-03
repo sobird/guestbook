@@ -88,7 +88,7 @@ const FieldCaptcha: React.FC<FieldCaptchaProps> = ({
       <TextField
         size="small"
         variant='outlined'
-        label='验证码'
+        label='邮箱验证码'
         style={{
           flex: 1
         }}

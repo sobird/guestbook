@@ -2,8 +2,6 @@
  * Axios 默认配置，全局代理项目所有浏览器接口请求
  * Axios 是一个基于 Promise 的 HTTP 库，可以用在浏览器和Node.js中。
  *
- * 默认全局对所请求的(相同URL/参数)接口进行防抖设置
- *
  * 接口规范
  * {
  *   code: 0,
@@ -14,11 +12,7 @@
  * @example
  * export function submit() {
  *   return axios.post("/submit", {
- *     message: {
- *       success: "数据提交成功！",
- *       failure: "数据提交出错！"
- *     },
- *     serialize: true
+ *     responseParser: (response) => response.data
  *   });
  * }
  *
@@ -42,20 +36,20 @@ interface InternalHttpRequestConfig<T = unknown> extends InternalAxiosRequestCon
    * 接口请求开始时间戳
    */
   startTime: number;
-  parser?: ResponseParser;
+  responseParser?: ResponseParser;
 }
 
 export interface HttpRequestConfig<T = unknown> extends AxiosRequestConfig<T> {
-  parser?: ResponseParser;
+  responseParser?: ResponseParser;
 }
 
-export interface ResponseData<T = unknown> {
+export interface ResponseFormat<T = unknown> {
   code: number;
   message: string;
   data?: T;
 }
 
-interface HttpResponse<T = ResponseData, D = unknown> extends AxiosResponse<T, D> {
+interface HttpResponse<T = ResponseFormat, D = unknown> extends AxiosResponse<T, D> {
   timing?: number;
   config: InternalHttpRequestConfig<D>;
 }
@@ -93,10 +87,19 @@ export class Http {
           window.location.href = '';
         }
 
-        // 业务请求成功
+        const result = (config.responseParser ? config.responseParser(response) : data) as ResponseFormat;
 
-        return (config.parser ? config.parser(response) : data.data) as HttpResponse;
+        if(result?.code === 0) {
+          return result.data as HttpResponse;
+        }
         // 业务级错误信息
+        return Promise.reject({
+          code: data.code,
+          message: data.message, 
+          config, 
+          request, 
+          response}
+          );
         // throw new AxiosError(data.message, data.code as unknown as string, config, request, response);
       },
       // 超出 2xx 范围的状态码都会触发该函数。

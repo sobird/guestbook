@@ -19,10 +19,10 @@ export interface UserAttributes {
   salt: string;
   ip: string;
 }
-
 // Some attributes are optional in `User.build` and `User.create` calls
-export interface UserCreationAttributes
-  extends Optional<UserAttributes, "id" | "nickname" | "realname" | "salt"> {}
+export type UserCreationAttributes = Optional<UserAttributes, "id" | "nickname" | "realname" | "salt" | "ip">
+// 用户注册属性
+export type UserSignupAttributes = Pick<UserAttributes, "username" | "password" | "email">;
 
 class User extends Model<UserAttributes, UserCreationAttributes> {
   declare id: number;
@@ -30,6 +30,18 @@ class User extends Model<UserAttributes, UserCreationAttributes> {
   public salt!: string;
   public password!: string;
   public ip!: any;
+
+  /**
+   * 注册用户
+   */
+  public static async signup(attributes: UserSignupAttributes) {
+    return this.findOrCreate({
+      defaults: attributes,
+      where: {
+        username: attributes.username
+      }
+    });
+  }
 
   /**
    * 通过安全散列算法生成一个64位长度的hash串

@@ -67,3 +67,9 @@ export default function MyApp({
  
 //   return { ...ctx, example: 'data' }
 // }
+
+export async function getServerSideProps(context) {
+  const { req, res, query } = context;
+  
+  console.log('context', context)
+}
