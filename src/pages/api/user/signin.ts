@@ -5,41 +5,10 @@
  */
 
 import { NextApiRequest, NextApiResponse } from 'next';
-import { SignJWT, jwtVerify } from 'jose';
-import { serialize, CookieSerializeOptions } from 'cookie';
 import restful from '@/lib/restful';
-
+import { sign, TOKEN_COOKIE_NAME } from '@/lib/jwt';
 import { UserModel } from '@/models';
-
-export const TOKEN_COOKIE_NAME = 'token';
-export const JWT_SECRET_KEY = 'jwt_secret_key';
-
-async function createToken(params: any) {
-  return await new SignJWT(params)
-    .setProtectedHeader({ alg: 'HS256' })
-    .setIssuedAt()
-    .setExpirationTime('30d')
-    .sign(new TextEncoder().encode(JWT_SECRET_KEY));
-}
-
-const cookie = (
-  res: NextApiResponse,
-  name: string,
-  value: string,
-  options: CookieSerializeOptions = {
-    maxAge: 60 * 60 * 24 * 7 * 1000,
-  }
-) => {
-  const stringValue = typeof value === 'object' ? 'j:' + JSON.stringify(value) : String(value);
-
-  if (options.maxAge) {
-    options.expires = new Date(Date.now() + options.maxAge);
-    options.maxAge /= 1000;
-  }
-
-  res.setHeader('set-cookie', serialize(name, String(stringValue), options));
-};
-
+import { setCookie } from '@/utils/cookies';
 
 export const POST = async (req: NextApiRequest, res: NextApiResponse) => {
   const {
@@ -49,15 +18,24 @@ export const POST = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     const user = await UserModel.signin({ username, password });
 
+    // sign jwt
+    const token = await sign({
+      username,
+    });
+
+    setCookie(res, TOKEN_COOKIE_NAME, token, {
+      httpOnly: true,
+      path: '/',
+      maxAge: 60 * 60 * 24 * 30
+    });
+
     return user;
-  } catch(err) {
+  } catch (err) {
     throw {
       code: -1,
-      message: err
+      message: err,
     };
   }
-
-
 
   // const token = await createToken({
   //   username: user.username,

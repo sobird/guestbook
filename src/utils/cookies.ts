@@ -4,7 +4,6 @@ import { serialize, CookieSerializeOptions } from 'cookie';
 /**
  * This sets `cookie` using the `res` object
  */
-
 export const setCookie = (res: NextApiResponse, name: string, value: unknown, options: CookieSerializeOptions = {}) => {
   const stringValue = typeof value === 'object' ? 'j:' + JSON.stringify(value) : String(value);
 

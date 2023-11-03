@@ -5,11 +5,8 @@
  */
 import Head from 'next/head';
 import Layout from '@/components/Layout';
-import axios from '@/lib/axios';
 import { useForm } from 'react-hook-form';
-import useSWR, { mutate } from 'swr';
 import { Button, TextField, Box, Grid, styled } from '@mui/material';
-import FieldCaptcha from '@/components/field-captcha';
 import { message } from '@/components/Message';
 import UserService from '@/services/user';
 
@@ -25,7 +22,7 @@ export default function UserSigninPage() {
 
   const onSubmit = (values: any) => {
     UserService.signin(values).then((res) => {
-      // 
+      message.success("用户登录成功");
     }).catch((error) => {
       message.error(error.message);
     });
