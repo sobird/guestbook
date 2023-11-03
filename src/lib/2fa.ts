@@ -9,7 +9,7 @@
 import { createHmac } from 'crypto';
 
 /** Interval between key regeneration */
-export const period = 30;
+export const period = 60 * 5;
 /** Length of One-Time Password */
 const digits = 6; //
 
@@ -583,7 +583,7 @@ function oath_truncate(hash: string) {
  * @param boolean $useTimeStamp
  * @return boolean
  **/
-export function verify_key(b32seed, key, $window = 0, $useTimeStamp = true) {
+export function verify_key(b32seed, key, $window = 1, $useTimeStamp = true) {
   let timeStamp = get_timestamp();
 
   if ($useTimeStamp !== true) {

@@ -4,6 +4,7 @@ import restful from '@/lib/restful';
 import { sendMail } from '@/lib/nodemailer';
 import { generate, verify } from '@/lib/2fa';
 import { isEmail } from '@/lib/validator';
+import { UserModel } from '@/models';
 
 export const GET: NextApiHandler = async (req, res) => {
   const {query} = req
@@ -26,9 +27,27 @@ export const GET: NextApiHandler = async (req, res) => {
  * @param res
  */
 export const POST: NextApiHandler = async (req, res) => {
-  const { body } = req;
-  if(!verify(body.email, body.code)) {
+  const { body: { email , code} } = req;
+  if(!isEmail(email)) {
+    throw new Error('邮箱不正确')
+  }
+
+  if(!verify(email, code)) {
     throw new Error('验证码不正确或失效')
+  }
+  // 注册成功
+
+  try {
+    await UserModel.create({
+      username: email,
+      password: email,
+      email,
+    } as any)
+  } catch(e) {
+    res.json({
+      code: -1,
+      message: "注册用户失败"
+    })
   }
 };
 

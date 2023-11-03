@@ -126,7 +126,7 @@ User.init(
 
 User.beforeCreate((model, options) => {
   model.password = model.hashPassword(model.password, model.salt);
-  model.ip = fn("INET_ATON", model.ip); // INET_NTOA
+  // model.ip = fn("INET_ATON", model.ip); // INET_NTOA
 });
 
 export default User;
