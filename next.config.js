@@ -20,6 +20,7 @@ module.exports = {
 
   webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
     config.resolve.alias['@'] = resolve(__dirname, 'src');
+    // config.resolve.fallback = { fs: false, sqlite3: false };
     // Important: return the modified config
     // config.resolve.fallback = { fs: false };
     return config

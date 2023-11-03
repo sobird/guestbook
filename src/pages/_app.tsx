@@ -23,21 +23,24 @@ import { CssBaseline } from "@mui/material";
 import { CacheProvider, EmotionCache } from "@emotion/react";
 import createEmotionCache from "@/lib/emotion";
 import theme from "@/lib/theme";
+import { userAuth } from "@/middleware/withUserAuth";
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache();
 
 type MyAppProps = {
   emotionCache?: EmotionCache;
-  // example: string
+  example: string
 }
 
 export default function MyApp({
   Component,
   pageProps,
   emotionCache = clientSideEmotionCache,
-  // example,
+  example,
+  user
 }: AppProps & MyAppProps) {
+
   return (
     <CacheProvider value={emotionCache}>
       <Head>
@@ -47,7 +50,7 @@ export default function MyApp({
       <ThemeProvider theme={theme}>
         <CssBaseline />
         {/* <p>Data: {example}</p> */}
-        <Component {...pageProps} />
+        <Component {...pageProps} user={user} />
       </ThemeProvider>
     </CacheProvider>
   );
@@ -60,16 +63,16 @@ export default function MyApp({
  * @param context 
  * @returns 
  */
-// MyApp.getInitialProps = async (
-//   context: AppContext
-// ): Promise<MyAppProps & AppInitialProps> => {
-//   const ctx = await App.getInitialProps(context)
- 
-//   return { ...ctx, example: 'data' }
-// }
+MyApp.getInitialProps = async (
+  context: AppContext
+): Promise<MyAppProps & AppInitialProps> => {
+  const { ctx: {req, res} } = context;
+  const initialProps = await App.getInitialProps(context);
 
-export async function getServerSideProps(context) {
-  const { req, res, query } = context;
+  // const user = await userAuth(req, res);
+
+  // console.log('ctx', user)
   
-  console.log('context', context)
+ 
+  return { ...initialProps, example: 'data'  }
 }

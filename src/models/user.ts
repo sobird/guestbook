@@ -33,6 +33,7 @@ class User extends Model<UserAttributes, UserCreationAttributes> {
   public password!: string;
   public email!: string;
   private createdAt: string;
+  public ip: string;
 
   /** 用户注册 */
   public static async signup(attributes: UserSignupAttributes) {

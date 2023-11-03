@@ -1,10 +1,10 @@
 import React from "react";
 import Head from "next/head";
-import Link from "next/link";
 import Container from "@mui/material/Container";
 import styles from "./layout.module.css";
 import Header from "../Header";
 import Message from '@/components/Message'
+
 export interface LayoutProps {
   children?: any;
 }

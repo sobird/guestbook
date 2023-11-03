@@ -17,11 +17,18 @@ import Document, { Html, Head, Main, NextScript, DocumentContext } from 'next/do
 import createEmotionServer from '@emotion/server/create-instance';
 import createEmotionCache from '@/lib/emotion';
 import theme from '@/lib/theme';
+import { userAuth } from "@/middleware/withUserAuth";
 
 class MyDocument extends Document {
   // `getInitialProps` belongs to `_document` (instead of `_app`),
   // it's compatible with static-site generation (SSG).
   static async getInitialProps(ctx: DocumentContext) {
+    console.log('Document ctx', ctx.req)
+
+    const user = await userAuth(ctx.req, ctx.res);
+
+    console.log('user', user)
+
     // Resolution order
     //
     // On the server:
@@ -56,6 +63,8 @@ class MyDocument extends Document {
         enhanceApp: (App: any) => props => <App emotionCache={cache} {...props} />,
       });
     const initialProps = await Document.getInitialProps(ctx);
+
+    console.log('initialProps', initialProps)
 
     // This is important. It prevents emotion to render invalid HTML.
     // See https://github.com/mui-org/material-ui/issues/26561#issuecomment-855286153

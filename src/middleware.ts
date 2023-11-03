@@ -15,12 +15,19 @@
  */
 
 import { NextResponse } from 'next/server'
-import type { NextRequest } from 'next/server'
+import type { NextRequest, NextFetchEvent } from 'next/server'
  
 // This function can be marked `async` if using `await` inside
-export function middleware(request: NextRequest) {
+export function middleware(request: NextRequest, fetchEvent: NextFetchEvent) {
   const response = NextResponse.next();
-  // console.log('response', arguments)
+  // console.log('response', request)
+
+  // return NextResponse.next({
+  //   request: {
+  //     test: 123,
+  //   },
+  // })
+
   if (request.nextUrl.pathname.startsWith('/api')) {
     //return NextResponse.rewrite(new URL('/about-2', request.url))
 

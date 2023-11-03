@@ -1,60 +1,100 @@
 import { GetServerSidePropsContext } from "next";
-import { SignJWT, jwtVerify } from "jose";
-import { useSession, signIn, signOut } from "next-auth/react";
 import Head from "next/head";
+import { Button, TextField, Box, Grid, styled } from '@mui/material';
 import Layout from "@/components/Layout";
+import { userAuth } from "@/middleware/withUserAuth";
 
-export const TOKEN_COOKIE_NAME = "token";
-export const JWT_SECRET_KEY = "jwt_secret_key";
+type UserProps =Awaited<ReturnType<typeof userAuth>>;
 
-export default function UserProfilePage({ user }) {
-  // const [session] = useSession();
-  // console.log(`session`, session);
+interface UserProfilePageProps {
+  user: UserProps;
+}
+
+export default function UserProfilePage({ user }: UserProfilePageProps) {
   return (
     <Layout>
       <Head>
-        <title>Profile</title>
+        <title>用户信息</title>
       </Head>
-      <h1>User Profile</h1>
-      <p>hello, {user.name}</p>
+      
+      <Box component='form' mb={3} textAlign="center">
+        <Grid container spacing={2}>
+          <Grid item xs={12}>
+            <TextField
+              sx={{ width: '400px' }}
+              variant="standard"
+              label='用户名称'
+              size='small'
+              disabled
+              value={user?.username}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              sx={{ width: '400px' }}
+              variant="standard"
+              label='用户邮箱'
+              size='small'
+              disabled
+              value={user?.email}
+            />
+          </Grid>
+
+          <Grid item xs={12}>
+            <TextField
+              sx={{ width: '400px' }}
+              variant="standard"
+              label='用户昵称'
+              size='small'
+              disabled
+              value={user?.nickname || "未设置用户昵称"}
+            />
+          </Grid>
+
+          <Grid item xs={12}>
+            <TextField
+              sx={{ width: '400px' }}
+              variant="standard"
+              label='真实姓名'
+              size='small'
+              disabled
+              value={user?.realname || "未设置真实姓名"}
+            />
+          </Grid>
+
+          <Grid item xs={12}>
+            <TextField
+              sx={{ width: '400px' }}
+              variant="standard"
+              label='创建时间'
+              size='small'
+              disabled
+              value={user?.createdAt || "未设置真实姓名"}
+            />
+          </Grid>
+        </Grid>
+      </Box>
+
     </Layout>
   );
 }
 
-export async function getServerSideProps(context: GetServerSidePropsContext) {
-  const { req, res } = context;
-  const {
-    cookies: { token },
-  } = req;
+// export async function getServerSideProps(context: GetServerSidePropsContext) {
+//   const { req, res } = context;
+//   const user = await userAuth(req, res);
 
-  if (!token) {
-    return {
-      redirect: {
-        destination: "/user/login",
-        permanent: false,
-      },
-    };
-  }
+//   if (!user) {
+//     return {
+//       redirect: {
+//         destination: "/user/signin",
+//         permanent: false,
+//       },
+//     };
+//   }
 
-  const result = await jwtVerify(
-    token,
-    new TextEncoder().encode(JWT_SECRET_KEY)
-  ).catch(() => {});
-
-  if (!result) {
-    return {
-      redirect: {
-        destination: "/user/login",
-        permanent: false,
-      },
-    };
-  }
-
-  return {
-    props: {
-      user: {
-        name: result.payload.username,
-      },
-    },
-  };
-}
+//   return {
+//     props: {
+//       user: user,
+//     },
+//   };
+// }
