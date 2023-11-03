@@ -1,5 +1,5 @@
 /*
- * 用户登录
+ * Page: 用户登录
  *
  * sobird<i@sobird.me> at 2021/11/19 13:10:38 created.
  */
@@ -10,12 +10,8 @@ import { useForm } from 'react-hook-form';
 import useSWR, { mutate } from 'swr';
 import { Button, TextField, Box, Grid, styled } from '@mui/material';
 import FieldCaptcha from '@/components/field-captcha';
-import CommonService from '@/services/common';
 import { message } from '@/components/Message';
-
-function register(data: any) {
-  return axios.post('/api/user/register', data);
-}
+import UserService from '@/services/user';
 
 const TextError = styled('div')(({ theme }) => ({
   ...theme.typography.body2,
@@ -23,17 +19,15 @@ const TextError = styled('div')(({ theme }) => ({
   color: theme.palette.error.light,
 }));
 
-export default function UserLoginPage() {
+export default function UserSigninPage() {
   const form = useForm();
   const errors = form.formState.errors;
 
   const onSubmit = (values: any) => {
-    // register(values).then(res => {
-    // });
-    CommonService.verifyCaptcha(values).then((res) => {
-      
-    }).catch(() => {
-      message.error('验证失败');
+    UserService.signin(values).then((res) => {
+      // 
+    }).catch((error) => {
+      message.error(error.message);
     });
   };
 
@@ -47,27 +41,35 @@ export default function UserLoginPage() {
         <Grid container spacing={2}>
           <Grid item xs={12}>
             <TextField
-              type='email'
               sx={{ width: '400px' }}
               variant='outlined'
-              label='邮箱'
+              label='用户名称'
               size='small'
-              {...form.register('email', {
-                required: '请输入邮箱',
-                maxLength: { value: 64, message: '您输入的邮箱过长' },
+              {...form.register('username', {
+                required: '请输入用户名称',
               })}
-              error={Boolean(errors.email)}
+              error={Boolean(errors.username)}
             />
-            {errors.email ? <TextError>{errors.email.message as any}</TextError> : null}
+            {errors.username ? <TextError>{errors.username.message as any}</TextError> : null}
           </Grid>
           <Grid item xs={12}>
-            <FieldCaptcha propName="email" form={form}/>
-            {errors.code ? <TextError>{errors.code.message as any}</TextError> : null}
+            <TextField
+              type='password'
+              sx={{ width: '400px' }}
+              variant='outlined'
+              label='登录密码'
+              size='small'
+              {...form.register('password', {
+                required: '请输入登录密码',
+              })}
+              error={Boolean(errors.password)}
+            />
+            {errors.password ? <TextError>{errors.password.message as any}</TextError> : null}
           </Grid>
 
           <Grid item xs={12}>
-            <Button type='submit' variant='contained' disableElevation size='small'>
-              注册
+            <Button type='submit' variant='contained' disableElevation>
+              登录
             </Button>
           </Grid>
         </Grid>

@@ -4,9 +4,9 @@
  * sobird<i@sobird.me> at 2021/11/16 20:30:51 created.
  */
 
-import { randomBytes, createHmac } from "crypto";
-import { DataTypes, Model, Optional, fn } from "sequelize";
-import sequelize from "@/lib/sequelize";
+import { randomBytes, createHmac } from 'crypto';
+import { DataTypes, Model, Optional, fn } from 'sequelize';
+import sequelize from '@/lib/sequelize';
 
 // These are all the attributes in the User model
 export interface UserAttributes {
@@ -20,27 +20,38 @@ export interface UserAttributes {
   ip: string;
 }
 // Some attributes are optional in `User.build` and `User.create` calls
-export type UserCreationAttributes = Optional<UserAttributes, "id" | "nickname" | "realname" | "salt" | "ip">
+export type UserCreationAttributes = Optional<UserAttributes, 'id' | 'nickname' | 'realname' | 'salt' | 'ip'>;
+// 用户登录属性
+export type UserSigninAttributes = Pick<UserAttributes, 'username' | 'password'>;
 // 用户注册属性
-export type UserSignupAttributes = Pick<UserAttributes, "username" | "password" | "email">;
+export type UserSignupAttributes = Pick<UserAttributes, 'username' | 'password' | 'email'>;
 
 class User extends Model<UserAttributes, UserCreationAttributes> {
   declare id: number;
   public username!: string;
   public salt!: string;
   public password!: string;
-  public ip!: any;
+  public email!: string;
+  private createdAt: string;
 
-  /**
-   * 注册用户
-   */
+  /** 用户注册 */
   public static async signup(attributes: UserSignupAttributes) {
-    return this.findOrCreate({
+    const [user, created] = await this.findOrCreate({
       defaults: attributes,
       where: {
-        username: attributes.username
-      }
+        username: attributes.username,
+      },
     });
+    const { id, username, email, createdAt } = user;
+    return [
+      {
+        id,
+        username,
+        email,
+        createdAt,
+      },
+      created,
+    ];
   }
 
   /**
@@ -51,7 +62,7 @@ class User extends Model<UserAttributes, UserCreationAttributes> {
    * @return 返回一个64位长度的Hash字符串
    */
   public hashPassword(password: string, salt: string): string {
-    return createHmac("sha256", salt).update(password).digest("hex");
+    return createHmac('sha256', salt).update(password).digest('hex');
   }
 
   /**
@@ -63,15 +74,10 @@ class User extends Model<UserAttributes, UserCreationAttributes> {
     return this.hashPassword(password, this.salt) === this.password;
   }
 
-  /**
-   * 通过用户名和密码进行用户认证
-   *
-   * @param username
-   * @param password
-   */
-  public static async identify(username: string, password: string) {
+  /** 通过用户名和密码进行用户登录认证 */
+  public static async signin({ username, password }: UserSigninAttributes) {
     if (!username || !password) {
-      await Promise.reject("username or password cannot be empty!");
+      return Promise.reject('username or password cannot be empty!');
     }
 
     const user = await this.findOne({
@@ -79,13 +85,19 @@ class User extends Model<UserAttributes, UserCreationAttributes> {
     });
 
     if (!user) {
-      return await Promise.reject("user not found!");
+      return Promise.reject('user not found!');
     }
 
     if (user.verifyPassword(password)) {
-      return user;
+      const { id, username, email, createdAt } = user;
+      return {
+        id,
+        username,
+        email,
+        createdAt,
+      };
     } else {
-      await Promise.reject("username or password not correct");
+      return Promise.reject('username or password not correct');
     }
   }
 }
@@ -95,44 +107,44 @@ User.init(
     username: {
       type: DataTypes.STRING(32),
       allowNull: false,
-      comment: "user name",
+      comment: 'user name',
     },
     nickname: {
       type: DataTypes.STRING(32),
       allowNull: true,
-      comment: "nick name",
+      comment: 'nick name',
     },
     realname: {
       type: DataTypes.STRING(32),
       allowNull: true,
-      comment: "real name",
+      comment: 'real name',
     },
     email: {
       type: DataTypes.STRING,
       allowNull: false,
-      comment: "user email",
+      comment: 'user email',
     },
     password: {
       type: DataTypes.STRING(128),
       allowNull: false,
-      comment: "user password hash",
+      comment: 'user password hash',
     },
     salt: {
       type: DataTypes.STRING(128),
       allowNull: false,
-      defaultValue: randomBytes(16).toString("hex"),
-      comment: "user salt",
+      defaultValue: randomBytes(16).toString('hex'),
+      comment: 'user salt',
     },
     ip: {
       type: DataTypes.INTEGER,
       allowNull: false,
       defaultValue: 0,
-      comment: "user last login ip",
+      comment: 'user last login ip',
     },
   },
   {
     sequelize,
-    modelName: "user",
+    modelName: 'user',
   }
 );
 

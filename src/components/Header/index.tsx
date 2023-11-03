@@ -19,8 +19,8 @@ export default function Header() {
           </Typography>
           <Search />
 
-          <Link href="/user/login" style={{color: "#fff"}}><Button color="inherit">登录</Button></Link>
-          <Link href="/user/register" style={{color: "#fff"}}><Button color="inherit">注册</Button></Link>
+          <Link href="/user/signin" style={{color: "#fff"}}><Button color="inherit">登录</Button></Link>
+          <Link href="/user/signup" style={{color: "#fff"}}><Button color="inherit">注册</Button></Link>
         </Toolbar>
       </AppBar>
     </Box>

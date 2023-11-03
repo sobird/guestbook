@@ -27,7 +27,7 @@ const onSubmit = (values: any) => {
   });
 };
 
-export default function UserSignup() {
+export default function UserSignupPage() {
   const form = useForm({
     reValidateMode: 'onChange',
   });
