@@ -25,12 +25,15 @@ import createEmotionCache from "@/lib/emotion";
 import theme from "@/lib/theme";
 import { userAuth } from "@/middleware/withUserAuth";
 
+type UserProps =Awaited<ReturnType<typeof userAuth>>;
+
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache();
 
 type MyAppProps = {
   emotionCache?: EmotionCache;
-  example: string
+  example: string;
+  userInfo: UserProps;
 }
 
 export default function MyApp({
@@ -38,8 +41,13 @@ export default function MyApp({
   pageProps,
   emotionCache = clientSideEmotionCache,
   example,
-  user
+  userInfo,
 }: AppProps & MyAppProps) {
+
+  if(userInfo) {
+    // 防止客户端渲染 覆盖数据
+    pageProps.userInfo = userInfo;
+  }
 
   return (
     <CacheProvider value={emotionCache}>
@@ -50,7 +58,8 @@ export default function MyApp({
       <ThemeProvider theme={theme}>
         <CssBaseline />
         {/* <p>Data: {example}</p> */}
-        <Component {...pageProps} user={user} />
+        <Component {...pageProps}/>
+
       </ThemeProvider>
     </CacheProvider>
   );
@@ -68,11 +77,7 @@ MyApp.getInitialProps = async (
 ): Promise<MyAppProps & AppInitialProps> => {
   const { ctx: {req, res} } = context;
   const initialProps = await App.getInitialProps(context);
-
   // const user = await userAuth(req, res);
-
   // console.log('ctx', user)
-  
- 
   return { ...initialProps, example: 'data'  }
 }

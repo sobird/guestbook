@@ -23,11 +23,7 @@ class MyDocument extends Document {
   // `getInitialProps` belongs to `_document` (instead of `_app`),
   // it's compatible with static-site generation (SSG).
   static async getInitialProps(ctx: DocumentContext) {
-    console.log('Document ctx', ctx.req)
-
     const user = await userAuth(ctx.req, ctx.res);
-
-    console.log('user', user)
 
     // Resolution order
     //
@@ -60,11 +56,16 @@ class MyDocument extends Document {
 
     ctx.renderPage = () =>
       originalRenderPage({
-        enhanceApp: (App: any) => props => <App emotionCache={cache} {...props} />,
+        // enhanceComponent: (Component) => {
+        //   return (props: any) => {
+        //     return <Component userInfo={userInfo} {...props} />
+        //   }
+        // },
+        enhanceApp: (App: any) => props => <App userInfo={user} emotionCache={cache} {...props} />,
       });
     const initialProps = await Document.getInitialProps(ctx);
 
-    console.log('initialProps', initialProps)
+    // console.log('initialProps', initialProps)
 
     // This is important. It prevents emotion to render invalid HTML.
     // See https://github.com/mui-org/material-ui/issues/26561#issuecomment-855286153

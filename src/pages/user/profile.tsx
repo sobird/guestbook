@@ -7,10 +7,11 @@ import { userAuth } from "@/middleware/withUserAuth";
 type UserProps =Awaited<ReturnType<typeof userAuth>>;
 
 interface UserProfilePageProps {
-  user: UserProps;
+  userInfo: UserProps;
 }
 
-export default function UserProfilePage({ user }: UserProfilePageProps) {
+export default function UserProfilePage({ userInfo }: UserProfilePageProps) {
+
   return (
     <Layout>
       <Head>
@@ -26,7 +27,7 @@ export default function UserProfilePage({ user }: UserProfilePageProps) {
               label='用户名称'
               size='small'
               disabled
-              value={user?.username}
+              value={userInfo?.username}
             />
           </Grid>
           <Grid item xs={12}>
@@ -36,7 +37,7 @@ export default function UserProfilePage({ user }: UserProfilePageProps) {
               label='用户邮箱'
               size='small'
               disabled
-              value={user?.email}
+              value={userInfo?.email}
             />
           </Grid>
 
@@ -47,7 +48,7 @@ export default function UserProfilePage({ user }: UserProfilePageProps) {
               label='用户昵称'
               size='small'
               disabled
-              value={user?.nickname || "未设置用户昵称"}
+              value={userInfo?.nickname || "未设置用户昵称"}
             />
           </Grid>
 
@@ -58,7 +59,7 @@ export default function UserProfilePage({ user }: UserProfilePageProps) {
               label='真实姓名'
               size='small'
               disabled
-              value={user?.realname || "未设置真实姓名"}
+              value={userInfo?.realname || "未设置真实姓名"}
             />
           </Grid>
 
@@ -69,7 +70,7 @@ export default function UserProfilePage({ user }: UserProfilePageProps) {
               label='创建时间'
               size='small'
               disabled
-              value={user?.createdAt || "未设置真实姓名"}
+              value={userInfo?.createdAt || "未设置真实姓名"}
             />
           </Grid>
         </Grid>
