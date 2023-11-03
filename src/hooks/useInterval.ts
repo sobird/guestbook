@@ -9,7 +9,7 @@
 
 import { useState, useMemo, useCallback, useEffect, useRef } from 'react';
 
-type ReturnType = (time: null | undefined | number) => void;
+type ReturnType = (time: undefined | number) => void;
 
 export interface UseIntervalOptions {
   /**
@@ -29,7 +29,7 @@ export interface UseIntervalOptions {
  * @param options 
  * @returns 
  */
-const useInterval = (fn: () => void, delay?: number, options: UseIntervalOptions = {}): ReturnType => {
+const useInterval = (fn: () => void, delay: number = -1, options: UseIntervalOptions = {}): ReturnType => {
   const { immediate = false } = options;
   const [runEffect, setRunEffect] = useState(true);
   const [time, setTime ] = useState(delay);

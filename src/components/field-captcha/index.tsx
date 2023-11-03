@@ -58,7 +58,7 @@ const FieldCaptcha: React.FC<FieldCaptchaProps> = ({
   const resumeInterval = useInterval(() => {
     setCount((count) => {
       if (count <= 1) {
-        resumeInterval(null);
+        resumeInterval(-1);
       }
       return count - 1;
     });
@@ -73,7 +73,7 @@ const FieldCaptcha: React.FC<FieldCaptchaProps> = ({
       resumeInterval(1000);
     } catch (error) {
       setLoading(false);
-      resumeInterval(null);
+      resumeInterval(-1);
       console.log(error);
     }
   };
