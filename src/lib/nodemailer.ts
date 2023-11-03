@@ -12,12 +12,12 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-export function sendMail(mail: string, code: number) {
+export function sendMail(mail: string, subject: string, code: number | string) {
   // 邮件信息
   let mailobj = {
     from: '"sobird" <i@sobird.me>', // sender address
     to: mail, // 接收者邮箱 可以是多个 以,号隔开
-    subject: 'hello', // Subject line
+    subject, // Subject line
     // 发送text或者html格式
     text: `验证码：${code}`,
     // html:`<h1>xxxx</h1>`

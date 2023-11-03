@@ -583,17 +583,17 @@ function oath_truncate(hash: string) {
  * @param boolean $useTimeStamp
  * @return boolean
  **/
-export function verify_key(b32seed, key, $window = 4, $useTimeStamp = true) {
+export function verify_key(b32seed, key, $window = 0, $useTimeStamp = true) {
   let timeStamp = get_timestamp();
 
   if ($useTimeStamp !== true) {
     timeStamp = Number($useTimeStamp);
   }
 
-  const binarySeed = base32_decode(b32seed);
+  // const binarySeed = base32_decode(b32seed);
 
   for (let $ts = timeStamp - $window; $ts <= timeStamp + $window; $ts++) {
-    if (oath_hotp(binarySeed, $ts) == key) {
+    if (oath_hotp(b32seed, $ts) == key) {
       return true;
     }
   }
@@ -602,9 +602,9 @@ export function verify_key(b32seed, key, $window = 4, $useTimeStamp = true) {
 }
 
 export const generate = (key: string) => {
-  const secretkey = base32_decode(key);
+  // const secretkey = base32_decode(key);
   const timestamp = get_timestamp();
-  return oath_hotp(secretkey, timestamp);
+  return oath_hotp(key, timestamp);
 }
 
 export const verify = (key: string, otp: string) => {
