@@ -51,6 +51,8 @@ export default function Home(
   const [comment, setComment] = useState(props.comment);
   const [runEffect, setRunEffect] = useState(false);
 
+  console.log('comment', comment)
+
   // 提交留言
   const onSubmit = (data: FormDataProps) => {
     CommentService.create(data as any).then((res) => {

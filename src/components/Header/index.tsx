@@ -26,3 +26,25 @@ export default function Header() {
     </Box>
   );
 }
+
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+  const { req, res } = context;
+
+  console.log('context', context)
+  // const user = await userAuth(req, res);
+
+  // if (!user) {
+  //   return {
+  //     redirect: {
+  //       destination: "/user/signin",
+  //       permanent: false,
+  //     },
+  //   };
+  // }
+
+  // return {
+  //   props: {
+  //     user: user,
+  //   },
+  // };
+}

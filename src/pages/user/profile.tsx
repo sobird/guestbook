@@ -11,7 +11,6 @@ interface UserProfilePageProps {
 }
 
 export default function UserProfilePage({ userInfo }: UserProfilePageProps) {
-
   return (
     <Layout>
       <Head>
