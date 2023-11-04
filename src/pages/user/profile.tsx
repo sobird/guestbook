@@ -79,22 +79,34 @@ export default function UserProfilePage({ userInfo }: UserProfilePageProps) {
   );
 }
 
-// export async function getServerSideProps(context: GetServerSidePropsContext) {
-//   const { req, res } = context;
-//   const user = await userAuth(req, res);
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+  const { req, res } = context;
+  const user = await userAuth(req, res);
 
-//   if (!user) {
-//     return {
-//       redirect: {
-//         destination: "/user/signin",
-//         permanent: false,
-//       },
-//     };
+  if (!user) {
+    return {
+      redirect: {
+        destination: "/user/signin",
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: {
+      userInfo: user,
+    },
+  };
+}
+
+// UserProfilePage.getInitialProps = async (ctx) => {
+//   console.log('ctx', Object.keys(ctx));
+//   console.log(ctx.query)
+  
+
+//   if (typeof window === 'undefined') {
+//     console.log("Dd")
 //   }
 
-//   return {
-//     props: {
-//       user: user,
-//     },
-//   };
+//   return {};
 // }

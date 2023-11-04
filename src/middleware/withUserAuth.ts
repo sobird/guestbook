@@ -11,7 +11,7 @@ import { UserModel } from '@/models';
 
 
 export const userAuth = async (req: GetServerSidePropsContext['req'], res: GetServerSidePropsContext['res']): Promise<Omit<UserAttributes, "password" | "salt"> | undefined | null> => {
-  const token = req.cookies['token'];
+  const token = req?.cookies['token'];
 
   if(!token) {
     return null;

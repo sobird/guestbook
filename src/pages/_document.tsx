@@ -23,7 +23,7 @@ class MyDocument extends Document {
   // `getInitialProps` belongs to `_document` (instead of `_app`),
   // it's compatible with static-site generation (SSG).
   static async getInitialProps(ctx: DocumentContext) {
-    const user = await userAuth(ctx.req, ctx.res);
+    // const user = await userAuth(ctx.req, ctx.res);
 
     // Resolution order
     //
@@ -61,7 +61,7 @@ class MyDocument extends Document {
         //     return <Component userInfo={userInfo} {...props} />
         //   }
         // },
-        enhanceApp: (App: any) => props => <App userInfo={user} emotionCache={cache} {...props} />,
+        enhanceApp: (App: any) => props => <App /* userInfo={user} */ emotionCache={cache} {...props} />,
       });
     const initialProps = await Document.getInitialProps(ctx);
 

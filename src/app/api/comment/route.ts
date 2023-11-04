@@ -12,6 +12,5 @@ import { use } from "@/lib/middleware";
 // }
 
 export const GET = function test (req) {
-  console.log('req', 123)
   return Response.json({ data: 123 })
 }

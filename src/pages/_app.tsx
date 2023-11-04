@@ -23,9 +23,6 @@ import { CssBaseline } from '@mui/material';
 import { CacheProvider, EmotionCache } from '@emotion/react';
 import createEmotionCache from '@/lib/emotion';
 import theme from '@/lib/theme';
-import { userAuth } from '@/middleware/withUserAuth';
-
-type UserProps = Awaited<ReturnType<typeof userAuth>>;
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache();
@@ -33,29 +30,14 @@ const clientSideEmotionCache = createEmotionCache();
 type MyAppProps = {
   emotionCache?: EmotionCache;
   example: string;
-  userInfo: UserProps;
 };
-
-let clientUserInfoCache = null;
 
 export default function MyApp({
   Component,
   pageProps,
   emotionCache = clientSideEmotionCache,
   example,
-  userInfo,
 }: AppProps & MyAppProps) {
-  if (userInfo) {
-    // 防止客户端渲染 覆盖数据
-    pageProps.userInfo = userInfo;
-  }
-
-  // 缓存用户信息数据
-  if (!clientUserInfoCache) {
-    clientUserInfoCache = pageProps.userInfo;
-  }
-
-  pageProps.userInfo = clientUserInfoCache;
 
   return (
     <CacheProvider value={emotionCache}>
@@ -65,7 +47,7 @@ export default function MyApp({
       </Head>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <Component {...pageProps} />
+        <Component {...pageProps} example={example}/>
       </ThemeProvider>
     </CacheProvider>
   );
@@ -78,12 +60,12 @@ export default function MyApp({
  * @param context
  * @returns
  */
-MyApp.getInitialProps = async (context: AppContext): Promise<AppInitialProps> => {
+MyApp.getInitialProps = async (context: AppContext): Promise<AppInitialProps & MyAppProps> => {
   const {
     ctx: { req, res },
   } = context;
   const initialProps = await App.getInitialProps(context);
   // const user = await userAuth(req, res);
   // console.log('ctx', user)
-  return { ...initialProps };
+  return { ...initialProps, example: "example"};
 };
