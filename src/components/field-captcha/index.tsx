@@ -40,7 +40,11 @@ const FieldCaptcha: React.FC<FieldCaptchaProps> = ({
   countDown,
   propName,
   onCaptcha = async (mobile) => {
-    CommonService.sendCaptcha(mobile);
+    CommonService.sendCaptcha(mobile).then(() => {
+      message.success('验证码发送成功！')
+    }).catch((error) => {
+      message.error(error.message || '验证码发送失败')
+    });
   },
   buttonTextRender = (count) => {
     return count ? `${count} 秒后重新获取` : '获取验证码';

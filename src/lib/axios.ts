@@ -104,7 +104,7 @@ export class Http {
       },
       // 超出 2xx 范围的状态码都会触发该函数。
       (error: HttpError) => {
-        const { request, response, config } = error;
+        const { code, message, request, response, config } = error;
 
         if (response) {
           // 请求成功发出且服务器也响应了状态码，但状态代码超出了 2xx 的范围
@@ -119,7 +119,13 @@ export class Http {
         } else if (request) {
           // 请求已经成功发起，但没有收到响应
         }
-        return Promise.reject(error);
+        return Promise.reject({
+          code,
+          message,
+          config,
+          request,
+          response
+        });
       }
     );
   }
