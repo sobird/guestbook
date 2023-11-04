@@ -7,9 +7,6 @@
 
 import { NextApiRequest, NextApiResponse } from 'next';
 import restful from '@/lib/restful';
-import { sign, TOKEN_COOKIE_NAME } from '@/lib/jwt';
-import { UserModel } from '@/models';
-import { setCookie } from '@/utils/cookies';
 import { userAuth } from '@/middleware/withUserAuth';
 
 export const GET = async (req: NextApiRequest, res: NextApiResponse) => {

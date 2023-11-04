@@ -10,6 +10,8 @@ import { useForm } from 'react-hook-form';
 import { Button, TextField, Box, Grid, styled } from '@mui/material';
 import { message } from '@/components/Message';
 import UserService from '@/services/user';
+import { useAppDispatch } from '@/store/hooks';
+import { updateUser } from '@/store/actions/app';
 
 const TextError = styled('div')(({ theme }) => ({
   ...theme.typography.body2,
@@ -21,11 +23,14 @@ export default function UserSigninPage() {
   const router = useRouter();
   const form = useForm();
   const errors = form.formState.errors;
-
+  const dispatch = useAppDispatch()
+  
   const onSubmit = (values: any) => {
     UserService.signin(values).then((res) => {
       message.success("用户登录成功");
       router.push('/');
+
+      // dispatch(updateUser(res))
     }).catch((error) => {
       message.error(error.message);
     });

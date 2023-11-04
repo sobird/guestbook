@@ -8,7 +8,7 @@ import Button from '@mui/material/Button';
 import { Menu, MenuItem } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import Search from '../Search';
-import { MyAppContext } from '@/utils/context';
+import { useAppSelector } from '@/store/hooks';
 
 function stringToColor(string: string) {
   let hash = 0;
@@ -31,6 +31,9 @@ function stringToColor(string: string) {
 }
 
 function stringAvatar(name: string) {
+  if(!name) {
+    return {}
+  }
   return {
     sx: {
       bgcolor: stringToColor(name),
@@ -40,7 +43,7 @@ function stringAvatar(name: string) {
 }
 
 export default function Header() {
-  const { userInfo } = useContext(MyAppContext);
+  const { userProfile } = useAppSelector(state => state.app);
 
   const [anchorEl, setAnchorEl] = useState(null);
 
@@ -66,12 +69,12 @@ export default function Header() {
           </Typography>
           <Search />
 
-          {userInfo ? (
+          {userProfile.username ? (
             <>
               <Avatar
                 aria-describedby={id}
-                alt={userInfo.username}
-                {...stringAvatar(userInfo.username)}
+                alt={userProfile.username}
+                {...stringAvatar(userProfile.username)}
                 onClick={handleClick}
               />
               <Menu
@@ -87,7 +90,7 @@ export default function Header() {
                   horizontal: 'right',
                 }}
               >
-                <Link href="/user/profile" style={{ color: '#333', textDecoration: 'none' }}><MenuItem onClick={handleClose}>{userInfo.username}</MenuItem></Link>
+                <Link href="/user/profile" style={{ color: '#333', textDecoration: 'none' }}><MenuItem onClick={handleClose}>{userProfile.username}</MenuItem></Link>
                 <a href="/user/logout" style={{ color: '#333', textDecoration: 'none' }}><MenuItem onClick={handleClose}>退出</MenuItem></a>
               </Menu>
             </>

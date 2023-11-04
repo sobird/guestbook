@@ -6,6 +6,7 @@
 
 import http from '@/lib/axios';
 import { UserModel } from '@/models';
+import { UserAttributes } from '@/models/user';
 
 type UserSigninAttributes = Parameters<typeof UserModel.signin>;
 type UserSignupAttributes = Parameters<typeof UserModel.signup>;
@@ -18,7 +19,7 @@ const UserService = {
     return http.post('/api/user/signup', attributes);
   },
   async profile() {
-    return http.get('/api/user/profile');
+    return http.get<UserAttributes>('/api/user/profile');
   },
 };
 

@@ -1,15 +1,24 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Head from "next/head";
 import Container from "@mui/material/Container";
 import styles from "./layout.module.css";
 import Header from "../Header";
 import Message from '@/components/Message'
-
+import { useAppDispatch } from '@/store/hooks';
+import UserService from '@/services/user';
+import { updateUser } from "@/store/actions/app";
 export interface LayoutProps {
   children?: any;
 }
 
 export default function Layout({ children }: LayoutProps) {
+  const dispatch =  useAppDispatch()
+  useEffect(() => {
+    UserService.profile().then(res=> {
+      dispatch(updateUser(res));
+    })
+  }, []);
+
   return (
     <Container maxWidth="md">
       <Head>
