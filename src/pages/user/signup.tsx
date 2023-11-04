@@ -4,6 +4,7 @@
  * sobird<i@sobird.me> at 2021/11/19 13:10:38 created.
  */
 import Head from 'next/head';
+import { useRouter } from 'next/router'
 import Layout from '@/components/Layout';
 import { useForm } from 'react-hook-form';
 import useSWR, { mutate } from 'swr';
@@ -18,16 +19,18 @@ const TextError = styled('div')(({ theme }) => ({
   color: theme.palette.error.light,
 }));
 
-const onSubmit = (values: any) => {
+const onSubmit = (values: any, router) => {
   UserService.signup(values).then(() => {
     message.success('注册成功');
     // 登录成功跳到首页
+    router.push('/');
   }).catch(err => {
     message.error(err.message)
   });
 };
 
 export default function UserSignupPage() {
+  const router = useRouter();
   const form = useForm({
     reValidateMode: 'onChange',
   });
@@ -38,7 +41,9 @@ export default function UserSignupPage() {
         <title>用户注册</title>
       </Head>
 
-      <Box component='form' mb={3} onSubmit={form.handleSubmit(onSubmit)} textAlign='center'>
+      <Box component='form' mb={3} onSubmit={form.handleSubmit((values) => {
+        onSubmit(values, router);
+      })} textAlign='center'>
         <Grid container spacing={2}>
           <Grid item xs={12}>
             <TextField

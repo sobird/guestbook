@@ -7,9 +7,18 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import restful from "@/lib/restful";
 import { UserModel } from "@/models";
+import { verify } from '@/lib/2fa'
 
 export const POST = async (req: NextApiRequest, res: NextApiResponse) => {
-  const { username, password, email } = req.body;
+  const { username, password, email, code } = req.body;
+  const result = verify(email, code);
+
+  if(!result) {
+    throw {
+      code: -1,
+      message: "验证码不正确"
+    };
+  }
 
   const [user, created] = await UserModel.signup({
     username,

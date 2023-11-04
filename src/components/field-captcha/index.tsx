@@ -37,8 +37,6 @@ export type FieldCaptchaProps =  {
 };
 
 const FieldCaptcha: React.FC<FieldCaptchaProps> = ({
-  value,
-  onChange,
   countDown,
   propName,
   onCaptcha = async (mobile) => {
@@ -49,7 +47,6 @@ const FieldCaptcha: React.FC<FieldCaptchaProps> = ({
   },
   buttonProps,
   fieldProps,
-
   form
 }) => {
   // const form = useForm();

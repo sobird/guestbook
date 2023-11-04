@@ -4,6 +4,7 @@
  * sobird<i@sobird.me> at 2021/11/19 13:10:38 created.
  */
 import Head from 'next/head';
+import { useRouter } from 'next/router'
 import Layout from '@/components/Layout';
 import { useForm } from 'react-hook-form';
 import { Button, TextField, Box, Grid, styled } from '@mui/material';
@@ -17,12 +18,14 @@ const TextError = styled('div')(({ theme }) => ({
 }));
 
 export default function UserSigninPage() {
+  const router = useRouter();
   const form = useForm();
   const errors = form.formState.errors;
 
   const onSubmit = (values: any) => {
     UserService.signin(values).then((res) => {
       message.success("用户登录成功");
+      router.push('/');
     }).catch((error) => {
       message.error(error.message);
     });
