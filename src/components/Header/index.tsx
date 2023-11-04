@@ -7,7 +7,6 @@ import Toolbar from '@mui/material/Toolbar';
 import Button from '@mui/material/Button';
 import { Menu, MenuItem } from '@mui/material';
 import Typography from '@mui/material/Typography';
-
 import Search from '../Search';
 import { MyAppContext } from '@/utils/context';
 

@@ -17,6 +17,9 @@ const UserService = {
   async signup(attributes: UserSignupAttributes) {
     return http.post('/api/user/signup', attributes);
   },
+  async profile() {
+    return http.get('/api/user/profile');
+  },
 };
 
 export default UserService;

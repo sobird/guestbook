@@ -14,6 +14,7 @@
  *
  * sobird<i@sobird.me> at 2021/11/09 15:18:01 created.
  */
+import { useEffect } from 'react';
 import Head from 'next/head';
 import App, { AppContext, AppInitialProps, AppProps } from 'next/app';
 import '@/styles/global.scss';
@@ -23,6 +24,8 @@ import { CssBaseline } from '@mui/material';
 import { CacheProvider, EmotionCache } from '@emotion/react';
 import createEmotionCache from '@/lib/emotion';
 import theme from '@/lib/theme';
+import UserService from '@/services/user';
+
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache();
@@ -38,7 +41,11 @@ export default function MyApp({
   emotionCache = clientSideEmotionCache,
   example,
 }: AppProps & MyAppProps) {
-
+  useEffect(() => {
+    UserService.profile().then(res=> {
+      console.log('res', res)
+    })
+  }, []);
   return (
     <CacheProvider value={emotionCache}>
       <Head>
