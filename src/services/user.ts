@@ -21,6 +21,9 @@ const UserService = {
   async profile() {
     return http.get<UserAttributes>('/api/user/profile');
   },
+  async update(attributes: Pick<UserAttributes, 'nickname' | 'realname'>) {
+    return http.patch<UserAttributes>('/api/user/profile', attributes);
+  },
 };
 
 export default UserService;

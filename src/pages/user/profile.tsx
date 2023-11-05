@@ -1,8 +1,12 @@
 import { GetServerSidePropsContext } from "next";
 import Head from "next/head";
 import { Button, TextField, Box, Grid, styled } from '@mui/material';
+import { useForm } from "react-hook-form";
 import Layout from "@/components/Layout";
 import { userAuth } from "@/middleware/withUserAuth";
+import UserService from "@/services/user";
+import { message } from "@/components/Message";
+import { useState } from "react";
 
 type UserProps =Awaited<ReturnType<typeof userAuth>>;
 
@@ -11,13 +15,33 @@ interface UserProfilePageProps {
 }
 
 export default function UserProfilePage({ userInfo }: UserProfilePageProps) {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    resetField,
+  } = useForm();
+  // const [profile, setProfile] = useState(userInfo);
+
+  // 提交留言
+  const onSubmit = (data: any) => {
+    UserService.update(data).then((res) => {
+      message.success("更新用户信息成功！");
+      // 清空留言内容
+      resetField("content");
+      // setRunEffect((state) => !state);
+    }).catch((err) => {
+      message.error(err.message || '更新用户信息失败')
+    })
+  };
+
   return (
     <Layout>
       <Head>
         <title>用户信息</title>
       </Head>
       
-      <Box component='form' mb={3} textAlign="center">
+      <Box component='form' mb={3} textAlign="center" onSubmit={handleSubmit(onSubmit)}>
         <Grid container spacing={2}>
           <Grid item xs={12}>
             <TextField
@@ -26,7 +50,7 @@ export default function UserProfilePage({ userInfo }: UserProfilePageProps) {
               label='用户名称'
               size='small'
               disabled
-              value={userInfo?.username}
+              defaultValue={userInfo?.username}
             />
           </Grid>
           <Grid item xs={12}>
@@ -36,29 +60,31 @@ export default function UserProfilePage({ userInfo }: UserProfilePageProps) {
               label='用户邮箱'
               size='small'
               disabled
-              value={userInfo?.email}
+              defaultValue={userInfo?.email}
             />
           </Grid>
 
           <Grid item xs={12}>
             <TextField
               sx={{ width: '400px' }}
-              variant="standard"
+              variant="outlined"
               label='用户昵称'
               size='small'
-              disabled
-              value={userInfo?.nickname || "未设置用户昵称"}
+              placeholder="请设置用户昵称"
+              defaultValue={userInfo?.nickname}
+              {...register("nickname")}
             />
           </Grid>
 
           <Grid item xs={12}>
             <TextField
               sx={{ width: '400px' }}
-              variant="standard"
+              variant="outlined"
               label='真实姓名'
               size='small'
-              disabled
-              value={userInfo?.realname || "未设置真实姓名"}
+              placeholder="请设置真实姓名"
+              defaultValue={userInfo?.realname}
+              {...register("realname")}
             />
           </Grid>
 
@@ -71,6 +97,16 @@ export default function UserProfilePage({ userInfo }: UserProfilePageProps) {
               disabled
               value={userInfo?.createdAt || "未设置真实姓名"}
             />
+          </Grid>
+
+          <Grid item xs={12}>
+            <Button
+              type="submit"
+              variant="contained"
+              disableElevation
+            >
+              更新用户信息
+            </Button>
           </Grid>
         </Grid>
       </Box>

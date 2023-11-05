@@ -131,7 +131,6 @@ export default function Home(
               type="submit"
               variant="contained"
               disableElevation
-              size="small"
             >
               提交
             </Button>

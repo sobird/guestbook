@@ -16,6 +16,8 @@ export default function Layout({ children }: LayoutProps) {
   useEffect(() => {
     UserService.profile().then(res=> {
       dispatch(updateUser(res));
+    }).catch(() => {
+      dispatch(updateUser({}))
     })
   }, []);
 
