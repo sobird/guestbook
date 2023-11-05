@@ -19,6 +19,19 @@ export const GET: NextApiHandler = async (req, res) => {
     throw new Error('邮箱不正确');
   }
 
+  const user = await UserModel.findOne({
+    where: {
+      email
+    }
+  });
+
+  if(user) {
+    throw {
+      code: -1,
+      message: "该邮箱已被注册"
+    }
+  }
+
   try {
     await limiter.check(res, 10, 'CACHE_TOKEN'); // 10 requests per minute
     // One-Time Password
