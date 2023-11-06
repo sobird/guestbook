@@ -4,6 +4,7 @@ import sequelize from '@/lib/sequelize';
 // These are all the attributes in the Comment model
 export interface CommentAttributes {
   id?: number;
+  userId?: number;
   title?: string;
   content: string;
   author?: string;
@@ -28,6 +29,7 @@ export class Comment extends Model<CommentAttributes, CommentCreationAttributes>
   declare id: number;
   public title!: string;
   public ip!: unknown;
+  declare userId: number;
 
   /** 分页查找评论数据 */
   public static async findAllWithPagination(query: IPaginationParams) {
@@ -57,7 +59,7 @@ Comment.init(
     content: {
       type: DataTypes.TEXT,
       allowNull: false,
-      comment: 'comment conent',
+      comment: 'comment content',
     },
     author: {
       type: DataTypes.STRING(32),

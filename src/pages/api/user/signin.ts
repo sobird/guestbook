@@ -19,9 +19,7 @@ export const POST = async (req: NextApiRequest, res: NextApiResponse) => {
     const user = await UserModel.signin({ username, password });
 
     // sign jwt
-    const token = await sign({
-      username,
-    });
+    const token = await sign(user);
 
     setCookie(res, TOKEN_COOKIE_NAME, token, {
       httpOnly: true,

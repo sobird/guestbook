@@ -1,12 +1,6 @@
 import { useContext, useState } from 'react';
 import Link from 'next/link';
-import { Avatar } from '@mui/material';
-import Box from '@mui/material/Box';
-import AppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
-import Button from '@mui/material/Button';
-import { Menu, MenuItem } from '@mui/material';
-import Typography from '@mui/material/Typography';
+import { Avatar, Box, AppBar, Toolbar, Button, Menu, MenuItem, Typography } from '@mui/material';
 import Search from '../Search';
 import { useAppSelector } from '@/store/hooks';
 
@@ -31,8 +25,8 @@ function stringToColor(string: string) {
 }
 
 function stringAvatar(name: string) {
-  if(!name) {
-    return {}
+  if (!name) {
+    return {};
   }
   return {
     sx: {
@@ -90,8 +84,12 @@ export default function Header() {
                   horizontal: 'right',
                 }}
               >
-                <Link href="/user/profile" style={{ color: '#333', textDecoration: 'none' }}><MenuItem onClick={handleClose}>{userProfile.username}</MenuItem></Link>
-                <a href="/user/logout" style={{ color: '#333', textDecoration: 'none' }}><MenuItem onClick={handleClose}>退出</MenuItem></a>
+                <Link href='/user/profile' style={{ color: '#333', textDecoration: 'none' }}>
+                  <MenuItem onClick={handleClose}>{userProfile.username}</MenuItem>
+                </Link>
+                <a href='/user/logout' style={{ color: '#333', textDecoration: 'none' }}>
+                  <MenuItem onClick={handleClose}>退出</MenuItem>
+                </a>
               </Menu>
             </>
           ) : (

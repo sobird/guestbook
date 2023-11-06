@@ -1,25 +1,33 @@
-import {
-  InferGetServerSidePropsType,
-  GetServerSidePropsContext,
-  NextApiRequest,
-  NextApiResponse,
-} from "next";
-import Link from "next/link";
-import Image from "next/image";
-import { useState } from "react";
-import useSWR from "swr";
-import { useForm } from "react-hook-form";
-import { Button, TextField, Box, Grid, styled, Paper } from "@mui/material";
-import useUpdateEffect from "@/hooks/useUpdateEffect";
-import useCookie from "@/hooks/useCookie";
-import Layout from "@/components/Layout";
-import { message } from "@/components/Message";
-import CommentList from "@/components/Comment/List";
-import { CommentModel } from "@/models";
-import CommentService from "@/services/comment";
-import ProfileImage from "@/assets/profile.jpg";
+import { InferGetServerSidePropsType, GetServerSidePropsContext, NextApiRequest, NextApiResponse } from 'next';
+import Link from 'next/link';
+import Image from 'next/image';
+import { useState } from 'react';
+import useSWR from 'swr';
+import { useForm } from 'react-hook-form';
+import * as Material from '@mui/material';
+import { Button, TextField, Box, Grid, styled, Paper } from '@mui/material';
+import useUpdateEffect from '@/hooks/useUpdateEffect';
+import useCookie from '@/hooks/useCookie';
+import Layout from '@/components/Layout';
+import { message } from '@/components/Message';
+import CommentList from '@/components/Comment/List';
+import { CommentModel } from '@/models';
+import CommentService from '@/services/comment';
+import ProfileImage from '@/assets/profile.jpg';
+import indexMdxRaw from '!raw-loader!./index.mdx';
+import Editor, { loader } from '@monaco-editor/react';
+import Mdx from '@/components/mdx';
+import { useAppSelector } from '@/store/hooks';
 
-const TextError = styled("div")(({ theme }) => ({
+const monacoConfig = {
+  paths: {
+    vs: 'https://unpkg.com/monaco-editor@0.44.0/min/vs',
+  },
+};
+
+loader.config(monacoConfig);
+
+const TextError = styled('div')(({ theme }) => ({
   ...theme.typography.body2,
   padding: theme.spacing(1),
   color: theme.palette.error.light,
@@ -38,100 +46,70 @@ export interface FormDataProps {
 //   });
 // }
 
-export default function Home(
-  props: InferGetServerSidePropsType<typeof getServerSideProps>
-) {
+export default function Home(props: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const {
     register,
     handleSubmit,
     formState: { errors },
     resetField,
-  } = useForm();
+    setValue,
+  } = useForm({
+    defaultValues: {
+      content: indexMdxRaw
+    }
+  });
+
+  const { userProfile } = useAppSelector(state => state.app);
 
   const [comment, setComment] = useState(props.comment);
+  const [content, setComtent] = useState('');
   const [runEffect, setRunEffect] = useState(false);
 
   // 提交留言
   const onSubmit = (data: FormDataProps) => {
-    CommentService.create(data as any).then((res) => {
-      message.success("提交留言成功！");
+    if(!userProfile.username) {
+      message.error('只有登录用户才可留言！');
+      return;
+    }
+    CommentService.create(data as any).then(res => {
+      message.success('提交留言成功！');
 
       // 清空留言内容
-      resetField("content");
-      setRunEffect((state) => !state);
+      resetField('content');
+      setRunEffect(state => !state);
     });
   };
 
   useUpdateEffect(() => {
-    CommentService.findAllWithPagination().then((res) => {
+    CommentService.findAllWithPagination().then(res => {
       setComment(res as any);
     });
   }, [runEffect]);
 
   return (
     <Layout>
-      <Box component="form" mb={3} onSubmit={handleSubmit(onSubmit)}>
+      <Grid item xs={12} mb={3}>
+          <Mdx value={content || indexMdxRaw} components={{
+            ...Material
+          }} />
+      </Grid>
+
+      <Box component='form' mb={3} onSubmit={handleSubmit(onSubmit)}>
         <Grid container spacing={2}>
           <Grid item xs={12}>
-            <TextField
-              autoFocus
-              sx={{ width: "300px" }}
-              variant="outlined"
-              label="姓名"
-              size="small"
-              {...register("author", {
-                maxLength: { value: 32, message: "too long" },
-              })}
-            />
-          </Grid>
-          <Grid item xs={12} display="flex" alignItems="center">
-            <TextField
-              type="email"
-              sx={{ width: "300px" }}
-              variant="outlined"
-              label="邮箱"
-              size="small"
-              {...register("email", {
-                required: "请输入邮箱",
-                maxLength: { value: 64, message: "您输入的邮箱过长" },
-              })}
-              error={Boolean(errors.email)}
-            />
-
-            <TextError>
-              {errors.email ? (errors.email.message as any) : "*"}
-            </TextError>
-          </Grid>
-          <Grid item xs={12}>
-            <TextField
-              sx={{ width: "300px" }}
-              variant="outlined"
-              label="博客"
-              size="small"
-              {...register("url")}
+            <Editor
+              theme='vs-dark'
+              height='70vh'
+              defaultLanguage='mdx'
+              defaultValue={indexMdxRaw}
+              onChange={(value) => {
+                setValue('content', value);
+                setComtent(value)
+              }}
             />
           </Grid>
           <Grid item xs={12}>
-            <TextField
-              fullWidth
-              multiline
-              rows={5}
-              variant="outlined"
-              label="留言内容"
-              size="small"
-              {...register("content", {
-                required: "请填写留言内容",
-                maxLength: { value: 3200, message: "您输入的留言内容过长" },
-              })}
-              error={Boolean(errors.content)}
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <Button
-              type="submit"
-              variant="contained"
-              disableElevation
-            >
+            <Button type='submit' variant='contained' disableElevation>
               提交
             </Button>
           </Grid>
@@ -139,14 +117,14 @@ export default function Home(
       </Box>
 
       <Box mb={3}>
-        <Paper variant="outlined" sx={{ padding: "10px" }}>
+        <Paper variant='outlined' sx={{ padding: '10px' }}>
           目前共有{comment.count}条留言
         </Paper>
 
         <CommentList data={comment.rows} />
       </Box>
 
-      <Image alt="" src={ProfileImage} width="600"></Image>
+      <Image alt='' src={ProfileImage} width='600'></Image>
     </Layout>
   );
 }
@@ -176,7 +154,7 @@ export default function Home(
  */
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const { req, res, query } = context;
-  res.setHeader("SOBIRD", 123);
+  res.setHeader('SOBIRD', 123);
   const { pn, ps } = query;
 
   const comment = await CommentModel.findAllWithPagination({ pn, ps });
