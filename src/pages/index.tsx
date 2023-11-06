@@ -99,7 +99,7 @@ export default function Home(props: InferGetServerSidePropsType<typeof getServer
           <Grid item xs={12}>
             <Editor
               theme='vs-dark'
-              height='70vh'
+              height='40vh'
               defaultLanguage='mdx'
               defaultValue={indexMdxRaw}
               onChange={(value) => {
@@ -109,7 +109,7 @@ export default function Home(props: InferGetServerSidePropsType<typeof getServer
             />
           </Grid>
           <Grid item xs={12}>
-            <Button type='submit' variant='contained' disableElevation>
+            <Button disabled={!userProfile.username} type='submit' variant='contained' disableElevation>
               提交
             </Button>
           </Grid>

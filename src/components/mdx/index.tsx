@@ -11,6 +11,7 @@ import { useEffect, useState, FC, ComponentType } from 'react';
 import * as runtime from 'react/jsx-runtime';
 import { evaluate, compile, run } from '@mdx-js/mdx';
 import * as provider from '@mdx-js/react';
+import ErrorBoundary from '@/components/error-boundary';
 
 interface MdxProps {
   value: string;
@@ -48,7 +49,9 @@ const Mdx: FC<MdxProps> = ({ value, ...props }) => {
   }, [value]);
 
   return (
+    <ErrorBoundary onRetry={() => {/**  */}}>
     <Component {...props} />
+    </ErrorBoundary>
   );
 };
 
