@@ -22,7 +22,7 @@ export type Middleware = (
 export type AppMiddleware = (
   req: NextApiRequest,
   res: NextApiResponse,
-  next: Next
+  next?: Next
 ) => Promise<any>;
 
 /**

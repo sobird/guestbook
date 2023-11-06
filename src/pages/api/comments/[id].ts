@@ -5,25 +5,25 @@
  */
 
 import { NextApiRequest, NextApiResponse } from "next";
-import rest from "@/lib/restful";
-import Comment from "@/models/comment";
+import restful from "@/lib/restful";
+import { CommentModel } from "@/models";
 
 // 查询评论详情
-module.exports.get = async (req: NextApiRequest, res: NextApiResponse) => {
+export const GET = async (req: NextApiRequest, res: NextApiResponse) => {
   const {
     query: { id },
   } = req;
 
-  return Comment.findByPk(id as unknown as number);
+  return CommentModel.findByPk(id as unknown as number);
 };
 
 // 删除评论
-module.exports.delete = async (req: NextApiRequest, res: NextApiResponse) => {
+export const DELETE = async (req: NextApiRequest, res: NextApiResponse) => {
   const {
     query: { id },
   } = req;
 
-  return Comment.destroy({
+  return CommentModel.destroy({
     where: {
       id,
     }
@@ -31,14 +31,13 @@ module.exports.delete = async (req: NextApiRequest, res: NextApiResponse) => {
 }
 
 // 更新评论
-module.exports.patch = async (req: NextApiRequest, res: NextApiResponse) => {
+export const PATCH = async (req: NextApiRequest, res: NextApiResponse) => {
   const {
     body,
-    headers,
     query: { id },
   } = req;
 
-  return Comment.update(body, {
+  return CommentModel.update(body, {
     where: {
       id,
     }
@@ -46,4 +45,6 @@ module.exports.patch = async (req: NextApiRequest, res: NextApiResponse) => {
 } 
 
 
-export default rest.bind(module.exports);
+export default restful({
+  GET
+});

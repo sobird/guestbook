@@ -11,7 +11,7 @@ import { userAuth } from '@/middleware/withUserAuth';
  * @param req
  * @param res
  */
-export const GET: AppMiddleware = async (req, res) => {
+export const GET: NextApiHandler = async (req, res) => {
   const { query: { pn, ps } } = req;
   return CommentModel.findAllWithPagination({ pn, ps });
 };
