@@ -26,7 +26,6 @@
     "jose": "^5.0.1",
     "js-cookie": "^3.0.5",
     "lru-cache": "^10.0.1",
-    "mysql2": "^3.6.2",
     "nanoid": "^5.0.2",
     "next": "^14.0.0",
     "next-auth": "^4.24.4",
@@ -41,7 +40,6 @@
     "remark-html": "^16.0.1",
     "request-ip": "^3.3.0",
     "sequelize": "^6.33.0",
-    "sqlite3": "^5.1.6",
     "swr": "^2.2.4"
   },
   "devDependencies": {
